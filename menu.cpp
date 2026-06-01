@@ -30,17 +30,17 @@
     std::cout << horizontalBorder << "\n";
 
     std::cout << "| " << std::string(INNER_WIDTH, ' ') << " |\n";
-    std::cout << std::setw(58) << " Talent Hub " << "\n";
-    std::cout << std::setw(80) << "-----------------------------------------------------------------" << "\n \n";
-    std::cout << std::setw(20) << "|     " << "1. Student Registration " << std::setw(17) << "|       " << "3. Student Login " << "  |" << "\n \n";
-    std::cout << std::setw(80) << "-----------------------------------------------------------------" << "\n \n" ;
-    std::cout << std::setw(20) << "|     " << "2. Admin Login " << std::setw(27) << "|        " << "4. Exit" << "           |" << "\n \n";
-    std::cout << std::setw(80) << "-----------------------------------------------------------------" << "\n \n";
+    std::cout << std::setw(68) << " Talent Hub \n";
+    std::cout << std::setw(90) << "-----------------------------------------------------------------" << "\n \n";
+    std::cout << std::setw(30) << "|     " << "1. Student Registration " << std::setw(17) << "|       " << "3. Student Login " << "  |" << "\n \n";
+    std::cout << std::setw(90) << "-----------------------------------------------------------------" << "\n \n" ;
+    std::cout << std::setw(30) << "|     " << "2. Admin Login " << std::setw(27) << "|        " << "4. Exit" << "           |" << "\n \n";
+    std::cout << std::setw(90) << "-----------------------------------------------------------------" << "\n \n";
 
     std::cout << "| " << std::string(INNER_WIDTH, ' ') << " |\n";
 
     std::cout << horizontalBorder << "\n";
-    std::cout << std::setw(60) << "Enter your choice:  ";
+    std::cout << std::setw(70) << "Enter your choice:  ";
 
     }
 

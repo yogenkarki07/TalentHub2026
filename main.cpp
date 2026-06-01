@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Headers/menu.h"
+#include "Headers/student.h"
 
  int main() {
      int choice;
