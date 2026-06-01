@@ -1,16 +1,13 @@
 #include <iostream>
-#include <string>
 #include <iomanip>
-#include <numeric>
+#include "Headers/menu.h"
 
-int main() {
-    // Total internal width required to frame the "WELCOME TO" block cleanly
-    const int INNER_WIDTH = 105;
+    void DisplayMenu(){
+        constexpr int INNER_WIDTH = 105;
     std::string horizontalBorder = "+" + std::string(INNER_WIDTH + 2, '-') + "+";
 
-    // Top border
     std::cout << horizontalBorder << "\n";
-    std::cout << "| " << std::string(INNER_WIDTH, ' ') << " |\n"; // Top spacer
+    std::cout << "| " << std::string(INNER_WIDTH, ' ') << " |\n";
 
     std:: cout << R"(
      |          _ _ _  ______   __      _____   ___     ___  ___  ______       _____    ___            |
@@ -33,22 +30,17 @@ int main() {
     std::cout << horizontalBorder << "\n";
 
     std::cout << "| " << std::string(INNER_WIDTH, ' ') << " |\n";
-    std::cout << std::setw(60) << " Why are you here ?" << "\n";
-    std::cout << std::setw(80) << "-----------------------------------------------------------------" << "\n" << "\n";
-    std::cout << std::setw(20) << "|     " << "1. Student Registration " << std::setw(17) << "|       " << "3. Student Login " << "  |" << "\n" "\n";
-    std::cout << std::setw(80) << "-----------------------------------------------------------------" << "\n" << "\n" ;
-    std::cout << std::setw(20) << "|     " << "2. Admin Login " << std::setw(27) << "|        " << "4. Exit" << "           |" << "\n" "\n";
-    std::cout << std::setw(80) << "-----------------------------------------------------------------" << "\n";
+    std::cout << std::setw(58) << " Talent Hub " << "\n";
+    std::cout << std::setw(80) << "-----------------------------------------------------------------" << "\n \n";
+    std::cout << std::setw(20) << "|     " << "1. Student Registration " << std::setw(17) << "|       " << "3. Student Login " << "  |" << "\n \n";
+    std::cout << std::setw(80) << "-----------------------------------------------------------------" << "\n \n" ;
+    std::cout << std::setw(20) << "|     " << "2. Admin Login " << std::setw(27) << "|        " << "4. Exit" << "           |" << "\n \n";
+    std::cout << std::setw(80) << "-----------------------------------------------------------------" << "\n \n";
 
     std::cout << "| " << std::string(INNER_WIDTH, ' ') << " |\n";
 
-
-
     std::cout << horizontalBorder << "\n";
+    std::cout << std::setw(60) << "Enter your choice:  ";
 
+    }
 
-
-
-
-    return 0;
-}
