@@ -3,4 +3,7 @@ project(TalentHub2026)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(TalentHub2026 main.cpp)
+add_executable(TalentHub2026 main.cpp
+        Headers/menu.h
+        menu.cpp
+)
