@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Headers/menu.h"
+#include "Headers/student.h"
 
 using namespace std;
 
