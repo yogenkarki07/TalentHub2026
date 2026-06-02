@@ -2,21 +2,23 @@
 #include "Headers/menu.h"
 #include "Headers/student.h"
 
+using namespace std;
+
  int main() {
      int choice;
      do {
+         std::vector<Student> students;
          DisplayMenu();
          std::cin >> choice;
-
          switch (choice){
          case 1:
-          //   StudentRegistration();
+             StudentRegistration(students);
              break;
          case 2:
          //    AdminLogin();
              break;
          case 3:
-          //   StudentLogin();
+             StudentLogin(students);
              break;
          case 4:
              std::cout << "Thank you for visiting Talent Hub !" << "\n";
