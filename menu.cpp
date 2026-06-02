@@ -2,6 +2,8 @@
 #include <iomanip>
 #include "Headers/menu.h"
 
+using namespace std;
+
     void DisplayMenu(){
         constexpr int INNER_WIDTH = 105;
     std::string horizontalBorder = "+" + std::string(INNER_WIDTH + 2, '-') + "+";

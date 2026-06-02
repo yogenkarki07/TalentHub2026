@@ -1,15 +1,18 @@
 #pragma once
 #include <iostream>
+#include <vector>
 using namespace std;
 
-struct student{
+ struct Student{
     string firstname;
     string lastname;
-    int age;
+    int age{};
     string email;
     string password;
     string phone;
     string address;
+    string type;
 };
 
-void StudentRegistration();
+void StudentRegistration(vector<Student>& students);
+void StudentLogin(vector<Student>& students);
