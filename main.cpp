@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Headers/menu.h"
 #include "Headers/student.h"
+#include "Headers/validation.h"
 
 using namespace std;
 
@@ -21,10 +22,10 @@ using namespace std;
              StudentLogin(students);
              break;
          case 4:
-             std::cout << "Thank you for visiting Talent Hub !" << "\n";
+             std::cout << "Thank you for visiting Talent Hub ! \n";
              break;
          default:
-             std::cout << "Invalid Choice. Please, choose Between 1 to 4." << "\n";
+             std::cout << "Invalid Choice. Please, choose Between 1 to 4. \n";
              break;
          }
      } while (choice != 4);
