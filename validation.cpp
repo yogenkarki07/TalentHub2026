@@ -4,7 +4,7 @@
 
 using namespace std;
 
-bool isValidPassword(const string& password){
+bool isValidPassword(string& password){
     bool hasUpper = false ;
     bool hasLower = false ;
     bool hasDigit = false;
