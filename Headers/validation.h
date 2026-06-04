@@ -3,6 +3,6 @@
 
 using namespace std;
 
-bool isValidPassword(const string& password);
+bool isValidPassword(string& password);
 bool isEmailExist(string& email);
 

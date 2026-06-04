@@ -3,6 +3,7 @@
 
 #include "Headers/student.h"
 #include "Headers/validation.h"
+#include "Headers/filehandler.h"
 
 void StudentRegistration(vector<Student>& students) {
 
@@ -53,9 +54,11 @@ void StudentRegistration(vector<Student>& students) {
 
     students.push_back(s);
 
+    SaveStudentInfo(students);
+
     cout << "---------------------------------------------------------------- \n\n";
 
-    cout << "|                  Student Registered successfully !           | \n\n";
+    cout << "|                      Registration successfull.               | \n\n";
 
     cout << "---------------------------------------------------------------- \n\n";
 
@@ -66,7 +69,7 @@ void StudentLogin(vector<Student>& students) {
 
     cout << "+==============================================================+\n";
     cout << "|                                                              |\n";
-    cout << "|                      Student Login                           |\n";
+    cout << "|                      Student Login successfull.              |\n";
     cout << "|                                                              |\n";
     cout << "+==============================================================+\n\n";
 
@@ -78,19 +81,18 @@ void StudentLogin(vector<Student>& students) {
     cout << "                   Password: ";
     getline(cin,s.password);
 
-    students.push_back(s);
-
     for (Student& s : students) {
         string password, email;
         if ( s.email == email && s.password == password){
             cout << "--------------------------------------------------------------\n\n";
 
-            cout << "|              Student log-in completed !               |\n\n";
+            cout << "|               log-in successfull.                     |\n\n";
 
             cout << "--------------------------------------------------------------\n\n";
         }
-        else{
-             cout << "\n            Invalid login credentials!\n";
+        else {
+            cout << "\n            Invalid login credentials!\n";
+
         }
     }
 

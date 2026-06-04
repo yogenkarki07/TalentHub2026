@@ -10,4 +10,6 @@ add_executable(TalentHub2026 main.cpp
         Headers/student.h
         validation.cpp
         Headers/validation.h
+        filehandler.cpp
+        Headers/filehandler.h
 )
