@@ -58,7 +58,7 @@ void StudentRegistration(vector<Student>& students) {
 
     cout << "---------------------------------------------------------------- \n\n";
 
-    cout << "|                      Registration successfull.               | \n\n";
+    cout << "|                      Registration successful.               | \n\n";
 
     cout << "---------------------------------------------------------------- \n\n";
 
@@ -69,7 +69,7 @@ void StudentLogin(vector<Student>& students) {
 
     cout << "+==============================================================+\n";
     cout << "|                                                              |\n";
-    cout << "|                      Student Login successfull.              |\n";
+    cout << "|                      Student Login                           |\n";
     cout << "|                                                              |\n";
     cout << "+==============================================================+\n\n";
 
@@ -86,13 +86,12 @@ void StudentLogin(vector<Student>& students) {
         if ( s.email == email && s.password == password){
             cout << "--------------------------------------------------------------\n\n";
 
-            cout << "|               log-in successfull.                     |\n\n";
+            cout << "|               log-in successful.                     |\n\n";
 
             cout << "--------------------------------------------------------------\n\n";
         }
         else {
-            cout << "\n            Invalid login credentials!\n";
-
+            cout << "\n            Invalid login credentials! \n";
         }
     }
 

@@ -8,9 +8,10 @@ using namespace std;
  int main() {
      int choice;
      do {
-         std::vector<Student> students;
+         vector<Student> students;
          DisplayMenu();
-         std::cin >> choice;
+         cin >> choice;
+
          switch (choice){
          case 1:
              StudentRegistration(students);
@@ -22,10 +23,10 @@ using namespace std;
              StudentLogin(students);
              break;
          case 4:
-             std::cout << "Thank you for visiting Talent Hub ! \n";
+             cout << "Thank you for visiting Talent Hub ! \n";
              break;
          default:
-             std::cout << "Invalid Choice. Please, choose Between 1 to 4. \n";
+             cout << "Invalid Choice. Please, choose Between 1 to 4. \n";
              break;
          }
      } while (choice != 4);
