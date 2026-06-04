@@ -52,7 +52,10 @@ void StudentRegistration(vector<Student>& students) {
     cout << "                   Student Type (Domestic/International): ";
     getline(cin,s.type);
 
+    cout << students.size() << endl;
     students.push_back(s);
+    cout << students.size() << endl;
+
 
     SaveStudentInfo(students);
 
