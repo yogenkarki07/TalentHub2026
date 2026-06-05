@@ -6,24 +6,32 @@
 #include "Headers/filehandler.h"
 using namespace std;
 
+// Save and store data after registration
 void SaveStudentInfo(vector<Student>& students) {
     Student s;
-    ofstream file ("students.csv");
+    ofstream file ("../File/students.csv", ios ::app);
     if (!file.is_open()){
-        cout << "\n[ERROR] Could not save data! 'students.csv' could not be opened.\n";
-        cout << "Please ensure the file is closed in Excel/Notepad and try again.\n\n";
+        cout << "\nError! Could not save data! 'students.csv' could not be opened.\n";
         return;
     }
 
     for ( Student s : students) {
-        //file << setw(10) << s.firstname << ", " << s.lastname << ", " << s.age << ", " << s.email << ", " << s.password << ", " << s.phone << ", " << s.type << endl;
-         file << s.lastname << endl;
-         file << s.firstname << endl;
-         file << s.age << endl;
-         file << s.email << endl;
-         file << s.password << endl;
-         file << s.phone << endl;
-         file << s.type << endl;
+
+        file << s.firstname << ", " << s.lastname << ", " << s.age << ", " << s.email << ", " << s.password << ", " << s.phone << ", " << s.type << endl;
+
     }
     file.close();
+}
+
+// Load the stored data to Log-in
+void LoadStudentInfo(vector<Student>& students) {
+    Student s;
+    ifstream file ("../File/students.csv", ios ::in);
+    if (!file.is_open()) {
+        cout << "File does not exist." << endl;
+    }
+
+    for (Student s : students) {
+
+    }
 }
