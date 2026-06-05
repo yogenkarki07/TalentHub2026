@@ -58,7 +58,7 @@ void StudentRegistration(vector<Student>& students) {
 
     cout << "---------------------------------------------------------------- \n\n";
 
-    cout << "|                      Registration successful.               | \n\n";
+    cout << "|                      Registration successful.                | \n\n";
 
     cout << "---------------------------------------------------------------- \n\n";
 
@@ -66,6 +66,8 @@ void StudentRegistration(vector<Student>& students) {
 
 void StudentLogin(vector<Student>& students) {
     Student s;
+    string password, email;
+
 
     cout << "+==============================================================+\n";
     cout << "|                                                              |\n";
@@ -81,18 +83,19 @@ void StudentLogin(vector<Student>& students) {
     cout << "                   Password: ";
     getline(cin,s.password);
 
-    for (Student& s : students) {
-        string password, email;
+    for (Student& s : students){
         if ( s.email == email && s.password == password){
             cout << "--------------------------------------------------------------\n\n";
 
-            cout << "|               log-in successful.                     |\n\n";
+            cout << "|               log-in successful.                           |\n\n";
 
             cout << "--------------------------------------------------------------\n\n";
-        }
-        else {
-            cout << "\n            Invalid login credentials! \n";
+            return;
         }
     }
+    cout << "---------------------------------------------------------------\n\n";
 
+    cout << "|                Invalid login credentials!                   |\n\n";
+
+    cout << "--------------------------------------------------------------\n\n";
 }
