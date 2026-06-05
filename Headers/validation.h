@@ -4,5 +4,6 @@
 using namespace std;
 
 bool isValidPassword(string& password);
+
 bool isEmailExist(string& email);
 
