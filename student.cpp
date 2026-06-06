@@ -52,11 +52,7 @@ void StudentRegistration(vector<Student>& students) {
     cout << "                   Student Type (Domestic/International): ";
     getline(cin,s.type);
 
-    cout << students.size() << endl;
     students.push_back(s);
-    cout << students.size() << endl;
-
-
     SaveStudentInfo(students);
 
     cout << "---------------------------------------------------------------- \n\n";
@@ -71,7 +67,6 @@ void StudentLogin(vector<Student>& students) {
     Student s;
     string password, email;
 
-
     cout << "+==============================================================+\n";
     cout << "|                                                              |\n";
     cout << "|                      Student Login                           |\n";
@@ -81,24 +76,24 @@ void StudentLogin(vector<Student>& students) {
     cin.ignore();
 
     cout << "                   Email: ";
-    getline(cin,s.email);
+    getline(cin,email);
 
     cout << "                   Password: ";
-    getline(cin,s.password);
+    getline(cin,password);
 
     for (Student& s : students){
         if ( s.email == email && s.password == password){
-            cout << "--------------------------------------------------------------\n\n";
+            cout << "|--------------------------------------------------------------|\n\n";
 
-            cout << "|               log-in successful.                           |\n\n";
+            cout << "|                Log-in successful.                           |\n\n";
 
-            cout << "--------------------------------------------------------------\n\n";
+            cout << "|-------------------------------------------------------------|\n\n";
             return;
         }
     }
-    cout << "---------------------------------------------------------------\n\n";
+    cout << "|--------------------------------------------------------------|\n\n";
 
-    cout << "|                Invalid login credentials!                   |\n\n";
+    cout << "|                  Invalid Email/Password.                     |\n\n";
 
-    cout << "--------------------------------------------------------------\n\n";
+    cout << "|--------------------------------------------------------------|\n\n";
 }
