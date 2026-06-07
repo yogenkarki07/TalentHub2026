@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "Headers/menu.h"
 #include "Headers/student.h"
 // #include "Headers/filehandler.h"
@@ -11,7 +12,8 @@ using namespace std;
          vector<Student> students;
          DisplayMenu();
          cin >> choice;
-         cin.ignore();
+
+         cin.ignore(numeric_limits<streamsize>::max(), '\n');             //proper input buffer clearing
 
          switch (choice){
          case 1:
