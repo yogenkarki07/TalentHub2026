@@ -9,9 +9,11 @@ using namespace std;
      LoadStudentInfo(students);
 
      int choice;
+
      do {
          DisplayMenu();
          cin >> choice;
+         cin.ignore();
 
          switch (choice){
          case 1:
