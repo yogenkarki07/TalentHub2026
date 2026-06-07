@@ -6,10 +6,12 @@ using namespace std;
 
  int main() {
      int choice;
+
      do {
          vector<Student> students;
          DisplayMenu();
          cin >> choice;
+         cin.ignore();
 
          switch (choice){
          case 1:
