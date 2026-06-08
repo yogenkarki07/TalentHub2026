@@ -20,4 +20,4 @@ void StudentLogin(vector<Student>& students);
 
 void StudentDashboard(vector<Student>& students);
 
-void StudentDetails(Student std);
+// void StudentDetails(Student student);
