@@ -4,6 +4,7 @@
 #include "Headers/student.h"
 #include "Headers/validation.h"
 #include "Headers/filehandler.h"
+#include "Headers/menu.h"
 
 void StudentRegistration(vector<Student>& students) {
 
@@ -88,6 +89,9 @@ void StudentLogin(vector<Student>& students) {
             cout << "|                Log-in successful.                           |\n\n";
 
             cout << "+-------------------------------------------------------------+\n\n";
+
+            StudentDashboard(students);
+
             return;
         }
     }
@@ -97,3 +101,63 @@ void StudentLogin(vector<Student>& students) {
 
     cout << "+--------------------------------------------------------------+\n\n";
 }
+
+void StudentDashboard(vector<Student>& students) {
+     // Student s;
+    int choice;
+
+    cout << "+==============================================================+\n";
+    cout << "|                                                              |\n";
+    cout << "|                      Student Dashboard                       |\n";
+    cout << "|                                                              |\n";
+    cout << "+==============================================================+\n\n";
+    cout << "+--------------------------------------------------------------+\n\n";
+    cout << "     " << "1. Student Details" <<"     " << "2. Available Courses" << endl << endl;
+    cout << "     " << "3. Enroll Courses" << "     " << "4. Logout" << endl << endl;
+    cout << "+--------------------------------------------------------------+\n\n";
+    cout << "               " << "Enter your choice: ";
+
+    do {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                // StudentDetails();
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                break;
+
+            case 4:
+                DisplayMenu();
+                break;
+
+            default:
+                cout << "Invalid choice." << endl;
+                break;
+        }
+    } while (choice != 4);
+}
+
+// void StudentDetails(Student& std) {
+//     // Student s;
+//
+//     cout << "+==============================================================+\n";
+//     cout << "|                                                              |\n";
+//     cout << "|                      Student Details                         |\n";
+//     cout << "|                                                              |\n";
+//     cout << "+==============================================================+\n\n";
+//
+//     cout << "+--------------------------------------------------------------+\n\n";
+//     cout << "                   Name: " << std.firstname << " " << std.lastname << endl;
+//     cout << "                   Age: " << std.age  << endl;
+//     cout << "                   Email: " << std.email  << endl;
+//     cout << "                   Password: " << std.password  << endl;
+//     cout << "                   Phone: " << std.phone  << endl;
+//     cout << "                   Address: " << std.address  << endl;
+//     cout << "                   Student Type: " << std.type  << endl;
+//     cout << "+--------------------------------------------------------------+\n\n";
+//
+// }

@@ -15,4 +15,9 @@ using namespace std;
 };
 
 void StudentRegistration(vector<Student>& students);
+
 void StudentLogin(vector<Student>& students);
+
+void StudentDashboard(vector<Student>& students);
+
+void StudentDetails(Student std);
