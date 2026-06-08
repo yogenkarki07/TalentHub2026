@@ -10,7 +10,8 @@ struct Course
     vector<string> enrolledCourses;
 };
 
-void initializeCourses(Course& c);
-void showCourses(const Course& c);
-void enrollCourse(Course& c, int choice);
-void showMyCourses(const Course& c);
+void initializeCourses(Course&);
+void showCourses(const Course&);
+void enrollCourse(Course& , int);
+void showMyCourses(const Course& );
+void coursesFlow();
