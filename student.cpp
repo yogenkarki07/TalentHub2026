@@ -74,8 +74,6 @@ void StudentLogin(vector<Student>& students) {
     cout << "|                                                              |\n";
     cout << "+==============================================================+\n\n";
 
-    // cin.ignore();
-
     cout << "                   Email: ";
     getline(cin, email);
 
@@ -116,12 +114,12 @@ void StudentDashboard(vector<Student>& students) {
     cout << "     " << "3. Enroll Courses" << "     " << "4. Logout" << endl << endl;
     cout << "+--------------------------------------------------------------+\n\n";
     cout << "               " << "Enter your choice: ";
+    cin >> choice;
 
     do {
-        cin >> choice;
         switch (choice) {
             case 1:
-                // StudentDetails();
+                 // StudentDetails(student);
                 break;
 
             case 2:
@@ -141,8 +139,7 @@ void StudentDashboard(vector<Student>& students) {
     } while (choice != 4);
 }
 
-// void StudentDetails(Student& std) {
-//     // Student s;
+// void StudentDetails(Student& student) {
 //
 //     cout << "+==============================================================+\n";
 //     cout << "|                                                              |\n";
@@ -151,13 +148,13 @@ void StudentDashboard(vector<Student>& students) {
 //     cout << "+==============================================================+\n\n";
 //
 //     cout << "+--------------------------------------------------------------+\n\n";
-//     cout << "                   Name: " << std.firstname << " " << std.lastname << endl;
-//     cout << "                   Age: " << std.age  << endl;
-//     cout << "                   Email: " << std.email  << endl;
-//     cout << "                   Password: " << std.password  << endl;
-//     cout << "                   Phone: " << std.phone  << endl;
-//     cout << "                   Address: " << std.address  << endl;
-//     cout << "                   Student Type: " << std.type  << endl;
+//     cout << "                   Name: " << student.firstname << " " << student.lastname << endl;
+//     cout << "                   Age: " << student.age  << endl;
+//     cout << "                   Email: " << student.email  << endl;
+//     cout << "                   Password: " << student.password  << endl;
+//     cout << "                   Phone: " << student.phone  << endl;
+//     cout << "                   Address: " << student.address  << endl;
+//     cout << "                   Student Type: " << student.type  << endl;
 //     cout << "+--------------------------------------------------------------+\n\n";
 //
 // }
