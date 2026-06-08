@@ -1,12 +1,15 @@
 #include "Headers/course.h"
 #include <iostream>
+#include <limits>
 #include <vector>
 #include "Headers/Globals.h"
+#include "Headers/menusManager.h"
 
 using namespace std;
 
 void initializeCourses(Course& c)
 {
+
     c.availableCourses = {
         "IT Fundamentals",
         "Database Systems",
@@ -32,7 +35,9 @@ void showCourses(const Course& c)
 
 void enrollCourse(Course& c, int choice)
 {
-    cout << "current course count:" << App::currentStudentCourseCount << endl;
+    cout << "current course count: "
+    << App::currentStudentCourseCount
+    << endl;
     if (choice < 1 || choice > c.availableCourses.size())
     {
         cout << "Invalid choice!\n";
@@ -50,7 +55,7 @@ void enrollCourse(Course& c, int choice)
         }
     }
 
-    if (c.enrolledCourses.size() >= 3)
+    if (App::currentStudentCourseCount >= 3)
     {
         cout << "Maximum 3 courses allowed!\n";
         return;
@@ -58,8 +63,14 @@ void enrollCourse(Course& c, int choice)
 
     c.enrolledCourses.push_back(selectedCourse);
 
+    App::currentStudentCourseCount++;
+
     cout << "\n========> "<< selectedCourse
          << " Enrolled successfully! <========\n\n";
+
+    cout << "Courses Enrolled : "
+     << App::currentStudentCourseCount
+     << "/3\n\n";
 }
 
 void showMyCourses(const Course& c)
@@ -79,3 +90,89 @@ void showMyCourses(const Course& c)
         cout << i + 1 << ". " << c.enrolledCourses[i] << endl;
     }
 }
+
+
+void coursesFlow() {
+    Course c;
+
+
+    initializeCourses(c);
+
+    int choice;
+
+    while (true) {
+        displayMainMenu();
+
+        cout << "\nEnter choice: ";
+        if (!(cin >> choice))
+        {
+            cout << "Invalid input! Please enter a number: ";
+
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                showCourses(c);
+                break;
+
+            case 2:
+            {
+                int enrolledCount = c.enrolledCourses.size();
+                int remainingCourses = 3 - enrolledCount;
+
+                cout << "\n==============================================================================================\n";
+                cout << "| Courses Enrolled : " << enrolledCount << "                                                                        |"<<endl;
+                cout << "| Courses Remaining to choose: " << remainingCourses << "                                                                        |"<< endl;
+                cout << "==============================================================================================\n\n";
+
+                if (enrolledCount >= 3)
+                {
+                    cout << "Maximum 3 courses allowed!\n\n";
+                    break;
+                }
+
+                int courseChoice;
+
+                showCourses(c);
+
+                cout << "\nSelect course number to enroll: ";
+
+                if (!(cin >> courseChoice))
+                {
+                    cout << "\nInvalid input! Please enter a number.\n";
+
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    break;
+                }
+
+                enrollCourse(c, courseChoice);
+                break;
+            }
+
+
+            case 3:
+                showMyCourses(c);
+                break;
+
+            case 4:
+                cout << "\n===============================================================================================\n";
+                cout << "|                                EXITING TALENTHUB                                            |\n";
+                cout << "===============================================================================================\n\n";
+
+                exit(0);
+
+
+
+            default:
+                cout << "Invalid choice!\n";
+        }
+    }
+}
+
+
+
+
