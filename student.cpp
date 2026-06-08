@@ -27,8 +27,15 @@ void StudentRegistration(vector<Student>& students) {
 
     cin.ignore();
 
-    cout << "                   Email: ";
-    getline(cin,s.email);
+    do {
+        cout << "                   Email: ";
+        getline(cin,s.email);
+
+        if (!isValidEmail(s.email)) {
+            cout << "                   Invalid Email !" << endl;
+        }
+
+    }while (!isValidEmail(s.email));
 
     do{
         cout << "                   Password: ";
