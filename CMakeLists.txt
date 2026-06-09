@@ -14,7 +14,6 @@ add_executable(TalentHub2026 main.cpp
         Headers/filehandler.h
         course.cpp
         Headers/course.h
-        Headers/menusManager.h
         Headers/Globals.h
 )
 

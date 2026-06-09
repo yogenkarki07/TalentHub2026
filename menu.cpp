@@ -26,7 +26,7 @@ using namespace std;
      |                                                                                                 |
      |                               Connecting skills with opportunity                                |
      |                                                                                                 |
-)";
+     )";
 
     std::cout << "| " << std::string(INNER_WIDTH, ' ') << " |\n";
     std::cout << horizontalBorder << "\n";
