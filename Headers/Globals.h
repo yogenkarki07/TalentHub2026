@@ -2,5 +2,5 @@
 
 
 namespace App {
-    int currentStudentCourseCount = 0;
+    extern int currentStudentCourseCount ;
 }

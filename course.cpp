@@ -4,6 +4,7 @@
 #include <vector>
 #include "Headers/Globals.h"
 #include "Headers/menusManager.h"
+#include "Headers/student.h"
 
 using namespace std;
 
@@ -92,7 +93,7 @@ void showMyCourses(const Course& c)
 }
 
 
-void coursesFlow() {
+void coursesFlow(Student& student) {
     Course c;
 
 
@@ -155,6 +156,8 @@ void coursesFlow() {
 
 
             case 3:
+
+                StudentDetails(student);
                 showMyCourses(c);
                 break;
 
@@ -163,7 +166,7 @@ void coursesFlow() {
                 cout << "|                                EXITING TALENTHUB                                            |\n";
                 cout << "===============================================================================================\n\n";
 
-                exit(0);
+                return;
 
 
 
