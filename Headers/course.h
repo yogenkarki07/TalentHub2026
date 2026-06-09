@@ -4,12 +4,12 @@
 
 using namespace std;
 
-struct Course
-{
+struct Course{
     vector<string> availableCourses;
     vector<string> enrolledCourses;
 };
 
+void CourseMenu();
 void initializeCourses(Course&);
 void showCourses(const Course&);
 void enrollCourse(Course& , int);

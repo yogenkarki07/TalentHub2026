@@ -1,15 +1,13 @@
-#include "Headers/course.h"
 #include <iostream>
 #include <limits>
 #include <vector>
+#include <iomanip>
 #include "Headers/Globals.h"
-#include "Headers/menusManager.h"
+#include "Headers/course.h"
 
 using namespace std;
 
-void initializeCourses(Course& c)
-{
-
+void initializeCourses(Course& c){
     c.availableCourses = {
         "IT Fundamentals",
         "Database Systems",
@@ -20,44 +18,57 @@ void initializeCourses(Course& c)
     };
 }
 
-void showCourses(const Course& c)
-{
-    cout << "\n==============================================================================================\n";
-    cout << "|                                  ALL AVAILABLE COURSES                                     |\n";
-    cout << "==============================================================================================\n\n";
+void CourseMenu() {
+    cout << "+===============================================================================================+\n";
+    cout << "|                                                                                               |\n";
+    cout << "|                                   COURSE MENU                                                 |\n";
+    cout << "|                                                                                               |\n";
+    cout << "+===============================================================================================+\n";
 
-    for (int i = 0; i < c.availableCourses.size(); i++)
-    {
-        cout << i + 1 << ". " << c.availableCourses[i] << endl;
-    }
-    cout << "\n";
+    cout << "_______________________________________________________________________________________________\n";
+    cout << "|                                           |                                                  |\n";
+    cout << "|    1. Show All Available Courses          |     2. Enroll in Additional Courses              |\n";
+    cout << "|                                           |                                                  |\n";
+    cout << "_______________________________________________________________________________________________\n";
+    cout << "______________________________________________________________________________________________\n";
+    cout << "|                                           |                                                  |\n";
+    cout << "|    3. Show Enrolled Courses               |     4. Exit                                      |\n";
+    cout << "|                                           |                                                  |\n";
+    cout << "_______________________________________________________________________________________________\n\n";
+    cout << "                                   Enter your choice : ";
+
 }
 
-void enrollCourse(Course& c, int choice)
-{
-    cout << "current course count: "
-    << App::currentStudentCourseCount
-    << endl;
-    if (choice < 1 || choice > c.availableCourses.size())
-    {
-        cout << "Invalid choice!\n";
+void showCourses(const Course& c){
+    cout << "+==============================================================================================+ \n";
+    cout << "|                                   ALL AVAILABLE COURSES                                      | \n";
+    cout << "+==============================================================================================+ \n";
+
+    for (int i = 0; i < c.availableCourses.size(); i++){
+        cout << setw(35) << i + 1 << "." << c.availableCourses[i] << endl << endl;
+    }
+}
+
+void enrollCourse(Course& c, int choice){
+    cout << setw(55) << "Current Course Count: " << App::currentStudentCourseCount << endl << endl;
+
+    if (choice < 1 || choice > c.availableCourses.size()){
+        cout << setw(55) << "Invalid choice!\n";
         return;
     }
 
     string selectedCourse = c.availableCourses[choice - 1];
 
-    for (string course : c.enrolledCourses)
-    {
-        if (course == selectedCourse)
-        {
-            cout << "You have already enrolled in this course!\n\n";
+    for (string course : c.enrolledCourses){
+        if (course == selectedCourse){
+            cout << setw(65) << "You have already enrolled in this course!" << endl;
             return;
         }
     }
 
     if (App::currentStudentCourseCount >= 3)
     {
-        cout << "Maximum 3 courses allowed!\n";
+        cout << setw(55) << "Maximum 3 courses allowed!" << endl;
         return;
     }
 
@@ -65,49 +76,37 @@ void enrollCourse(Course& c, int choice)
 
     App::currentStudentCourseCount++;
 
-    cout << "\n========> "<< selectedCourse
-         << " Enrolled successfully! <========\n\n";
+    cout << "         =================>  Successfully Enrolled in " << selectedCourse << ". <================== \n\n";
 
-    cout << "Courses Enrolled : "
-     << App::currentStudentCourseCount
-     << "/3\n\n";
+    cout << setw(55) << "Enrolled Courses: " << App::currentStudentCourseCount << "\n\n";
 }
 
-void showMyCourses(const Course& c)
-{
-    cout << "\n==============================================================================================\n";
-    cout << "|                              MY CURRENT COURSES                                            |\n";
-    cout << "==============================================================================================\n\n";
+void showMyCourses(const Course& c){
+    cout << "+===============================================================================================+\n";
+    cout << "|                                                                                               |\n";
+    cout << "|                              MY CURRENT COURSES                                               |\n";
+    cout << "|                                                                                               |\n";
+    cout << "+===============================================================================================+\n\n";
 
-    if (c.enrolledCourses.empty())
-    {
-        cout << "\n========> No courses enrolled yet <========.\n\n";
+    if (c.enrolledCourses.empty()){
+        cout << "        ====================> Not enrolled in any course yet <===================== \n\n";
         return;
     }
 
-    for (int i = 0; i < c.enrolledCourses.size(); i++)
-    {
-        cout << i + 1 << ". " << c.enrolledCourses[i] << endl;
+    for (int i = 0; i < c.enrolledCourses.size(); i++){
+        cout << setw(35) << i + 1 << "." << c.enrolledCourses[i] << endl;
     }
 }
 
-
-void coursesFlow() {
+void coursesFlow(){
     Course c;
-
-
     initializeCourses(c);
-
     int choice;
 
-    while (true) {
-        displayMainMenu();
-
-        cout << "\nEnter choice: ";
-        if (!(cin >> choice))
-        {
+    do {
+        CourseMenu();
+        if (!(cin >> choice)){
             cout << "Invalid input! Please enter a number: ";
-
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -123,14 +122,14 @@ void coursesFlow() {
                 int enrolledCount = c.enrolledCourses.size();
                 int remainingCourses = 3 - enrolledCount;
 
-                cout << "\n==============================================================================================\n";
-                cout << "| Courses Enrolled : " << enrolledCount << "                                                                        |"<<endl;
-                cout << "| Courses Remaining to choose: " << remainingCourses << "                                                                        |"<< endl;
-                cout << "==============================================================================================\n\n";
+                cout << "+================================================================================================+\n";
+                cout << setw(60) << " Courses Enrolled : " << enrolledCount << endl;
+                cout << setw(60) << " Courses Remaining to choose: " << remainingCourses << endl;
+                cout << "+================================================================================================+\n\n";
 
                 if (enrolledCount >= 3)
                 {
-                    cout << "Maximum 3 courses allowed!\n\n";
+                    cout << setw(65) << "Maximum only 3 courses allowed to enroll." << endl;
                     break;
                 }
 
@@ -138,12 +137,11 @@ void coursesFlow() {
 
                 showCourses(c);
 
-                cout << "\nSelect course number to enroll: ";
+                cout << setw(65) << "Select course number to enroll: ";
 
                 if (!(cin >> courseChoice))
                 {
-                    cout << "\nInvalid input! Please enter a number.\n";
-
+                    cout << setw(50) << "Invalid input! Please enter a number.\n";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
@@ -153,24 +151,19 @@ void coursesFlow() {
                 break;
             }
 
-
             case 3:
                 showMyCourses(c);
                 break;
 
             case 4:
-                cout << "\n===============================================================================================\n";
-                cout << "|                                EXITING TALENTHUB                                            |\n";
-                cout << "===============================================================================================\n\n";
-
-                exit(0);
-
-
+                CourseMenu();
+                break;
 
             default:
-                cout << "Invalid choice!\n";
+                cout << setw(50) << "Invalid choice ! " << endl;
+                break;
         }
-    }
+    } while (choice != 4);
 }
 
 
