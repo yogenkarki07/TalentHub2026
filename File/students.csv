@@ -1,6 +1,4 @@
-Firstname,Lastname,Age,Email,Password,Phone,Address,type
-Yogen,Karki,20,yogeen399@gmail.com,Yogen@111,9827004948,Itahari,International
-Carlos,Burger,27,carlos101@gmail.com,Carloss@11,0244517821,Henderson,Domestic
-Samraddhi,Adhikari,20,samraddhi21@gmail.com,Samraddhi@11,9834219873,Pokhara,International
-Ayush,Kafle,22,ayush77@gmail.com,Ayush@CR7,9853217623,Jhapa,International
-Ashim,Rai,20,raiashim7@gmail.com,Ashimmm@77,9845872990,Dharan,Domestic
+StudentID,FirstName,LastName,Age,Email,Password,Phone,Address,Type
+101,Yogen,Karki,20,yogeen399@gmail.com,Yogen@07,0275340406,Auckland CBD,International
+102,Ayush,Kafle,23,ayushkafle7@gmail.com,Ayush@07,9845235617,Birtamode,International
+103,Carlos,Burger,26,carlosburger1@gmail.com,Burger@71,0236579889,Henderson ,Domestic
