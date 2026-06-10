@@ -4,6 +4,7 @@
 using namespace std;
 
  struct Student{
+    int studentID{};
     string firstname;
     string lastname;
     int age{};
@@ -19,5 +20,3 @@ void StudentRegistration(vector<Student>& students);
 void StudentLogin(vector<Student>& students);
 
 void StudentDashboard(vector<Student>& students);
-
-// void StudentDetails(Student student);

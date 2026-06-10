@@ -16,6 +16,9 @@ void StudentRegistration(vector<Student>& students) {
     cout << "|                                                              |\n";
     cout << "+==============================================================+\n\n";
 
+    cout << "                   Student ID: ";
+    cin >> s.studentID;
+
     cout << "                   First name: ";
     cin >> s.firstname;
 

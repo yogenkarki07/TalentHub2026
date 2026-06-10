@@ -14,8 +14,11 @@ void SaveStudentInfo(vector<Student>& students) {
         cout << " 'students.csv' could not be opened. " << endl;
         return;
     }
+    file << "StudentID,FirstName,LastName,Age,Email,Password,Phone,Address,Type" << endl;
     for (Student s: students) {
-        file << s.firstname << "," << s.lastname << "," << s.age << "," << s.email << "," << s.password << "," << s.phone << "," << s.address << ","  << s.type << endl;
+        file << s.studentID << "," << s.firstname << "," << s.lastname << ","
+        << s.age << "," << s.email << "," << s.password << "," << s.phone
+        << "," << s.address << ","  << s.type << endl;
     }
 
     file.close();
@@ -45,7 +48,9 @@ void LoadStudentInfo(vector<Student>& students) {
 
     stringstream ss(line);
     string ageStr;
+    string idStr;
 
+    getline(ss, idStr, ',');
     getline(ss, s.firstname, ',');
     getline(ss, s.lastname, ',');
     getline(ss, ageStr, ',');
@@ -56,14 +61,27 @@ void LoadStudentInfo(vector<Student>& students) {
     getline(ss, s.type, ',');
 
     try {
-        s.age = stoi(ageStr);
+        if (!ageStr.empty()){
+            s.age = stoi(ageStr);
+        }
+        if (!idStr.empty()){
+            s.studentID = stoi(idStr);
+        }
     }
 
-    catch (invalid_argument& e){
-            cout << "Debug Error: 'stoi' failed! " << endl;s.age = 0;
+    catch (const invalid_argument& e){
+            cout << "Debug Error: 'stoi' failed ! " << endl;
+            s.age = 0;
+            s.studentID = 0;
     }
 
+    catch (const out_of_range& e){
+        cout << "Debug Error: Value out of range for int." << endl;
+        s.studentID = 0;
+        s.age = 0;
+    }
          students.push_back(s);
      }
+
     file.close();
 }
