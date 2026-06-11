@@ -3,22 +3,25 @@
 #include<sstream>
 
 #include "Headers/filehandler.h"
+#include "Headers/course.h"
+
 using namespace std;
 
 // Store data after registration
 void SaveStudentInfo(vector<Student>& students) {
-    Student s;
+    // Student s;
     ofstream file ("../File/students.csv");
 
     if (!file.is_open()){
         cout << " 'students.csv' could not be opened. " << endl;
         return;
     }
+
     file << "StudentID,FirstName,LastName,Age,Email,Password,Phone,Address,Type" << endl;
+
     for (Student s: students) {
-        file << s.studentID << "," << s.firstname << "," << s.lastname << ","
-        << s.age << "," << s.email << "," << s.password << "," << s.phone
-        << "," << s.address << ","  << s.type << endl;
+        file << s.studentID << "," << s.firstname << "," << s.lastname << "," << s.age << ","
+        << s.email << "," << s.password << "," << s.phone << "," << s.address << ","  << s.type << endl;
     }
 
     file.close();
@@ -30,7 +33,6 @@ void LoadStudentInfo(vector<Student>& students) {
 
     ifstream file ("../File/students.csv");
     if (!file) {
-        cout << " 'students.csv' file could not be opened." << endl;
         return;
     }
 
@@ -84,4 +86,60 @@ void LoadStudentInfo(vector<Student>& students) {
      }
 
     file.close();
+}
+
+void SaveCourseEnrollments( vector<Student>& students) {
+    ofstream file ("../File/enrollments.csv");
+
+    if (!file. is_open()) {
+        cout << " 'enrollments.csv' file cannot be opened. " << endl;
+        return;
+    }
+
+    cout << "Student ID,Course" << endl;
+
+    for ( Student& s: students) {
+        for ( string& course : s.enrolledCourses) {
+            cout << s.studentID << "," << course << endl;
+        }
+    }
+
+    file.close();
+}
+
+void LoadCourseEnrollments (vector<Student>& students) {
+    ifstream file ("../File/enrollments.csv");
+
+    if (!file.is_open()) {
+        return;
+    }
+
+    string line;
+    getline(file, line);         //to skip the header line
+
+    while ( getline(file, line)) {
+        // if (line.empty()) {
+        //     return;
+        // }
+        // Student s;
+        stringstream ss(line);
+        string idStr;
+        string course;
+
+        getline(ss, idStr, ',');
+        getline( ss, course );
+
+        int StudentID = stoi (idStr);
+
+        for (Student s : students) {
+            if (s.studentID == StudentID) {
+                s.enrolledCourses.push_back(course);
+                break;
+            }
+        }
+
+    }
+
+    file.close();
+
 }

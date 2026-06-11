@@ -2,14 +2,16 @@
 #include <limits>
 #include "Headers/menu.h"
 #include "Headers/student.h"
-// #include "Headers/filehandler.h"
+#include "Headers/filehandler.h"
 using namespace std;
 
  int main() {
+     vector<Student> students;
+     LoadStudentInfo(students);
+
      int choice;
 
      do {
-         vector<Student> students;
          DisplayMenu();
          cin >> choice;
 
