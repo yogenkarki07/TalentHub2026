@@ -3,6 +3,7 @@
 #include "Headers/menu.h"
 #include "Headers/student.h"
 #include "Headers/filehandler.h"
+#include "Headers/course.h"
 using namespace std;
 
  int main() {
