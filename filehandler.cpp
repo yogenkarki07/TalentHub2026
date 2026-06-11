@@ -9,7 +9,6 @@ using namespace std;
 
 // Store data after registration
 void SaveStudentInfo(vector<Student>& students) {
-    // Student s;
     ofstream file ("../File/students.csv");
 
     if (!file.is_open()){
@@ -118,10 +117,9 @@ void LoadCourseEnrollments (vector<Student>& students) {
     getline(file, line);         //to skip the header line
 
     while ( getline(file, line)) {
-        // if (line.empty()) {
-        //     return;
-        // }
-        // Student s;
+        if (line.empty()) {
+            return;
+        }
         stringstream ss(line);
         string idStr;
         string course;
