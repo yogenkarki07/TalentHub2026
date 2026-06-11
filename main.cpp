@@ -8,6 +8,7 @@ using namespace std;
  int main() {
      vector<Student> students;
      LoadStudentInfo(students);
+     LoadCourseEnrollments(students);
 
      int choice;
 

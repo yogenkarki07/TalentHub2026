@@ -13,7 +13,9 @@ using namespace std;
     string phone;
     string address;
     string type;
-};
+
+    vector<string> enrolledCourses;
+ };
 
 void StudentRegistration(vector<Student>& students);
 

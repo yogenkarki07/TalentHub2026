@@ -2,8 +2,10 @@
 #include <limits>
 #include <vector>
 #include <iomanip>
+
 #include "Headers/Globals.h"
 #include "Headers/course.h"
+#include "Headers/filehandler.h"
 
 using namespace std;
 
@@ -49,7 +51,7 @@ void showCourses(const Course& c){
     }
 }
 
-void enrollCourse(Course& c, int choice){
+void enrollCourse(Course& c, int choice, vector<Student>& students){
     cout << setw(55) << "Current Course Count: " << App::currentStudentCourseCount << endl << endl;
 
     if (choice < 1 || choice > c.availableCourses.size()){
@@ -59,7 +61,7 @@ void enrollCourse(Course& c, int choice){
 
     string selectedCourse = c.availableCourses[choice - 1];
 
-    for (string course : c.enrolledCourses){
+    for (auto course : c.enrolledCourses){
         if (course == selectedCourse){
             cout << setw(65) << "You have already enrolled in this course!" << endl;
             return;
@@ -73,6 +75,7 @@ void enrollCourse(Course& c, int choice){
     }
 
     c.enrolledCourses.push_back(selectedCourse);
+    SaveCourseEnrollments(students);
 
     App::currentStudentCourseCount++;
 
