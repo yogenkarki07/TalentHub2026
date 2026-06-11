@@ -51,7 +51,7 @@ void showCourses(const Course& c){
     }
 }
 
-void enrollCourse(Course& c, int choice, vector<Student>& students){
+void enrollCourse(Course& c, int choice,Student& currentStudent, vector<Student>& students){
     cout << setw(55) << "Current Course Count: " << App::currentStudentCourseCount << endl << endl;
 
     if (choice < 1 || choice > c.availableCourses.size()){
@@ -68,15 +68,13 @@ void enrollCourse(Course& c, int choice, vector<Student>& students){
         }
     }
 
-    if (App::currentStudentCourseCount >= 3)
-    {
+    if (App::currentStudentCourseCount >= 3){
         cout << setw(55) << "Maximum 3 courses allowed!" << endl;
         return;
     }
 
-    c.enrolledCourses.push_back(selectedCourse);
+    currentStudent.enrolledCourses.push_back(selectedCourse);
     SaveCourseEnrollments(students);
-
     App::currentStudentCourseCount++;
 
     cout << "         =================>  Successfully Enrolled in " << selectedCourse << ". <================== \n\n";
@@ -84,28 +82,27 @@ void enrollCourse(Course& c, int choice, vector<Student>& students){
     cout << setw(55) << "Enrolled Courses: " << App::currentStudentCourseCount << "\n\n";
 }
 
-void showMyCourses(const Course& c){
+void showMyCourses(const Student& currentStudent){
     cout << "+===============================================================================================+\n";
     cout << "|                                                                                               |\n";
     cout << "|                              MY CURRENT COURSES                                               |\n";
     cout << "|                                                                                               |\n";
     cout << "+===============================================================================================+\n\n";
 
-    if (c.enrolledCourses.empty()){
+    if (currentStudent.enrolledCourses.empty()){
         cout << "        ====================> Not enrolled in any course yet <===================== \n\n";
         return;
     }
 
-    for (int i = 0; i < c.enrolledCourses.size(); i++){
-        cout << setw(35) << i + 1 << "." << c.enrolledCourses[i] << endl;
+    for (int i = 0; i < currentStudent.enrolledCourses.size(); i++){
+        cout << setw(35) << i + 1 << "." << currentStudent.enrolledCourses[i] << endl;
     }
 }
 
-void coursesFlow(){
+void coursesFlow(int currentStudent, vector<Student>& students){
     Course c;
     initializeCourses(c);
     int choice;
-
     do {
         CourseMenu();
         if (!(cin >> choice)){
@@ -117,12 +114,12 @@ void coursesFlow(){
 
         switch (choice) {
             case 1:
-                showCourses(c);
+                showCourses(currentStudent);
                 break;
 
             case 2:
             {
-                int enrolledCount = c.enrolledCourses.size();
+                int enrolledCount = currentStudent.enrolledCourses.size();
                 int remainingCourses = 3 - enrolledCount;
 
                 cout << "+================================================================================================+\n";
@@ -130,8 +127,7 @@ void coursesFlow(){
                 cout << setw(60) << " Courses Remaining to choose: " << remainingCourses << endl;
                 cout << "+================================================================================================+\n\n";
 
-                if (enrolledCount >= 3)
-                {
+                if (enrolledCount >= 3){
                     cout << setw(65) << "Maximum only 3 courses allowed to enroll." << endl;
                     break;
                 }
@@ -142,15 +138,13 @@ void coursesFlow(){
 
                 cout << setw(65) << "Select course number to enroll: ";
 
-                if (!(cin >> courseChoice))
-                {
+                if (!(cin >> courseChoice)){
                     cout << setw(50) << "Invalid input! Please enter a number.\n";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
                 }
-
-                enrollCourse(c, courseChoice);
+                enrollCourse(c, currentStudent, courseChoice, students);
                 break;
             }
 

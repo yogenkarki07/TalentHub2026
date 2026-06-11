@@ -15,3 +15,5 @@ void showCourses(const Course&);
 void enrollCourse(Course& , int);
 void showMyCourses(const Course& );
 void coursesFlow();
+// void enrollCourse(c,currentStudent,students,courseChoice);
+// void coursesFlow(Student& currentStudent,vector<Student>& students);

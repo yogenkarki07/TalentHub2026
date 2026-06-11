@@ -98,7 +98,7 @@ void StudentLogin(vector<Student>& students) {
 
             cout << "+-------------------------------------------------------------+\n\n";
 
-            coursesFlow();
+            coursesFlow(s, students);
 
             return;
         }
