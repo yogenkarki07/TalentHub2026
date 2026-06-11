@@ -12,6 +12,18 @@ struct Admin
     std::string Password;
 };
 
+struct Student{
+    int studentID{};
+    std::string firstname;
+    std::string lastname;
+    int age{};
+    std::string email;
+    std::string password;
+    std::string phone;
+    std::string address;
+    std::string type;
+};
+
 inline std::vector<Admin> admin;
 
 void admin_menu(Admin& loggedIn);

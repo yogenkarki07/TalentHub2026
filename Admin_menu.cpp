@@ -20,61 +20,37 @@ void Addstudent() {
 
 	//add student
 	std::cout << "Please enter your firstname: ";
-	std::cin >> s.Firstname;
+	std::cin >> s.firstname;
 
 	std::cout << "Please enter your Lastname: ";
-	std::cin >> s.Lastname;
+	std::cin >> s.lastname;
 
 	std::cout << "Please enter your age: ";
 	std::cin >> s.age;
 
 	std::cout << "Please enter your Email: ";
-	std::cin >> s.Email;
+	std::cin >> s.email;
 
 	std::cout << "Please enter your Password: ";
-	std::cin >> s.Password;
+	std::cin >> s.password;
 
-	//proper choice between domestic and international
-	int residencyChoice = 0;
-	do {
-		std::cout << "\n====================================\n";
-		std::cout << "|| Select Student Residency Type: ||\n";
-		std::cout << "|| 1. Domestic                    ||\n";
-		std::cout << "|| 2. International               ||\n";
-		std::cout << "====================================\n";
-		std::cout << "Enter choice (1-2): ";
-		std::cin >> residencyChoice;
-
-		if (residencyChoice == 1) {
-			s.domistic = "Yes";
-			s.international = "No";
-		}
-		else if (residencyChoice == 2) {
-			s.domistic = "No";
-			s.international = "Yes";
-		}
-		else {
-			std::cout << "Invalid choice! Please enter 1 for Domestic or 2 for International.\n";
-			// Clear input buffer in case user typed letters to prevent infinite loop
-			std::cin.clear();
-			std::cin.ignore(10000, '\n');
-		}
-	}while (residencyChoice != 1 && residencyChoice != 2);
 
 	// Write data to file matching your pipeline '|' layout
 	int col = 15;
 	file << std::left
-		 << std::setw(col) << s.Firstname     << " | "
-		 << std::setw(col) << s.Lastname      << " | "
-		 << std::setw(col) << s.age           << " | "
-		 << std::setw(col) << s.Email         << " | "
-		 << std::setw(col) << s.Password      << " | "
-		 << std::setw(col) << s.domistic      << " | "
-		 << std::setw(col) << s.international << " | "
-		 << std::setw(col) << s.courses       << " | " << std::endl;
+		 << std::setw(col) << s.firstname     << " | "
+		 << std::setw(col) << s.lastname      << " | "
+		 << std::setw(col) << s.age        << " | "
+		 << std::setw(col) << s.email        << " | "
+		 << std::setw(col) << s.password      << " | " << std::endl;
 
 	file.close();
-	std::cout << "\nStudent successfully added to the database!\n";
+	std::cout <<
+		"==============================================\n"
+		"+											 +\n"
+		"\nStudent successfully added to the database!\n"
+		"+											 +\n"
+		"=============================================\n" << std::endl;
 }
 
 
@@ -271,24 +247,36 @@ void admin_menu(Admin& loggedIn)
     			}
 
     			if (found) {
-    				std::cout << "Login successful!" << std::endl;
+    				std::cout << "+========================================+\n"
+    							 "			Login successful!				\n"
+    							"+========================================+\n"<< std::endl;
+
     				main_view();
     				admin.clear();
     				login(admin);
     			} else {
-    				std::cout << "Incorrect email or password. Please Sign Up first." << std::endl;
+    				std::cout << "+===================================================+\n"
+								"	Incorrect email or password. Please Sign Up first.	"
+    							"+====================================================+"<< std::endl;
     			}
     			break;
     			} //login into main menu
 	        case 2: {signup(); break;} // registration selection
-	        case 3: {std::cout << "Exiting from the program\n";  exit(0);} // exits out of menu
+	        case 3: {std::cout << "+========================================+\n"
+	        							"	Exiting from the program!!!!	\n"
+    							"+========================================+\n";
+    							exit(0);} // exits out of menu
 			case 4: {} //student menu
 	    }
     }
 }
 
-void profile(){
+//=====================Admin Profile ========================================//
 
+void profile(){
+	std::cout << "+===================================================+\n"
+				 "			Welcome to your profile					   \n"
+				"+===================================================+" << std::endl;
 }
 
 //=================== Admin main menu ======================================//
@@ -297,19 +285,20 @@ void main_view(){
 
 	int view = 0;
 	while (view != 4){
-		std::cout << "====================================\n";
-		std::cout << "||                                ||\n";
-		std::cout << "||       Admin Dashboard          ||\n";
-		std::cout << "||                                ||\n";
-		std::cout << "====================================\n";
-		std::cout << "||             	 	||               ||\n";
-		std::cout << "||  1. Delete   	 	||  2. Add       ||\n";
-		std::cout << "||              	 	||               ||\n";
-		std::cout << "||  3. Courses  		||  4. Sign/up   ||\n";
-		std::cout << "||              		||               ||\n";
-		std::cout << "||  5.StudentProfile 	||	6. Profile	 ||\n";
-		std::cout << "||              		||               ||\n";
-		std::cout << "====================================\n";
+		std::cout << "==========================================\n";
+		std::cout << "||                                      ||\n";
+		std::cout << "||           Admin Dashboard            ||\n";
+		std::cout << "||                                      ||\n";
+		std::cout << "==========================================\n";
+		std::cout << "||                  ||                  ||\n";
+		std::cout << "||   1. Delete      ||   2. Add         ||\n";
+		std::cout << "||                  ||                  ||\n";
+		std::cout << "||   3. Courses     ||   4. logging out ||\n";
+		std::cout << "||                  ||                  ||\n";
+		std::cout << "||   5. Student     ||   6. Profile     ||\n";
+		std::cout << "||      Profile     ||                  ||\n";
+		std::cout << "||                  ||                  ||\n";
+		std::cout << "==========================================\n";
 		std::cin >> view;
 
 		switch (view){
@@ -317,7 +306,10 @@ void main_view(){
 			case 1: {Deletestudent(); break;};//delete student
 			case 2: {Addstudent(); break;};//add student
 			case 3: {break;};//view courses of students
-			case 4: {Admin loggedIn;
+			case 4: {std::cout << "+========================================+\n"
+								 "you are logging out thank you for coming!!\n"
+								"+===========================================+" << std::endl;
+				Admin loggedIn;
 				admin_menu(loggedIn); break;};//login/signup menu
 			case 5: {	break;}
 			case 6: {	break;}
