@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 
+#include "student.h"
+
 using namespace std;
 
 struct Course{
@@ -12,8 +14,6 @@ struct Course{
 void CourseMenu();
 void initializeCourses(Course&);
 void showCourses(const Course&);
-void enrollCourse(Course& , int);
-void showMyCourses(const Course& );
-void coursesFlow();
-// void enrollCourse(c,currentStudent,students,courseChoice);
-// void coursesFlow(Student& currentStudent,vector<Student>& students);
+void enrollCourse(Course& c, Student& currentStudent, vector<Student>& students, int choice);
+void showMyCourses(const Student& currentStudent);
+void coursesFlow(Student& currentStudent, vector<Student>& students);

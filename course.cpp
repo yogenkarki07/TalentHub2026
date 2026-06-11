@@ -6,6 +6,7 @@
 #include "Headers/Globals.h"
 #include "Headers/course.h"
 #include "Headers/filehandler.h"
+#include "Headers/menu.h"
 
 using namespace std;
 
@@ -41,7 +42,7 @@ void CourseMenu() {
 
 }
 
-void showCourses(const Course& c){
+void showCourses(Course& c){
     cout << "+==============================================================================================+ \n";
     cout << "|                                   ALL AVAILABLE COURSES                                      | \n";
     cout << "+==============================================================================================+ \n";
@@ -51,7 +52,7 @@ void showCourses(const Course& c){
     }
 }
 
-void enrollCourse(Course& c, int choice,Student& currentStudent, vector<Student>& students){
+void enrollCourse(Course& c, Student& currentStudent, vector<Student>& students, int choice){
     cout << setw(55) << "Current Course Count: " << App::currentStudentCourseCount << endl << endl;
 
     if (choice < 1 || choice > c.availableCourses.size()){
@@ -74,7 +75,7 @@ void enrollCourse(Course& c, int choice,Student& currentStudent, vector<Student>
     }
 
     currentStudent.enrolledCourses.push_back(selectedCourse);
-    SaveCourseEnrollments(students);
+    SaveCourseEnrollments( students);
     App::currentStudentCourseCount++;
 
     cout << "         =================>  Successfully Enrolled in " << selectedCourse << ". <================== \n\n";
@@ -99,7 +100,7 @@ void showMyCourses(const Student& currentStudent){
     }
 }
 
-void coursesFlow(int currentStudent, vector<Student>& students){
+void coursesFlow(Student& currentStudent, vector<Student>& students){
     Course c;
     initializeCourses(c);
     int choice;
@@ -114,7 +115,7 @@ void coursesFlow(int currentStudent, vector<Student>& students){
 
         switch (choice) {
             case 1:
-                showCourses(currentStudent);
+                showCourses(c);
                 break;
 
             case 2:
@@ -144,16 +145,16 @@ void coursesFlow(int currentStudent, vector<Student>& students){
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
                 }
-                enrollCourse(c, currentStudent, courseChoice, students);
+                enrollCourse( c, currentStudent, students, choice);
                 break;
             }
 
             case 3:
-                showMyCourses(c);
+                showMyCourses(currentStudent);
                 break;
 
             case 4:
-                CourseMenu();
+                DisplayMenu();
                 break;
 
             default:

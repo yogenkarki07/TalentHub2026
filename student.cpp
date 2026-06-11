@@ -75,7 +75,6 @@ void StudentRegistration(vector<Student>& students) {
 }
 
 void StudentLogin(vector<Student>& students) {
-    Student s;
     string password, email;
 
     cout << "+==============================================================+\n";
@@ -90,6 +89,7 @@ void StudentLogin(vector<Student>& students) {
     cout << "                   Password: ";
     getline(cin, password);
 
+     // Student* currentStudent = nullptr;
     for (Student& s : students){
         if ( s.email == email && s.password == password){
             cout << "+--------------------------------------------------------------+\n\n";
@@ -98,8 +98,9 @@ void StudentLogin(vector<Student>& students) {
 
             cout << "+-------------------------------------------------------------+\n\n";
 
-            coursesFlow(s, students);
-
+             // currentStudent = &s;
+            // couresFlow(s, students);
+            coursesFlow( s, students);
             return;
         }
     }
