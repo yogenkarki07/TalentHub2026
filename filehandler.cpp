@@ -88,18 +88,18 @@ void LoadStudentInfo(vector<Student>& students) {
 }
 
 void SaveCourseEnrollments( vector<Student>& students) {
-    ofstream file ("../File/enrollments.csv");
+    ofstream file ("C:/Users/User/CLionProjects/TalentHub2026/File/enrollments.csv");
 
     if (!file. is_open()) {
         cout << " 'enrollments.csv' file cannot be opened. " << endl;
         return;
     }
 
-    cout << "Student ID,Course" << endl;
+    file << "Student ID,Course" << endl;
 
     for ( Student& s: students) {
         for ( string& course : s.enrolledCourses) {
-            cout << s.studentID << "," << course << endl;
+            file << s.studentID << "," << course << endl;
         }
     }
 
@@ -107,7 +107,7 @@ void SaveCourseEnrollments( vector<Student>& students) {
 }
 
 void LoadCourseEnrollments (vector<Student>& students) {
-    ifstream file ("../File/enrollments.csv");
+    ifstream file ("C:/Users/User/CLionProjects/TalentHub2026/File/enrollments.csv");
 
     if (!file.is_open()) {
         return;

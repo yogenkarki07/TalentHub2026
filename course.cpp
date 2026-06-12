@@ -145,7 +145,7 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
                 }
-                enrollCourse( c, currentStudent, students, choice);
+                enrollCourse( c, currentStudent, students, courseChoice);
                 break;
             }
 
