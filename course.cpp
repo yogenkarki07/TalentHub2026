@@ -10,16 +10,16 @@
 
 using namespace std;
 
-void initializeCourses(Course& c){
-    c.availableCourses = {
-        "IT Fundamentals",
-        "Database Systems",
-        "Cisco Networking",
-        "Microsoft certification",
-        "Leadership & Management",
-        "English Language Studies"
-    };
-}
+// void initializeCourses(Course& c){
+//     c.availableCourses = {
+//         "IT Fundamentals",
+//         "Database Systems",
+//         "Cisco Networking",
+//         "Microsoft certification",
+//         "Leadership & Management",
+//         "English Language Studies"
+//     };
+// }
 
 void CourseMenu() {
     cout << "+===============================================================================================+\n";
@@ -62,7 +62,7 @@ void enrollCourse(Course& c, Student& currentStudent, vector<Student>& students,
 
     string selectedCourse = c.availableCourses[choice - 1];
 
-    for (auto course : c.enrolledCourses){
+    for (auto course : currentStudent.enrolledCourses){
         if (course == selectedCourse){
             cout << setw(65) << "You have already enrolled in this course!" << endl;
             return;
@@ -102,7 +102,7 @@ void showMyCourses(const Student& currentStudent){
 
 void coursesFlow(Student& currentStudent, vector<Student>& students){
     Course c;
-    initializeCourses(c);
+    // initializeCourses(c);
     int choice;
     do {
         CourseMenu();

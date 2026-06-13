@@ -89,7 +89,6 @@ void StudentLogin(vector<Student>& students) {
     cout << "                   Password: ";
     getline(cin, password);
 
-     // Student* currentStudent = nullptr;
     for (Student& s : students){
         if ( s.email == email && s.password == password){
             cout << "+--------------------------------------------------------------+\n\n";
@@ -98,8 +97,6 @@ void StudentLogin(vector<Student>& students) {
 
             cout << "+-------------------------------------------------------------+\n\n";
 
-             // currentStudent = &s;
-            // couresFlow(s, students);
             coursesFlow( s, students);
             return;
         }

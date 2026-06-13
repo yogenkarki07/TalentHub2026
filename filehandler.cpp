@@ -52,13 +52,20 @@ void LoadStudentInfo(vector<Student>& students) {
     string idStr;
 
     getline(ss, idStr, ',');
+    s.studentID = stoi(idStr);
+
     getline(ss, s.firstname, ',');
     getline(ss, s.lastname, ',');
+
     getline(ss, ageStr, ',');
+    s.age = stoi(ageStr);
+
     getline(ss, s.email, ',');
     getline(ss, s.password, ',');
+
     getline(ss, s.phone, ',');
     getline(ss, s.address, ',');
+
     getline(ss, s.type, ',');
 
     try {
@@ -120,6 +127,7 @@ void LoadCourseEnrollments (vector<Student>& students) {
         if (line.empty()) {
             return;
         }
+
         stringstream ss(line);
         string idStr;
         string course;
