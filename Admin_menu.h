@@ -19,5 +19,9 @@ void main_view(Admin& loggedIn);
 void login(std::vector<Admin>& admin);
 void signup();
 void profile(Admin& a);
-
+void course_menu(Admin& loggedin);
+void student_enrollment();
+void student_details();
+void Remove_courses();
+void student_courses();
 #endif //ADMIN2_0_ADMIN_MENU_H

@@ -4,88 +4,142 @@
 #include <sstream>
 #include <iomanip>
 
+
 std::vector<Admin> admin;
 
-//=================== add student ===============================//
-void Addstudent() {
+void course_menu(Admin& loggedin) {
+	int course;
+	std::cout << "+=========================================================+\n";
+	std::cout << "+															+\n";
+	std::cout << "					Welcome to courses!!!					\n";
+	std::cout << "+															+\n";
+	std::cout << "+=========================================================+\n";
 
-	std::ofstream file ("../File/students.csv", std::ios::app);
-
-	std::vector<Student> students;
-	Student s;
-
-	if (!file.is_open()) {
-		std::cerr << "error cannot open file to add a student\n";
-		return;
-	}
-
-	std::cout << "Please enter your firstname: ";
-	std::cin >> s.firstname;
-
-	std::cout << "Please enter your Lastname: ";
-	std::cin >> s.lastname;
-
-	std::cout << "Please enter your age: ";
-	std::cin >> s.age;
-
-	std::cout << "Please enter your Email: ";
-	std::cin >> s.email;
-
-	std::cout << "Please enter your Password: ";
-	std::cin >> s.password;
-
-	int col = 15;
-	file << std::left
-		 << std::setw(col) << s.firstname << " | "
-		 << std::setw(col) << s.lastname  << " | "
-		 << std::setw(col) << s.age       << " | "
-		 << std::setw(col) << s.email     << " | "
-		 << std::setw(col) << s.password  << " | " << std::endl;
-
-	file.close();
-	std::cout << "==============================================\n"
-	             "  Student successfully added to the database!\n"
-	             "==============================================\n" << std::endl;
-}
+	std::cout << "+=========================================================+\n";
+	std::cout << "|	1. list of Student enrollment    |	2. Student Courses  |\n";
+	std::cout << "|															|\n";
+	std::cout << "|	3. Remove from courses			 |	4. Student Details  |\n";
+	std::cout << "|															|\n";
+	std::cout << "|	5. Mainmenu												|\n";
+	std::cout << "+=========================================================+\n";
+	std::cin >> course;
 
 
-//=================== delete student ============================//
-void Deletestudent() {
-	std::ifstream file("../File/students.csv");
-	if (!file.is_open()) {
-		std::cerr << "Error: Could not open database for deletion.\n";
-		return;
-	}
-
-	std::vector<std::string> lines;
-	std::string line, targetEmail;
-	bool found = false;
-
-	std::cout << "Enter the Email of the student to delete: ";
-	std::cin >> targetEmail;
-
-	while (std::getline(file, line)) {
-		if (line.find(targetEmail) == std::string::npos) {
-			lines.push_back(line);
-		} else {
-			found = true;
-		}
-	}
-	file.close();
-
-	if (found) {
-		std::ofstream outFile("../File/students.csv", std::ios::trunc);
-		for (const auto& l : lines) {
-			outFile << l << "\n";
-		}
-		outFile.close();
-		std::cout << "Student with email " << targetEmail << " has been deleted.\n";
-	} else {
-		std::cout << "Student record not found.\n";
+	switch (course) {
+		case 1: {student_enrollment();	break;}	//list of students
+		case 2: {student_courses();		break;}	//Students courses
+		case 3:	{Remove_courses();		break;}	//students remove from courses
+		case 4:	{student_details();		break;} //show student details
+		case 5: {std::cout << "+==========================================+\n"
+							 "  You are returning to menu, thank you!      \n"
+							 "+==========================================+\n";
+			admin_menu;}
 	}
 }
 
-//==================== Load admins from CSV =================//
+
+//========================= Student enrollment list ====================================//
+void student_enrollment() {
+
+}
+
+
+//========================= Student details ===========================================//
+void student_details() {
+
+}
+
+//========================= Student remove from course =================================//
+
+void Remove_courses() {
+
+}
+
+//====================== Student courses ================================================//
+void student_courses() {
+
+}
+
+//=================== add student ======================================================//
+//void Addstudent() {
+
+	//std::ofstream file ("../File/students.csv", std::ios::app);
+
+	//std::vector<Student> students;
+	//Student s;
+
+	//if (!file.is_open()) {
+	//	std::cerr << "error cannot open file to add a student\n";
+	//	return;
+	//}
+
+	//std::cout << "Please enter your firstname: ";
+	//std::cin >> s.firstname;
+
+	//std::cout << "Please enter your Lastname: ";
+	//std::cin >> s.lastname;
+
+	//std::cout << "Please enter your age: ";
+	//std::cin >> s.age;
+
+	//std::cout << "Please enter your Email: ";
+	//std::cin >> s.email;
+
+	//std::cout << "Please enter your Password: ";
+	//std::cin >> s.password;
+
+	//int col = 15;
+	//file << std::left
+		// << std::setw(col) << s.firstname << " | "
+		// << std::setw(col) << s.lastname  << " | "
+		// << std::setw(col) << s.age       << " | "
+	//	 << std::setw(col) << s.email     << " | "
+	//	 << std::setw(col) << s.password  << " | " << std::endl;
+
+	//file.close();
+	//std::cout << "==============================================\n"
+	      //       "  Student successfully added to the database!\n"
+	      //       "==============================================\n" << std::endl;
+//}
+
+
+//=================== delete student ==========================================================//
+//void Deletestudent() {
+	//std::ifstream file("../File/students.csv");
+	//if (!file.is_open()) {
+	//	std::cerr << "Error: Could not open database for deletion.\n";
+	//	return;
+	//}
+
+	//std::vector<std::string> lines;
+	//std::string line, targetEmail;
+	//bool found = false;
+
+	//std::cout << "Enter the Email of the student to delete: ";
+	//std::cin >> targetEmail;
+
+	//while (std::getline(file, line)) {
+	//	if (line.find(targetEmail) == std::string::npos) {
+	//		lines.push_back(line);
+	//	} else {
+	//		found = true;
+	//	}
+	//}
+	//file.close();
+
+	//if (found) {
+	//	std::ofstream outFile("../File/students.csv", std::ios::trunc);
+	//	for (const auto& l : lines) {
+		//	outFile << l << "\n";
+		//}
+		//outFile.close();
+		//std::cout << "Student with email " << targetEmail << " has been deleted.\n";
+	//} else {
+	//	std::cout << "Student record not found.\n";
+	//}
+//}
+
+//==================== Load admins from CSV ==================================================//
 void login(std::vector<Admin>& admin){
 	std::ifstream file("../Admin.csv");
 	std::string line;
@@ -120,7 +174,7 @@ void login(std::vector<Admin>& admin){
 }
 
 
-//==================== Signup ===================================//
+//==================== Signup ==================================================================//
 void signup()
 {
 	int col = 15;
@@ -184,7 +238,7 @@ void signup()
 	file.close();
 }
 
-//==================== Admin menu (login / register) ==============================//
+//==================== Admin menu (login / register) ===============================================//
 void admin_menu(Admin& loggedIn)
 {
 	int menu = 0;
@@ -197,7 +251,7 @@ void admin_menu(Admin& loggedIn)
 		             "||              ||               ||\n"
 		             "||  1. Login    ||  2. Register  ||\n"
 		             "||              ||               ||\n"
-		             "||  3. Exit     ||  4. Student   ||\n"
+		             "||  3. Exit     ||  			   ||\n"
 		             "||              ||               ||\n"
 		             "====================================\n";
 		std::cin >> menu;
@@ -228,6 +282,7 @@ void admin_menu(Admin& loggedIn)
 				if (found) {
 					std::cout << "+========================================+\n"
 					             "          Login successful!              \n"
+				    			 " 	Welcome to you application\n	" <<
 					             "+========================================+\n";
 					main_view(loggedIn);
 				} else {
@@ -244,12 +299,11 @@ void admin_menu(Admin& loggedIn)
 				             "+========================================+\n";
 				exit(0);
 			}
-			case 4: { break; }
 		}
 	}
 }
 
-//===================== Admin Profile ========================================//
+//===================== Admin Profile =====================================================================//
 void profile(Admin& a) {
 	std::cout << "+===================================================+\n"
 	             "           Welcome to your profile                  \n"
@@ -264,7 +318,7 @@ void profile(Admin& a) {
 	std::cout << "+===================================================+\n";
 }
 
-//=================== Admin Dashboard ======================================//
+//=================== Admin Dashboard ===================================================================//
 void main_view(Admin& loggedIn) {
 
 	int view = 0;
@@ -275,20 +329,22 @@ void main_view(Admin& loggedIn) {
 		             "||                                      ||\n"
 		             "==========================================\n"
 		             "||                  ||                  ||\n"
-		             "||   1. Delete      ||   2. Add         ||\n"
+		             "||   1. Delete      ||   2. Add Student ||\n"
 		             "||                  ||                  ||\n"
-		             "||   3. Courses     ||   4. logging out ||\n"
+		             "||3.Student Courses ||   4. logging out ||\n"
 		             "||                  ||                  ||\n"
-		             "||   5. Student     ||   6. Profile     ||\n"
-		             "||      Profile     ||                  ||\n"
+		             "||	5. Profile	  ||			      ||\n"
+		             "||				  ||                  ||\n"
 		             "||                  ||                  ||\n"
 		             "==========================================\n";
 		std::cin >> view;
 
 		switch (view) {
+			#ifdef STUDENT_DB_ENABLED
 			case 1: { Deletestudent(); break; }
 			case 2: { Addstudent(); break; }
-			case 3: { break; }
+			#endif
+			case 3: {course_menu(loggedIn); break; }
 			case 4: {
 				std::cout << "+==========================================+\n"
 				             "  You are logging out. Thank you!          \n"
@@ -296,8 +352,7 @@ void main_view(Admin& loggedIn) {
 				admin_menu(loggedIn);
 				break;
 			}
-			case 5: { break; }
-			case 6: { profile(loggedIn); break; }
+			case 5: {profile(loggedIn); break; }
 		}
 	}
 }
