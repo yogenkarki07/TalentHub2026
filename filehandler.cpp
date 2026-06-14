@@ -95,7 +95,7 @@ void LoadStudentInfo(vector<Student>& students) {
 }
 
 void SaveCourseEnrollments( vector<Student>& students) {
-    ofstream file ("C:/Users/User/CLionProjects/TalentHub2026/File/enrollments.csv");
+    ofstream file ("../File/enrollments.csv");
 
     if (!file. is_open()) {
         cout << " 'enrollments.csv' file cannot be opened. " << endl;
@@ -105,7 +105,7 @@ void SaveCourseEnrollments( vector<Student>& students) {
     file << "Student ID,Course" << endl;
 
     for ( Student& s: students) {
-        for ( string& course : s.enrolledCourses) {
+        for (const string& course : s.enrolledCourses) {
             file << s.studentID << "," << course << endl;
         }
     }
@@ -114,7 +114,7 @@ void SaveCourseEnrollments( vector<Student>& students) {
 }
 
 void LoadCourseEnrollments (vector<Student>& students) {
-    ifstream file ("C:/Users/User/CLionProjects/TalentHub2026/File/enrollments.csv");
+    ifstream file ("../File/enrollments.csv");
 
     if (!file.is_open()) {
         return;
@@ -137,7 +137,7 @@ void LoadCourseEnrollments (vector<Student>& students) {
 
         int StudentID = stoi (idStr);
 
-        for (Student s : students) {
+        for (Student& s : students) {
             if (s.studentID == StudentID) {
                 s.enrolledCourses.push_back(course);
                 break;
