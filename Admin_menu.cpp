@@ -14,7 +14,14 @@ std::string toLower(const std::string& text) {
 	return result;
 }
 
+std::vector<Student> students;
+Student s;
+
 std::vector<Admin> admin;
+
+std::istream operator>>(const std::istream& cin, const std::vector<std::string>& rhs);
+
+void Remove_courses(const std::vector<Student>& vector, int student_id, bool coursename);
 
 void course_menu(Admin& loggedin) {
 	int course;
@@ -23,21 +30,26 @@ void course_menu(Admin& loggedin) {
 				 "|              Welcome to courses!!!                      |\n"
 				 "|                                                         |\n"
 				 "+=========================================================+\n"
-				 "| 1. List of Student Enrollment  | 2. Student Courses     |\n"
+				 "| 1. List of Student Enrollment  | 2. Remove from Courses |\n"
 				 "|                                                         |\n"
-				 "| 3. Remove from Courses         | 4. Student Details     |\n"
+				 "| 3.Student Details			   | 4. Main Menu			|\n"
 				 "|                                                         |\n"
-				 "| 5. Main Menu                                            |\n"
 				 "+=========================================================+\n";
 	std::cin >> course;
 
 	switch (course) {
 		case 1: {student_enrollment();	break;}	//list of students
-		case 2: {student_courses();		break;}	//Students courses
-		case 3:	{Remove_courses();		break;}	//students remove from courses
-		case 4:	{student_details();		break;} //show student details
-		case 5: {std::cout << "+==========================================+\n"
-							 "  You are returning to menu, thank you!      \n"
+	case 2:	{
+				std::cout << "Enter Student ID: ";
+				std::cin >> s.studentID;
+				std::cout << "Enter Course Name: ";
+				std::cin >> s.enrolledCourses;
+
+				Remove_courses(students, s.studentID, true);
+				break;	}	//students remove from courses
+		case 3:	{student_details();		break;} //show student details
+		case 4: {std::cout << "+==========================================+\n"
+							 "| You are returning to menu, thank you!    |\n"
 							 "+==========================================+\n";
 			admin_menu(loggedin);	break;}
 	}
@@ -200,19 +212,64 @@ void student_details() {
 	// Step 7: If nothing was found, let the admin know
 	if (!found) {
 		std::cout << "\n==============================================\n"
-					"\nNo student found with the name \"" << query <<
+					"\nNo student found with the name \n" << query <<
 					"\n===============================================\n" << std::endl;
 	}
 }
 
 //========================= Student remove from course =================================//
 
-void Remove_courses() {
+void Remove_courses(std::vector<Student>& students, int StudentID, const std::string& coursename, bool isAdmin) {
 
-}
+	std::cout << "\n+=========================================+\n"
+    		  << "\n|										  |\n"
+			  << "\n|		Welcome to Student Removal		  |\n"
+			  << "\n|										  |\n"
+			  << "\n+=========================================+\n" << std::endl;
 
-//====================== Student courses ================================================//
-void student_courses() {
+	if (!isAdmin)
+	{
+		std::cout << "+==============================================+"
+		          << "\n|											 |\n"
+				  << "	|		Admin is Required for Student removal|"
+		          << "\n|											 |\n"
+				  << "+==============================================+" <<std::endl;
+		return;
+	}
+
+	//============================ Find a student by ID ===================================
+	for (Student& student : students)
+	{
+		if (student.studentID == StudentID)
+		{
+			//Search inside enrolled courses
+			for (size_t i = 0; i < student.enrolledCourses.size(); i++)
+			{
+				if (student.enrolledCourses[i] == coursename)
+				{
+					student.enrolledCourses.erase(student.enrolledCourses.begin() + i);
+					std::cout << "Removed" << student.firstname << " " << student.lastname
+					<< " From " << coursename << ".\n";
+					return;
+				}
+			}
+
+				//Student found in course but not enrolled
+				std::cout << "+===================================================+"
+						  << "|													  |"
+						  << "|		Student have not been found in course		  |"
+					      << "|													  |"
+						  << "+===================================================+" << coursename << "\n" << std::endl;
+			return;
+		}
+	}
+
+	//No student have been found
+	std::cout << "+===================================================+"
+			  << "|													  |"
+			  << "|		Student Id have not been found				  |"
+			  << "|													  |"
+	          << "+===================================================+" << s.studentID << std::endl;
 
 }
 

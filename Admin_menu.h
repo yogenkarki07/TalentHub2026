@@ -21,8 +21,9 @@ void signup();
 void profile(Admin& a);
 void course_menu(Admin& loggedin);
 void student_enrollment();
-void Remove_courses();
-void student_courses();
 void student_details();
+
+
+void Remove_courses(std::vector<Student>& students, int StudentID, const std::string& coursename, bool isAdmin);
 
 #endif //ADMIN2_0_ADMIN_MENU_H
