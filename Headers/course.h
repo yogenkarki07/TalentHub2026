@@ -1,6 +1,4 @@
 #pragma once
-#include <vector>
-#include <string>
 
 #include "student.h"
 
@@ -17,7 +15,6 @@ struct Course{
 };
 
 void CourseMenu();
-// void initializeCourses(Course&);
 void showCourses(const Course&);
 void enrollCourse(Course& c, Student& currentStudent, vector<Student>& students, int choice);
 void showMyCourses(const Student& currentStudent);
