@@ -18,7 +18,7 @@ void SaveStudentInfo(vector<Student>& students) {
 
     file << "StudentID,FirstName,LastName,Age,Email,Password,Phone,Address,Type" << endl;
 
-    for (Student s: students) {
+    for (Student& s: students) {
         file << s.studentID << "," << s.firstname << "," << s.lastname << "," << s.age << ","
         << s.email << "," << s.password << "," << s.phone << "," << s.address << ","  << s.type << endl;
     }

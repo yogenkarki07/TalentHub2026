@@ -118,8 +118,7 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
                 showCourses(c);
                 break;
 
-            case 2:
-            {
+            case 2:{
                 int enrolledCount = currentStudent.enrolledCourses.size();
                 int remainingCourses = 3 - enrolledCount;
 

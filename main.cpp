@@ -1,9 +1,11 @@
 #include <iostream>
+
 #include <limits>
 #include "Headers/menu.h"
 #include "Headers/student.h"
 #include "Headers/filehandler.h"
 #include "Headers/course.h"
+#include "Headers/Admin.h"
 using namespace std;
 
  int main() {
@@ -23,15 +25,19 @@ using namespace std;
          case 1:
              StudentRegistration(students);
              break;
+
          case 2:
-         //    AdminLogin();
+             AdminRegistration(admin);
              break;
+
          case 3:
              StudentLogin(students);
              break;
+
          case 4:
-             cout << "Thank you for visiting Talent Hub ! \n";
+             AdminLogin(admin);
              break;
+
          default:
              cout << "Invalid Choice. Please, choose Between 1 to 4. \n";
              break;
@@ -39,3 +45,9 @@ using namespace std;
      } while (choice != 4);
      return 0;
  }
+
+
+
+   // Admin loggedIn;
+   // admin_menu( loggedIn);
+

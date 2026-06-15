@@ -36,7 +36,7 @@ using namespace std;
     std::cout << std::setw(90) << "-----------------------------------------------------------------" << "\n \n";
     std::cout << std::setw(30) << "|     " << "1. Student Registration " << std::setw(17) << "|       " << "3. Student Login " << "  |" << "\n \n";
     std::cout << std::setw(90) << "-----------------------------------------------------------------" << "\n \n" ;
-    std::cout << std::setw(30) << "|     " << "2. Admin Login " << std::setw(27) << "|        " << "4. Exit" << "           |" << "\n \n";
+    std::cout << std::setw(30) << "|     " << "2. Admin  " << std::setw(32) << "|        " << "4. Exit" << "           |" << "\n \n";
     std::cout << std::setw(90) << "-----------------------------------------------------------------" << "\n \n";
 
     std::cout << "| " << std::string(INNER_WIDTH, ' ') << " |\n";
