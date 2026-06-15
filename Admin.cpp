@@ -171,11 +171,11 @@ void AdminRegistration(vector<Admin>& admin){
 
 	if (!fileHasContent) {
 		file << separator << "\n";
-		file << "Firstname" << "Lastname" << "Age" << "Email"  << "Password"  << " | \n";
+		file << "Firstname,Lastname,Age,Email,Password" << endl;
 		file << separator << "\n";
 	}
 
-	file << a.Firstname << a.Lastname << a.age << a.Email << a.Password ;
+	file << a.Firstname << "," << a.Lastname << "," << a.age << "," << a.Email << "," << a.Password ;
 	file << separator << "\n";
 
 	file.close();
@@ -185,26 +185,29 @@ void AdminRegistration(vector<Admin>& admin){
 void AdminMenu(Admin& loggedIn){
 	int menu =0;
 	while (menu != 4) {
-		     cout << "+================================================+\n"
-		             "|                                                |\n"
-		             "|             Welcome to Admin Dashboard         |\n"
-		             "|                                                |\n"
-		             "+================================================+\n"
-		             "|                       |                        |\n"
-		             "|    1. Admin Login     |   2. Register Admin    |\n"
-		             "|                       |                        |\n"
-		             "|    3. Exit            |   4. Student           |\n"
-		             "|                       |                        |\n"
-		             "+================================================+\n";
-		     cout << "Enter your choice: ";
+		     cout << "+==========================================================+\n"
+		             "|                                                          |\n"
+		             "|                   Welcome to Admin Dashboard             |\n"
+		             "|                                                          |\n"
+		             "+==========================================================+\n"
+		             "|                                 |                        |\n"
+		             "|       1.Admin Registration      |   2.  Admin Login      |\n"
+		             "|                                 |                        |\n"
+		             "+==========================================================+\n\n";
+		     cout << "                         Enter your choice: ";
 		     cin >> menu;
 
 		switch (menu){
-			case 1: {
+			case 1:
+				AdminRegistration(admin);
+				break;
+
+			case 2: {
 				admin.clear();
 				AdminLogin( admin);
 
 				string inputEmail, inputPassword;
+
 				cout << "Please enter your Email: ";
 				cin >> inputEmail;
 
@@ -224,30 +227,17 @@ void AdminMenu(Admin& loggedIn){
 				if (found) {
 					cout <<
 						"+====================================================+\n"
-					    "|                   Login successful!                |\n"
-					    "+====================================================+\n";
-				     	AdminDashboard(loggedIn);
+						"|                   Login successful!                |\n"
+						"+====================================================+\n";
+					AdminDashboard(loggedIn);
 				} else {
 					cout <<
-						         "+====================================================+\n"
-					             "|              Incorrect email / password.           |\n"
-					             "+====================================================+\n";
+								 "+====================================================+\n"
+								 "|              Incorrect email / password.           |\n"
+								 "+====================================================+\n";
 				}
 				break;
 			}
-			case 2:
-				AdminRegistration(admin);
-				break;
-
-			case 3:
-			     break;
-
-			case 4:
-				cout <<
-	            "+========================================+\n"
-	            "|       Exiting from the program!        |\n"
-				"+========================================+\n";
-				break;
 
 			default:
 				break;
@@ -258,7 +248,7 @@ void AdminMenu(Admin& loggedIn){
 //===================== Admin Profile ========================================//
 void AdminProfile(Admin& a) {
 	cout <<      "+===================================================+\n"
-	             "|           Welcome to your profile                 |\n"
+	             "|           Welcome to Admin profile                 |\n"
 	             "+===================================================+\n";
 
 	cout << "Your Firstname: " << a.Firstname << "\n";
@@ -275,28 +265,28 @@ void AdminDashboard(Admin& loggedIn) {
 
 	int view = 0;
 	while (view != 6) {
-		     cout << "+============================================================+\n"
-		             "|                                                            |\n"
-		             "|                     Admin Dashboard                        |\n"
-		             "|                                                            |\n"
-		             "+============================================================+\n"
-		             "|                                |                           |\n"
-		             "|      1. Delete                 |      2. Add               |\n"
-		             "|                                |                           |\n"
-		             "|      3. Student Profile        |      4. Admin Profile     |\n"
-		             "|                                |                           |\n"
-		             "|      5. Courses                |      6. logging out       |\n"
-		             "|                                |                           |\n"
-		             "+============================================================+\n";
+		     cout << "+========================================================================+\n"
+		             "|                                                                        |\n"
+		             "|                               Admin Dashboard                          |\n"
+		             "|                                                                        |\n"
+		             "+=======================================================================+\n"
+		             "|                                      |                                |\n"
+		             "|      1. Add Student                  |      2. Remove Student         |\n"
+		             "|                                      |                                |\n"
+		             "|      3. Student Profile              |      4. Admin Profile          |\n"
+		             "|                                      |                                |\n"
+		             "|      5. Courses                      |      6. logging out            |\n"
+		             "|                                      |                                |\n"
+		             "+=======================================================================+\n";
 		cin >> view;
 
 		switch (view) {
 			case 1:
-				DeleteStudent();
+				AddStudent();
 				break;
 
 			case 2:
-				AddStudent();
+				DeleteStudent();
 				break;
 
 			case 3:

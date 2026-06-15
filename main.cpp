@@ -6,7 +6,6 @@
 #include "Headers/filehandler.h"
 #include "Headers/Admin.h"
 
-
 using namespace std;
 
  int main() {
@@ -49,7 +48,4 @@ using namespace std;
  }
 
 
-
-   // Admin loggedIn;
-   // admin_menu( loggedIn);
 
