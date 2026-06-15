@@ -1,11 +1,10 @@
-cmake_minimum_required(VERSION 4.1)
+cmake_minimum_required(VERSION 3.20)
 project(TalentHub2026)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(TalentHub2026 main.cpp
-        Headers/menu.h
-        menu.cpp
+add_executable(TalentHub2026
+        main.cpp
         student.cpp
         Headers/student.h
         validation.cpp
@@ -14,7 +13,5 @@ add_executable(TalentHub2026 main.cpp
         Headers/filehandler.h
         course.cpp
         Headers/course.h
-        Headers/menusManager.h
         Headers/Globals.h
 )
-
