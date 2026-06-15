@@ -4,8 +4,9 @@
 #include "Headers/menu.h"
 #include "Headers/student.h"
 #include "Headers/filehandler.h"
-#include "Headers/course.h"
 #include "Headers/Admin.h"
+
+
 using namespace std;
 
  int main() {
@@ -27,7 +28,8 @@ using namespace std;
              break;
 
          case 2:
-             AdminRegistration(admin);
+             AdminMenu(Admin& loggedIn);
+             // AdminRegistration(admin);
              break;
 
          case 3:

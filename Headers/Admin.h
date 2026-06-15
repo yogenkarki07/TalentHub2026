@@ -1,5 +1,4 @@
-#ifndef ADMIN2_0_ADMIN_MENU_H
-#define ADMIN2_0_ADMIN_MENU_H
+
 #pragma once
 
 #include <string>
@@ -10,7 +9,7 @@ using namespace std;
 struct Admin{
     string Firstname;
     string Lastname;
-    string age;
+    string age{};
     string Email;
     string Password;
 };
@@ -26,5 +25,3 @@ void AdminLogin(vector<Admin>& admin);
 void AdminRegistration(vector<Admin>& admin);
 
 void AdminProfile(Admin& a);
-
-#endif //ADMIN2_0_ADMIN_MENU_H

@@ -6,22 +6,22 @@
 
 #include "Headers/Admin.h"
 #include "Headers/student.h"
-#include "Headers/course.h"
 #include "Headers/menu.h"
-
+#include "Headers/course.h"
 
 using namespace std;
+
 vector<Admin> admin;
 
 void AddStudent() {
 
-	ofstream file ("../File/students.csv", std::ios::app);
+	ofstream file ("../File/students.csv", ios::app);
 
 	vector<Student>students;
 	Student s;
 
 	if (!file.is_open()) {
-		std::cerr << "error cannot open file to add a student\n";
+		cerr << "error cannot open file to add a student\n";
 		return;
 	}
 
@@ -41,11 +41,7 @@ void AddStudent() {
 	cin >> s.password;
 
 	int col = 15;
-	file << left << setw(col) << s.firstname << " | "
-		 << setw(col) << s.lastname  << " | "
-		 << setw(col) << s.age       << " | "
-		 << setw(col) << s.email     << " | "
-		 << setw(col) << s.password  << " | " << std::endl;
+	file << s.firstname << "," << s.lastname << "," << s.age << "," << s.email << "," << s.password << endl;
 
 	file.close();
 
@@ -60,7 +56,7 @@ void DeleteStudent() {
 	ifstream file("../File/students.csv");
 
 	if (!file.is_open()) {
-		std::cerr << "Error: Could not open database for deletion.\n";
+		cerr << "Error: Could not open database for deletion.\n";
 		return;
 	}
 
@@ -72,7 +68,7 @@ void DeleteStudent() {
 	cout << "Enter the Email of the student to delete: ";
 	cin >> targetEmail;
 
-	while (std::getline(file, line)) {
+	while (getline(file, line)) {
 		if (line.find(targetEmail) == string::npos) {
 			lines.push_back(line);
 		}
@@ -109,13 +105,13 @@ void AdminLogin(vector<Admin>& admin){
 
 		Admin a;
 
-		getline(ss, a.Firstname, '|');
-		getline(ss, a.Lastname,  '|');
-		getline(ss, a.age,       '|');
-		getline(ss, a.Email,     '|');
-		getline(ss, a.Password,  '|');
+		getline(ss, a.Firstname, ',');
+		getline(ss, a.Lastname,  ',');
+		getline(ss, a.age, ',');
+		getline(ss, a.Email,',');
+		getline(ss, a.Password,',');
 
-		auto trim = [](std::string& s) {
+		auto trim = [](std::string& s){
 			s.erase(0, s.find_first_not_of(" \r\n"));
 			s.erase(s.find_last_not_of(" \r\n") + 1);
 		};
@@ -147,11 +143,11 @@ void AdminRegistration(vector<Admin>& admin){
 		return;
 	}
 
-	std::cout << "====================================\n"
-	             "||                                ||\n"
-	             "||     Welcome to Admin Signup    ||\n"
-	             "||                                ||\n"
-	             "====================================\n";
+	cout <<      "+=====================================================+\n"
+	             "|                                                     |\n"
+	             "|                   Admin Registration                |\n"
+	             "|                                                     |\n"
+	             "+=====================================================+\n";
 
 	Admin a;
 
@@ -175,7 +171,7 @@ void AdminRegistration(vector<Admin>& admin){
 
 	if (!fileHasContent) {
 		file << separator << "\n";
-		file << "Firstname" << "Lastname"  << " | "<< std::setw(col) << "Age"       << " | "<< std::setw(col) << "Email"     << " | "<< std::setw(col) << "Password"  << " | \n";
+		file << "Firstname" << "Lastname" << "Age" << "Email"  << "Password"  << " | \n";
 		file << separator << "\n";
 	}
 
@@ -249,7 +245,7 @@ void AdminMenu(Admin& loggedIn){
 			case 4:
 				cout <<
 	            "+========================================+\n"
-	            "       Exiting from the program!         \n"
+	            "|       Exiting from the program!        |\n"
 				"+========================================+\n";
 				break;
 
@@ -261,20 +257,18 @@ void AdminMenu(Admin& loggedIn){
 
 //===================== Admin Profile ========================================//
 void AdminProfile(Admin& a) {
-	std::cout << "+===================================================+\n"
-	             "           Welcome to your profile                  \n"
+	cout <<      "+===================================================+\n"
+	             "|           Welcome to your profile                 |\n"
 	             "+===================================================+\n";
 
-	std::cout << "Your Firstname: " << a.Firstname << "\n";
-	std::cout << "Your Lastname:  " << a.Lastname  << "\n";
-	std::cout << "Your Age:       " << a.age       << "\n";
-	std::cout << "Your Email:     " << a.Email     << "\n";
-	std::cout << "Your Password:  " << a.Password  << "\n";
+	cout << "Your Firstname: " << a.Firstname << "\n";
+	cout << "Your Lastname:  " << a.Lastname  << "\n";
+	cout << "Your Age:       " << a.age       << "\n";
+	cout << "Your Email:     " << a.Email     << "\n";
+	cout << "Your Password:  " << a.Password  << "\n";
 
-	std::cout << "+===================================================+\n";
+	cout << "+===================================================+\n";
 }
-
-// int AdminMenu(int _cpp_par_);
 
 //=================== Admin Dashboard ======================================//
 void AdminDashboard(Admin& loggedIn) {

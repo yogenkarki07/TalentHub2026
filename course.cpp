@@ -10,17 +10,6 @@
 
 using namespace std;
 
-// void initializeCourses(Course& c){
-//     c.availableCourses = {
-//         "IT Fundamentals",
-//         "Database Systems",
-//         "Cisco Networking",
-//         "Microsoft certification",
-//         "Leadership & Management",
-//         "English Language Studies"
-//     };
-// }
-
 void CourseMenu() {
     cout << "+===============================================================================================+\n";
     cout << "|                                                                                               |\n";
