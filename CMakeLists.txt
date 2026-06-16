@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(TalentHub2026
         main.cpp
+        menu.cpp
+        Admin_menu.cpp
         student.cpp
         Headers/student.h
         validation.cpp
@@ -15,5 +17,5 @@ add_executable(TalentHub2026
         Headers/course.h
         Headers/Globals.h
         Headers/menu.h
-        menu.cpp
+        Admin_menu.h
 )

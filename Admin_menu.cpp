@@ -19,11 +19,7 @@ Student s;
 
 std::vector<Admin> admin;
 
-std::istream operator>>(const std::istream& cin, const std::vector<std::string>& rhs);
-
-void Remove_courses(const std::vector<Student>& vector, int student_id, bool coursename);
-
-void course_menu(Admin& loggedin) {
+void course_menu(Admin& loggedIn) {
 	int course;
 	std::cout << "+=========================================================+\n"
 				 "|                                                         |\n"
@@ -40,18 +36,19 @@ void course_menu(Admin& loggedin) {
 	switch (course) {
 		case 1: {student_enrollment();	break;}	//list of students
 	case 2:	{
+				std::string courseName;
 				std::cout << "Enter Student ID: ";
 				std::cin >> s.studentID;
 				std::cout << "Enter Course Name: ";
-				std::cin >> s.enrolledCourses;
+				std::cin >> courseName;
 
-				Remove_courses(students, s.studentID, true);
+				Remove_courses(students, s.studentID, courseName, true);
 				break;	}	//students remove from courses
 		case 3:	{student_details();		break;} //show student details
 		case 4: {std::cout << "+==========================================+\n"
 							 "| You are returning to menu, thank you!    |\n"
 							 "+==========================================+\n";
-			admin_menu(loggedin);	break;}
+			admin_menu(loggedIn);	break;}
 	}
 }
 
@@ -120,13 +117,13 @@ void student_enrollment() {
     std::cout << "===========================================================\n";
     std::cout << "           DOMESTIC STUDENTS\n";
     std::cout << "============================================================\n";
-    for (const auto& st : students) {
-        if (st.type == "Domestic") {
-            std::cout << "ID:      " << st.studentID << "\n";
-            std::cout << "Name:    " << st.firstname << " " << st.lastname << "\n";
-            std::cout << "Age:     " << st.age << "\n";
-            std::cout << "Email:   " << st.email << "\n";
-            std::cout << "Phone:   " << st.phone << "\n";
+    for (const auto& s : students) {
+        if (s.type == "Domestic") {
+            std::cout << "ID:      " << s.studentID << "\n";
+            std::cout << "Name:    " << s.firstname << " " << s.lastname << "\n";
+            std::cout << "Age:     " << s.age << "\n";
+            std::cout << "Email:   " << s.email << "\n";
+            std::cout << "Phone:   " << s.phone << "\n";
             std::cout << "========================================================\n";
         }
     }
@@ -135,13 +132,13 @@ void student_enrollment() {
     std::cout << "\n========================================================\n";
     std::cout << "           INTERNATIONAL STUDENTS\n";
     std::cout << "===========================================================\n";
-    for (const auto& st : students) {
-        if (st.type == "International") {
-            std::cout << "ID:      " << st.studentID << "\n";
-            std::cout << "Name:    " << st.firstname << " " << st.lastname << "\n";
-            std::cout << "Age:     " << st.age << "\n";
-            std::cout << "Email:   " << st.email << "\n";
-            std::cout << "Phone:   " << st.phone << "\n";
+    for (const auto& s : students) {
+        if (s.type == "International") {
+            std::cout << "ID:      " << s.studentID << "\n";
+            std::cout << "Name:    " << s.firstname << " " << s.lastname << "\n";
+            std::cout << "Age:     " << s.age << "\n";
+            std::cout << "Email:   " << s.email << "\n";
+            std::cout << "Phone:   " << s.phone << "\n";
             std::cout << "==========================================================\n";
         }
     }
@@ -175,8 +172,13 @@ void student_details() {
 		return;
 	}
 
+	std::cout << "Student ID,FirstName,Lastname,Type\n";
+
 	//skips the header row
 	std::string line;
+	stringstream ss(line);
+	string idStr;
+
 	std::getline(file, line);
 
 	// Step 4: Search through every student
@@ -187,9 +189,20 @@ void student_details() {
 		// Split the line by commas into individual fields
 		std::stringstream ss(line);
 
+		getline(ss, idStr, ',');
 		std::getline(ss, s.firstname, ',');
 		getline(ss, s.lastname,  ',');
 		getline(ss, s.type,      ',');
+
+		try {
+			if (!idStr.empty()){
+				s.studentID = stoi(idStr);
+			}
+		}
+
+		catch (const invalid_argument& e){
+			cout << "Debug Error: 'stoi' failed ! " << endl;
+		}
 
 		// Step 5: Check if the search query appears in first OR last name
 		std::string fullName = s.firstname + " " + s.lastname;
@@ -198,6 +211,7 @@ void student_details() {
 
 			// Step 6: Print all details for this student
 			std::cout << "\n=====================================\n";
+			std::cout << "Student ID: " << s.studentID << "\n";
 			std::cout << "First Name: " << s.firstname << "\n";
 			std::cout << "Last Name : " << s.lastname  << "\n";
 			std::cout << "Type      : " << s.type      << "\n";

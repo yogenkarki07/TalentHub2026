@@ -10,17 +10,6 @@
 
 using namespace std;
 
-void initializeCourses(Course& c){
-    c.availableCourses = {
-        "IT Fundamentals",
-        "Database Systems",
-        "Cisco Networking",
-        "Microsoft certification",
-        "Leadership & Management",
-        "English Language Studies"
-    };
-}
-
 void CourseMenu() {
     cout << "+===============================================================================================+\n";
     cout << "|                                                                                               |\n";
@@ -62,7 +51,7 @@ void enrollCourse(Course& c, Student& currentStudent, vector<Student>& students,
 
     string selectedCourse = c.availableCourses[choice - 1];
 
-    for (auto course : c.enrolledCourses){
+    for (auto course : currentStudent.enrolledCourses){
         if (course == selectedCourse){
             cout << setw(65) << "You have already enrolled in this course!" << endl;
             return;
@@ -102,7 +91,7 @@ void showMyCourses(const Student& currentStudent){
 
 void coursesFlow(Student& currentStudent, vector<Student>& students){
     Course c;
-    initializeCourses(c);
+    // initializeCourses(c);
     int choice;
     do {
         CourseMenu();
@@ -118,8 +107,7 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
                 showCourses(c);
                 break;
 
-            case 2:
-            {
+            case 2:{
                 int enrolledCount = currentStudent.enrolledCourses.size();
                 int remainingCourses = 3 - enrolledCount;
 
@@ -145,7 +133,7 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
                 }
-                enrollCourse( c, currentStudent, students, choice);
+                enrollCourse( c, currentStudent, students, courseChoice);
                 break;
             }
 
@@ -163,7 +151,3 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
         }
     } while (choice != 4);
 }
-
-
-
-

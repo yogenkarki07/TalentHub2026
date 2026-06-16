@@ -1,5 +1,6 @@
 #ifndef ADMIN2_0_ADMIN_MENU_H
 #define ADMIN2_0_ADMIN_MENU_H
+#include "Headers/student.h"
 #include <string>
 #include <vector>
 
@@ -19,7 +20,7 @@ void main_view(Admin& loggedIn);
 void login(std::vector<Admin>& admin);
 void signup();
 void profile(Admin& a);
-void course_menu(Admin& loggedin);
+void course_menu(Admin& loggedIn);
 void student_enrollment();
 void student_details();
 

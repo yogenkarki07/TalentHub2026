@@ -1,5 +1,7 @@
 #include <iostream>
 #include <limits>
+
+#include "Admin_menu.h"
 #include "Headers/menu.h"
 #include "Headers/student.h"
 #include "Headers/filehandler.h"
@@ -23,8 +25,13 @@ using namespace std;
              StudentRegistration(students);
              break;
          case 2:
-         //    AdminLogin();
-             break;
+             {
+                 Admin loggedIn;
+
+
+                 admin_menu(loggedIn);
+                 break;
+             }
          case 3:
              StudentLogin(students);
              break;
