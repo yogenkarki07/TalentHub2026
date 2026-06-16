@@ -100,7 +100,9 @@ void AdminLogin(vector<Admin>& admin){
 	getline(file, line); // skip header row
 
 	while (getline(file, line)) {
-		if (line.empty()) continue;
+		if (line.empty())
+			continue;
+
 		stringstream ss(line);
 
 		Admin a;
@@ -128,9 +130,7 @@ void AdminLogin(vector<Admin>& admin){
 
 
 //==================== Signup ===================================//
-void AdminRegistration(vector<Admin>& admin){
-	int col = 15;
-	string separator(col * 3, '-');
+void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
 	// Check if file already has content BEFORE opening for append
 	ifstream check("../File/Admin.csv");
@@ -138,6 +138,7 @@ void AdminRegistration(vector<Admin>& admin){
 	check.close();
 
 	ofstream file("../File/Admin.csv", ios::app);
+
 	if (!file.is_open()) {
 		cout << "Cannot open file to continue.\n";
 		return;
@@ -147,38 +148,42 @@ void AdminRegistration(vector<Admin>& admin){
 	             "|                                                     |\n"
 	             "|                   Admin Registration                |\n"
 	             "|                                                     |\n"
-	             "+=====================================================+\n";
+	             "+=====================================================+\n\n\n";
 
 	Admin a;
 
-	cout << "Please enter your First name: ";
+	cout << setw(20) << "Enter First name: ";
 	cin >> a.Firstname;
 
-	std::cout << "Please enter your Last name: ";
-	std::cin >> a.Lastname;
+	cout << setw(20) << "Enter Last name: ";
+	cin >> a.Lastname;
 
-	std::cout << "Please enter your Age: ";
-	std::cin >> a.age;
+	cout << setw(20) << "Enter Age: ";
+	cin >> a.age;
 
-	std::cout << "Please enter your Email: ";
-	std::cin >> a.Email;
+	cout << setw(20) << "Enter Email: ";
+	cin >> a.Email;
 
-	std::cout << "Please enter your Password: ";
-	std::cin >> a.Password;
+	cout << setw(20) << "Enter Password: ";
+	cin >> a.Password;
 
 	admin.push_back(a);
 
+	cout << "Admin registered successfully !" << " Welcome " << a.Firstname << " " << a.Lastname << " to the Talent Hub" << endl << endl;
+
+	AdminDashboard(loggedIn);
+
 
 	if (!fileHasContent) {
-		file << separator << "\n";
-		file << "Firstname,Lastname,Age,Email,Password" << endl;
-		file << separator << "\n";
+		file << "Firstname" << "," << "Lastname" << "," << "Age" << "," << "Email" << "," << "Password" << endl;
+		// file << "FirstName,LastName,Age,Email,Password" << endl;
 	}
+	// file << "FirstName,LastName,Age,Email,Password" << endl;
 
-	file << a.Firstname << "," << a.Lastname << "," << a.age << "," << a.Email << "," << a.Password ;
-	file << separator << "\n";
+	file << a.Firstname << "," << a.Lastname << "," << a.age << "," << a.Email << "," << a.Password << endl;
 
 	file.close();
+
 }
 
 // Admin menu (login / register)
@@ -199,7 +204,7 @@ void AdminMenu(Admin& loggedIn){
 
 		switch (menu){
 			case 1:
-				AdminRegistration(admin);
+				AdminRegistration(admin,loggedIn);
 				break;
 
 			case 2: {
@@ -208,10 +213,10 @@ void AdminMenu(Admin& loggedIn){
 
 				string inputEmail, inputPassword;
 
-				cout << "Please enter your Email: ";
+				cout << setw(15) << "Enter Email: ";
 				cin >> inputEmail;
 
-				cout << "Please enter your Password: ";
+				cout << setw(15) << "Enter Password: ";
 				cin >> inputPassword;
 
 				bool found = false;
@@ -229,7 +234,7 @@ void AdminMenu(Admin& loggedIn){
 						"+====================================================+\n"
 						"|                   Login successful!                |\n"
 						"+====================================================+\n";
-					AdminDashboard(loggedIn);
+					     AdminDashboard(loggedIn);
 				} else {
 					cout <<
 								 "+====================================================+\n"
@@ -240,22 +245,22 @@ void AdminMenu(Admin& loggedIn){
 			}
 
 			default:
+				cout << "Invalid choice !" << endl;
 				break;
 		}
 	}
 }
 
-//===================== Admin Profile ========================================//
 void AdminProfile(Admin& a) {
 	cout <<      "+===================================================+\n"
 	             "|           Welcome to Admin profile                 |\n"
-	             "+===================================================+\n";
+	             "+===================================================+\n\n\n";
 
-	cout << "Your Firstname: " << a.Firstname << "\n";
-	cout << "Your Lastname:  " << a.Lastname  << "\n";
-	cout << "Your Age:       " << a.age       << "\n";
-	cout << "Your Email:     " << a.Email     << "\n";
-	cout << "Your Password:  " << a.Password  << "\n";
+	cout << " Firstname: " << a.Firstname << "\n";
+	cout << " Lastname:  " << a.Lastname  << "\n";
+	cout << " Age:       " << a.age       << "\n";
+	cout << " Email:     " << a.Email     << "\n";
+	cout << " Password:  " << a.Password  << "\n\n\n";
 
 	cout << "+===================================================+\n";
 }
@@ -275,10 +280,11 @@ void AdminDashboard(Admin& loggedIn) {
 		             "|                                      |                                |\n"
 		             "|      3. Student Profile              |      4. Admin Profile          |\n"
 		             "|                                      |                                |\n"
-		             "|      5. Courses                      |      6. logging out            |\n"
+		             "|      5. Courses                      |      6. Exit                   |\n"
 		             "|                                      |                                |\n"
 		             "+=======================================================================+\n";
-		cin >> view;
+		     cout << "                               Enter your choice: ";
+		     cin >> view;
 
 		switch (view) {
 			case 1:
@@ -309,9 +315,9 @@ void AdminDashboard(Admin& loggedIn) {
 				DisplayMenu();
 				break;
 
-			Default:
-				cout << "Invalid Choice ! "<< endl;
+			default:
+				cout << "Invalid Choice ! " << endl;
 				break;
-			}
+		}
 		}
 	}

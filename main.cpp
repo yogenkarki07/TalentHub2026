@@ -26,10 +26,11 @@ using namespace std;
              StudentRegistration(students);
              break;
 
-         case 2:
-             AdminMenu(Admin& loggedIn);
-             // AdminRegistration(admin);
+         case 2: {
+             Admin loggedIn;
+             AdminMenu(loggedIn);
              break;
+         }
 
          case 3:
              StudentLogin(students);
