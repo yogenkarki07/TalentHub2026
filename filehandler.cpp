@@ -1,9 +1,9 @@
 #include<fstream>
 #include<vector>
 #include<sstream>
+#include <iomanip>
 
-#include "Headers/filehandler.h"
-#include "Headers/course.h"
+#include "Headers/Universal.h"
 
 using namespace std;
 
@@ -12,15 +12,26 @@ void SaveStudentInfo(vector<Student>& students) {
     ofstream file ("../File/students.csv");
 
     if (!file.is_open()){
-        cout << " 'students.csv' could not be opened. " << endl;
+        cout << "+============================================+"
+             <<" |      students.csv could not be opened.     |"
+             << "+============================================+" << endl;
         return;
     }
 
-    file << "StudentID,FirstName,LastName,Age,Email,Password,Phone,Address,Type" << endl;
+    file << left
+         << setw(20) << "StudentID" << " | "
+         << setw(20) << "FirstName" << " | "
+         << setw(20) << "LastName"  << " | "
+         << setw(20) << "Age" << " | "
+         << setw(20) << "Email" << " | "
+         << setw(20) << "Password" << " | "
+         << setw(20) << "Phone" << "|"
+         << setw(20) << "Address" << " | "
+         << setw(20) << "Type" << " | " << endl;
 
     for (Student s: students) {
-        file << s.studentID << "," << s.firstname << "," << s.lastname << "," << s.age << ","
-        << s.email << "," << s.password << "," << s.phone << "," << s.address << ","  << s.type << endl;
+        file << left << setw(20) <<  s.studentID << " | " << s.firstname << " | " << s.lastname << " | " << s.age << " | "
+        << s.email << " | " << s.password << " | " << s.phone << " | " << s.address << " | "  << s.type << endl;
     }
 
     file.close();
@@ -51,15 +62,17 @@ void LoadStudentInfo(vector<Student>& students) {
     string ageStr;
     string idStr;
 
-    getline(ss, idStr, ',');
-    getline(ss, s.firstname, ',');
-    getline(ss, s.lastname, ',');
-    getline(ss, ageStr, ',');
-    getline(ss, s.email, ',');
-    getline(ss, s.password, ',');
-    getline(ss, s.phone, ',');
-    getline(ss, s.address, ',');
-    getline(ss, s.type, ',');
+    getline(ss, idStr, '|');
+    getline(ss, s.firstname, '|');
+    getline(ss, s.lastname, '|');
+    getline(ss, ageStr, '|');
+    getline(ss, s.email, '|');
+    getline(ss, s.password, '|');
+    getline(ss, s.phone, '|');
+    getline(ss, s.address, '|');
+    getline(ss, s.type, '|');
+
+    if (s.firstname.empty() || s.lastname.empty()) continue;
 
     try {
         if (!ageStr.empty()){
@@ -71,13 +84,17 @@ void LoadStudentInfo(vector<Student>& students) {
     }
 
     catch (const invalid_argument& e){
-            cout << "Debug Error: 'stoi' failed ! " << endl;
+            cout << "+==================================+"
+                    "| Debug Error: 'stoi' failed !     |"
+                    "+==================================+"<< endl;
             s.age = 0;
             s.studentID = 0;
     }
 
     catch (const out_of_range& e){
-        cout << "Debug Error: Value out of range for int." << endl;
+        cout << "+===========================================+"
+                "|  Debug Error: Value out of range for int. |"
+                "+===========================================+"   << endl;
         s.studentID = 0;
         s.age = 0;
     }
@@ -95,7 +112,7 @@ void SaveCourseEnrollments( vector<Student>& students) {
         return;
     }
 
-    cout << "Student ID,Course" << endl;
+    file << "Student ID,Course" << endl;
 
     for ( Student& s: students) {
         for ( string& course : s.enrolledCourses) {
@@ -118,7 +135,7 @@ void LoadCourseEnrollments (vector<Student>& students) {
 
     while ( getline(file, line)) {
         if (line.empty()) {
-            return;
+            continue;
         }
         stringstream ss(line);
         string idStr;

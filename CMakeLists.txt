@@ -8,14 +8,11 @@ add_executable(TalentHub2026
         menu.cpp
         Admin_menu.cpp
         student.cpp
-        Headers/student.h
         validation.cpp
-        Headers/validation.h
         filehandler.cpp
-        Headers/filehandler.h
         course.cpp
         Headers/course.h
         Headers/Globals.h
-        Headers/menu.h
         Admin_menu.h
+        Headers/Universal.h
 )

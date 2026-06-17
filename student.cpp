@@ -1,13 +1,10 @@
 #include <iostream>
 #include <vector>
 
-#include "Headers/student.h"
-#include "Headers/validation.h"
-#include "Headers/filehandler.h"
+#include "Headers/Universal.h"
 #include "Headers/course.h"
 
 void StudentRegistration(vector<Student>& students) {
-
     Student s;
 
     cout << "+==============================================================+\n";
@@ -15,9 +12,6 @@ void StudentRegistration(vector<Student>& students) {
     cout << "|                  Student Registration Form                   |\n";
     cout << "|                                                              |\n";
     cout << "+==============================================================+\n\n";
-
-    cout << "                   Student ID: ";
-    cin >> s.studentID;
 
     cout << "                   First name: ";
     cin >> s.firstname;
@@ -62,6 +56,14 @@ void StudentRegistration(vector<Student>& students) {
 
     cout << "                   Student Type (Domestic/International): ";
     getline(cin,s.type);
+
+    //===================== auto assign an ID ===============================//
+    int maxID = 0;
+    for (const Student& existing : students) {
+        if (existing.studentID > maxID)
+            maxID = existing.studentID;
+    }
+    s.studentID = maxID + 1;
 
     students.push_back(s);
     SaveStudentInfo(students);

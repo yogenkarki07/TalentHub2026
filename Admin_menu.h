@@ -1,6 +1,6 @@
 #ifndef ADMIN2_0_ADMIN_MENU_H
 #define ADMIN2_0_ADMIN_MENU_H
-#include "Headers/student.h"
+#include "Headers/Universal.h"
 #include <string>
 #include <vector>
 

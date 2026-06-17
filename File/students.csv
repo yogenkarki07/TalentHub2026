@@ -1,4 +1,3 @@
-StudentID,FirstName,LastName,Age,Email,Password,Phone,Address,Type
-101,Yogen,Karki,20,yogeen399@gmail.com,Yogen@07,0275340406,Auckland CBD,International
-102,Ayush,Kafle,23,ayushkafle7@gmail.com,Ayush@07,9845235617,Birtamode,International
-
+StudentID            | FirstName            | LastName             | Age                  | Email                | Password             | Phone               |Address              | Type                 | 
+103                  |  Carlos  |  Scarborough  | 27 |  cscarborough83@gmail.com  |  DavidandCarlos45#  |  0212306071  |  Henderson  |  Domestic
+104                  | David | Scarborough | 51 | ScarboroughCarlos23@gmail.com | DavidandCarlos5543# | 0212306071 | Henderson | Domestic

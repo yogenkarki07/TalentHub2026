@@ -5,8 +5,6 @@
 
 #include "Headers/Globals.h"
 #include "Headers/course.h"
-#include "Headers/filehandler.h"
-#include "Headers/menu.h"
 
 using namespace std;
 

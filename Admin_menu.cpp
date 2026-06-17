@@ -372,7 +372,7 @@ void Deletestudent() {
 
 //==================== Load admins from CSV ==================================================//
 void login(std::vector<Admin>& admin){
-	std::ifstream file("../Admin.csv");
+	std::ifstream file("../File/Admin.csv");
 	std::string line;
 
 	std::getline(file, line); // skip header row
@@ -412,11 +412,11 @@ void signup()
 	std::string separator(col * 3, '-');
 
 	// Check if file already has content BEFORE opening for append
-	std::ifstream check("../Admin.csv");
+	std::ifstream check("../File/Admin.csv");
 	bool fileHasContent = check.peek() != std::ifstream::traits_type::eof();
 	check.close();
 
-	std::ofstream file("../Admin.csv", std::ios::app);
+	std::ofstream file("../File/Admin.csv", std::ios::app);
 	if (!file.is_open()) {
 		std::cout << "Cannot open file to continue.\n";
 		return;
