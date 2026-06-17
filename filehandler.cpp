@@ -30,8 +30,15 @@ void SaveStudentInfo(vector<Student>& students) {
          << setw(20) << "Type" << " | " << endl;
 
     for (Student s: students) {
-        file << left << setw(20) <<  s.studentID << " | " << s.firstname << " | " << s.lastname << " | " << s.age << " | "
-        << s.email << " | " << s.password << " | " << s.phone << " | " << s.address << " | "  << s.type << endl;
+        file << left << setw(20) <<  s.studentID << " | "
+        << setw(20) << s.firstname << " | "
+        << setw(20) << s.lastname << " | "
+        << setw(20) << s.age << " | "
+        << setw(20) << s.email << " | "
+        << setw (20) << s.password << " | "
+        << setw(20) << s.phone << " | "
+        << setw(20) << s.address << " | "
+        << setw(20) << s.type << " | " << endl;
     }
 
     file.close();
