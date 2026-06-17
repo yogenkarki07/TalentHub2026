@@ -1,2 +1,5 @@
 StudentID,FirstName,LastName,Age,Email,Password,Phone,Address,Type
-102,Calos,Burger,27,carlosburger1@gmail.com,Carlos@77,0341217246,Henderson,Domestic
+105,Vince,Patty,21,vince45@gmail.com,Vince@45,0345215673,Botany,International
+201,Yogen,Karki,21,yogeen399@gmail.com,Yogen@007,0275340406,Tarahara,International
+203,Carlos,Burger,27,carlosburger1@gmail.com,Burger@123,0342137632,Henderson,Domestic
+504,Samriddhi,Adhikari,20,samraddhi77@gmail.com,SamAd@77,0159834531,Panmure,Domestic

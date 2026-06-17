@@ -250,6 +250,83 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
 }
 
+// void DomesticStudents() {
+// 	    ifstream file ("../File/students.csv");
+//     string line;
+//
+//     if (!file.is_open()) {
+//         cout << "Cannot locate file\n";
+//         break;
+//     }
+//
+//     vector<Student> students;  // this was previously declared but never filled in!
+//
+//     getline(file, line); // skip header
+//
+//     while (getline(file, line)) {
+//         if (line.empty())
+//             continue;
+//
+//         stringstream ss(line);
+//         Student s;
+//         string IDStr, ageStr;
+//
+//         getline(ss, IDStr,',');
+//         getline(ss, s.firstname,',');
+//         getline(ss, s.lastname,',');
+//         getline(ss, ageStr,',');
+//         getline(ss, s.email,',');
+//         getline(ss, s.password,',');
+//         getline(ss, s.phone,',');
+//         getline(ss, s.address,',');
+//         getline(ss, s.type);
+//
+//         auto trim = [](std::string& str) {
+//             str.erase(0, str.find_first_not_of(" \r\n"));
+//             str.erase(str.find_last_not_of(" \r\n") + 1);
+//         };
+//
+//         trim(IDStr);
+//         trim(s.firstname);
+//         trim(s.lastname);
+//         trim(ageStr);
+//         trim(s.email);
+//         trim(s.password);
+//         trim(s.phone);
+//         trim(s.address);
+//         trim(s.type);
+//
+//         s.studentID = IDStr.empty() ? 0 : stoi(IDStr);
+//         s.age       = ageStr.empty() ? 0 : stoi(ageStr);
+//
+//         students.push_back(s);
+//     }
+//
+//     file.close();
+//
+//     cout << "+============================================================+\n";
+//     cout << "|                  List of Domestic Students                 |\n";
+//     cout << "+============================================================+\n";
+//     bool foundDomestic = false;
+//     for (const auto& s : students) {
+//         if (s.type == "Domestic") {
+//             cout << "============================================================\n";
+//             cout << "Student ID: "<< s.studentID << endl;
+//             cout << "Name:    " << s.firstname << " " << s.lastname << endl;
+//             cout << "Age:     " << s.age << endl;
+//             cout << "Email:   " << s.email << endl;
+//             cout << "Phone:   " << s.phone << endl;
+//             cout << "Address: " << s.address << endl;
+//             cout << "============================================================\n";
+//             foundDomestic = true;
+//         }
+//     }
+//     if (!foundDomestic) {
+//         cout << "No domestic students found.\n";
+//     }
+// }
+// }
+
 void AdminMenu(Admin& loggedIn){
 	int menu =0;
 	while (menu != 4) {
@@ -314,19 +391,19 @@ void AdminMenu(Admin& loggedIn){
 	}
 }
 
-void AdminProfile(Admin& a) {
-	cout <<      "+===================================================+\n"
-	             "|           Welcome to Admin profile                 |\n"
-	             "+===================================================+\n\n\n";
-
-	cout << setw(25) << " Firstname: " << a.Firstname << "\n";
-	cout << setw(25) << " Lastname:  " << a.Lastname  << "\n";
-	cout << setw(25) << " Age:       " << a.age       << "\n";
-	cout << setw(25) << " Email:     " << a.Email     << "\n";
-	cout << setw(25) << " Password:  " << a.Password  << "\n\n";
-
-	cout << "+===================================================+\n";
-}
+// void AdminProfile(Admin& a) {
+// 	cout <<      "+===================================================+\n"
+// 	             "|           Welcome to Admin profile                 |\n"
+// 	             "+===================================================+\n\n\n";
+//
+// 	cout << setw(25) << " Firstname: " << a.Firstname << "\n";
+// 	cout << setw(25) << " Lastname:  " << a.Lastname  << "\n";
+// 	cout << setw(25) << " Age:       " << a.age       << "\n";
+// 	cout << setw(25) << " Email:     " << a.Email     << "\n";
+// 	cout << setw(25) << " Password:  " << a.Password  << "\n\n";
+//
+// 	cout << "+===================================================+\n";
+// }
 
 string toLower(const string& text) {
 	string result = text;
@@ -351,45 +428,54 @@ void SearchStudent() {
 	cin.ignore();
 	getline(cin, query);
 
-	//Open the file but not overwriting
 	ifstream file ("../File/students.csv");
 
 	if (!file.is_open()) {
+		cout << "Cannot open 'students.csv' file. " << endl;
 		return;
 	}
 
 	string line;
-	stringstream ss(line);
-	string idStr;
-
 	getline(file, line); 	//skips the header row
 
-	// Step 4: Search through every student
+	auto trim = [](string& str) {
+		str.erase(0, str.find_first_not_of(" \r\n"));
+		str.erase(str.find_last_not_of(" \r\n") + 1);
+	};
+
+	// Search through every student
 	bool found = false;
 
 	while (getline(file, line)) {
 
 		// Split the line by commas into individual fields
 		stringstream ss(line);
+		Student s;
+		string idStr, ageStr;
 
-		getline(ss, idStr,',');
-		getline(ss, s.firstname,',');
-		getline(ss, s.lastname, ',');
-		getline(ss, s.email,',');
-		getline(ss, s.address,  ',');
+		getline(ss, idStr,        ',');
+		getline(ss, s.firstname,  ',');
+		getline(ss, s.lastname,   ',');
+		getline(ss, ageStr,       ',');
+		getline(ss, s.email,      ',');
+		getline(ss, s.password,   ',');
+		getline(ss, s.phone,      ',');
+		getline(ss, s.address,    ',');
 		getline(ss, s.type);
 
-		try {
-			if (!idStr.empty()){
-				s.studentID = stoi(idStr);
-			}
-		}
+		trim(idStr); trim(s.firstname); trim(s.lastname); trim(ageStr);
+		trim(s.email); trim(s.password); trim(s.phone); trim(s.address); trim(s.type);
 
+		try {
+			s.studentID = idStr.empty() ? 0 : stoi(idStr);
+			s.age       = ageStr.empty() ? 0 : stoi(ageStr);
+		}
 		catch (const invalid_argument& e){
 			cout << "Debug Error: 'stoi' failed ! " << endl;
+			continue;
 		}
 
-		// Step 5: Check if the search query appears in first OR last name
+		// Check if the search query appears in first OR last name
 		string fullName = s.firstname + " " + s.lastname;
 
 		if (toLower(fullName).find(toLower(query)) != string::npos) {
@@ -412,63 +498,11 @@ void SearchStudent() {
 	// Step 7: If nothing was found, let the admin know
 	if (!found) {
 		    cout << "\n==============================================\n"
-					"\nNo student found with the name \n" << query <<
+					"\nNo student found with the name " << query <<
 					"\n===============================================\n" << endl;
 	}
 }
 
-//========================= Student remove from course =================================//
-
-// void Remove_courses(vector<Student>& students, int StudentID, const string& coursename, bool isAdmin) {
-//
-// 	     cout << "\n+=========================================+\n"
-//     		  << "\n|										  |\n"
-// 			  << "\n|		Welcome to Student Removal		  |\n"
-// 			  << "\n|										  |\n"
-// 			  << "\n+=========================================+\n" << endl;
-//
-// 	if (!isAdmin){
-// 	          	cout << "+==============================================+"
-// 		          << "\n|											 |\n"
-// 				  << "	|		Admin is Required for Student removal|"
-// 		          << "\n|											 |\n"
-// 				  << "+==============================================+" << endl;
-// 		return;
-// 	}
-//
-// 	//============================ Find a student by ID ===================================
-// 	for (Student& student : students){
-// 		if (student.studentID == StudentID){
-// 			//Search inside enrolled courses
-// 			for (size_t i = 0; i < student.enrolledCourses.size(); i++){
-// 				if (student.enrolledCourses[i] == coursename){
-// 					student.enrolledCourses.erase(student.enrolledCourses.begin() + i);
-// 					cout << "Removed" << student.firstname << " " << student.lastname
-// 					<< " From " << coursename << ".\n";
-// 					return;
-// 				}
-// 			}
-//
-// 				//Student found in course but not enrolled
-// 				     cout << "+===================================================+\n"
-// 						  << "|													  |\n"
-// 						  << "|		Student have not been found in course		  |\n"
-// 					      << "|													  |\n"
-// 						  << "+===================================================+" << coursename << endl;
-// 			return;
-// 		}
-// 	}
-//
-// 	//No student have been found
-// 	    cout << "+===================================================+"
-// 			  << "|													  |"
-// 			  << "|		Student Id have not been found				  |"
-// 			  << "|													  |"
-// 	          << "+===================================================+" << s.studentID << endl;
-//
-// }
-
-//=================== Admin Dashboard ======================================//
 void AdminDashboard(Admin& loggedIn) {
 	int view = 0;
 	while (view != 6) {
@@ -503,7 +537,7 @@ void AdminDashboard(Admin& loggedIn) {
 
                  if (!file.is_open()) {
                     cout << "Cannot locate file\n";
-                 	return;
+                 	break;
                  }
 				vector<Student> students;
 
@@ -527,12 +561,11 @@ void AdminDashboard(Admin& loggedIn) {
         getline(ss, s.address,',');
         getline(ss, s.type);
 
-        auto trim = [](std::string& str) {
-            str.erase(0, str.find_first_not_of(" "));
-            str.erase(str.find_last_not_of(" ") + 1);
+      auto trim = [](std::string& str) {
+            str.erase(0, str.find_first_not_of(" \r\n"));
+            str.erase(str.find_last_not_of(" \r\n") + 1);
         };
 
-        // only trim strings, NOT s.age
         trim(IDStr);
         trim(s.firstname);
         trim(s.lastname);
@@ -542,6 +575,7 @@ void AdminDashboard(Admin& loggedIn) {
         trim(s.phone);
         trim(s.address);
         trim(s.type);
+
 
         // then convert to int
         s.studentID = IDStr.empty() ? 0 : stoi(IDStr);
@@ -575,25 +609,80 @@ void AdminDashboard(Admin& loggedIn) {
 				break;
 
 			case 4: {
-				vector<Student> students;
-				Student s;
+    ifstream file ("../File/students.csv");
+    string line;
 
-				cout << "+============================================================+\n";
-				cout << "|                  List of Domestic Students                 |\n";
-				cout << "+============================================================+\n";
-				for (const auto& s : students) {
-					if (s.type == "Domestic") {
-						cout << "============================================================\n";
-						cout << "Student ID: "<< s.studentID << endl;
-						cout << "Name:    " << s.firstname << " " << s.lastname << endl;
-						cout << "Age:     " << s.age << endl;
-						cout << "Email:   " << s.email << endl;
-						cout << "Phone:   " << s.phone << endl;
-						cout << "Address: " << s.address << endl;
-						cout << "============================================================\n";
-					}
-				}
-			}
+    if (!file.is_open()) {
+        cout << "Cannot locate file\n";
+        break;
+    }
+
+    vector<Student> students;  // this was previously declared but never filled in!
+
+    getline(file, line); // skip header
+
+    while (getline(file, line)) {
+        if (line.empty())
+            continue;
+
+        stringstream ss(line);
+        Student s;
+        string IDStr, ageStr;
+
+        getline(ss, IDStr,',');
+        getline(ss, s.firstname,',');
+        getline(ss, s.lastname,',');
+        getline(ss, ageStr,',');
+        getline(ss, s.email,',');
+        getline(ss, s.password,',');
+        getline(ss, s.phone,',');
+        getline(ss, s.address,',');
+        getline(ss, s.type);
+
+        auto trim = [](std::string& str) {
+            str.erase(0, str.find_first_not_of(" \r\n"));
+            str.erase(str.find_last_not_of(" \r\n") + 1);
+        };
+
+        trim(IDStr);
+        trim(s.firstname);
+        trim(s.lastname);
+        trim(ageStr);
+        trim(s.email);
+        trim(s.password);
+        trim(s.phone);
+        trim(s.address);
+        trim(s.type);
+
+        s.studentID = IDStr.empty() ? 0 : stoi(IDStr);
+        s.age       = ageStr.empty() ? 0 : stoi(ageStr);
+
+        students.push_back(s);
+    }
+
+    file.close();
+
+    cout << "+============================================================+\n";
+    cout << "|                  List of Domestic Students                 |\n";
+    cout << "+============================================================+\n";
+    bool foundDomestic = false;
+    for (const auto& s : students) {
+        if (s.type == "Domestic") {
+            cout << "============================================================\n";
+            cout << "Student ID: "<< s.studentID << endl;
+            cout << "Name:    " << s.firstname << " " << s.lastname << endl;
+            cout << "Age:     " << s.age << endl;
+            cout << "Email:   " << s.email << endl;
+            cout << "Phone:   " << s.phone << endl;
+            cout << "Address: " << s.address << endl;
+            cout << "============================================================\n";
+            foundDomestic = true;
+        }
+    }
+    if (!foundDomestic) {
+        cout << "No domestic students found.\n";
+    }
+}
 				break;
 
 					case 5:
