@@ -3,11 +3,12 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 
 #include "Headers/Admin.h"
 #include "Headers/student.h"
 #include "Headers/menu.h"
-#include "Headers/course.h"
+#include "Headers/validation.h"
 
 using namespace std;
 
@@ -21,27 +22,60 @@ void AddStudent() {
 	Student s;
 
 	if (!file.is_open()) {
-		cerr << "error cannot open file to add a student\n";
+		cerr << "error cannot open 'students.csv' file.\n";
 		return;
 	}
 
-	cout << "Please enter your firstname: ";
+	cout << "Enter Student ID: ";
+	cin >> s.studentID;
+
+	cout << "Enter First Name: ";
 	cin >> s.firstname;
 
-	cout << "Please enter your Lastname: ";
+	cout << "Enter Last Name: ";
 	cin >> s.lastname;
 
-	cout << "Please enter your age: ";
+	cout << "Enter Age: ";
 	cin >> s.age;
 
-	cout << "Please enter your Email: ";
-	cin >> s.email;
+	cin.ignore();
 
-	cout << "Please enter your Password: ";
-	cin >> s.password;
+	do {
+		cout << "Email: ";
+		getline(cin,s.email);
 
-	int col = 15;
-	file << s.firstname << "," << s.lastname << "," << s.age << "," << s.email << "," << s.password << endl;
+		if (!isValidEmail(s.email)) {
+			cout << "Invalid Email !" << endl;
+		}
+
+	}while (!isValidEmail(s.email));
+
+	do{
+		cout << "Password: ";
+		getline(cin,s.password);
+
+		if (!isValidPassword(s.password)){
+			cout << " Password must contain: " << endl;
+			cout << " - Minimum 8 characters " << endl;
+			cout << " - Uppercase character " << endl;
+			cout << " - Lowercase character " << endl;
+			cout << " - Number" << endl;
+			cout << " - Special character \n\n";
+		}
+	}while (!isValidPassword(s.password));
+
+	cout << "Phone Number: ";
+	getline(cin,s.phone);
+
+	cout << "Address: ";
+	getline(cin,s.address);
+
+	cout << "Student Type (Domestic/International): ";
+	getline(cin,s.type);
+
+	// file << "StudentID,FirstName,LastName,Age,Email,Password,Phone,Address,Type" << endl;
+
+	file << s.studentID << "," << s.firstname << "," << s.lastname << "," << s.age << "," << s.email << "," << s.password << "," << s.phone << "," << s.address << "," << s.type << endl;
 
 	file.close();
 
@@ -53,10 +87,11 @@ void AddStudent() {
 
 //=================== delete student ============================//
 void DeleteStudent() {
+
 	ifstream file("../File/students.csv");
 
 	if (!file.is_open()) {
-		cerr << "Error: Could not open database for deletion.\n";
+		cerr << "Error: Could not open 'student.csv' file.\n";
 		return;
 	}
 
@@ -65,7 +100,10 @@ void DeleteStudent() {
 
 	bool found = false;
 
-	cout << "Enter the Email of the student to delete: ";
+	cout << "+===============================================+" << endl;
+	cout << "|               Remove Student                  |" << endl;
+	cout << "+===============================================+" << endl;
+	cout << "Enter student's email: ";
 	cin >> targetEmail;
 
 	while (getline(file, line)) {
@@ -80,7 +118,7 @@ void DeleteStudent() {
 	file.close();
 
 	if (found) {
-		ofstream outFile("../File/students.csv", ios::trunc);
+		ofstream outFile("../File/students.csv");
 		for (const auto& l : lines) {
 			outFile << l << "\n";
 		}
@@ -111,7 +149,7 @@ void AdminLogin(vector<Admin>& admin){
 		getline(ss, a.Lastname,  ',');
 		getline(ss, a.age, ',');
 		getline(ss, a.Email,',');
-		getline(ss, a.Password,',');
+		getline(ss, a.Password);
 
 		auto trim = [](std::string& s){
 			s.erase(0, s.find_first_not_of(" \r\n"));
@@ -128,14 +166,21 @@ void AdminLogin(vector<Admin>& admin){
 	}
 }
 
-
-//==================== Signup ===================================//
 void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
-	// Check if file already has content BEFORE opening for append
 	ifstream check("../File/Admin.csv");
-	bool fileHasContent = check.peek() != ifstream::traits_type::eof();
-	check.close();
+
+	bool fileHasContent = false;
+
+	if (check.is_open()) {
+		check.seekg(0, ios::end);
+
+		if (check.tellg() > 0) {
+			fileHasContent = true;
+		}
+
+		check.close();
+	}
 
 	ofstream file("../File/Admin.csv", ios::app);
 
@@ -152,41 +197,59 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
 	Admin a;
 
-	cout << setw(20) << "Enter First name: ";
+	cout << setw(30) << "Enter First name: ";
 	cin >> a.Firstname;
 
-	cout << setw(20) << "Enter Last name: ";
+	cout << setw(30) << "Enter Last name: ";
 	cin >> a.Lastname;
 
-	cout << setw(20) << "Enter Age: ";
+	cout << setw(30) << "Enter Age: ";
 	cin >> a.age;
 
-	cout << setw(20) << "Enter Email: ";
+	cout << setw(30) << "Enter Email: ";
 	cin >> a.Email;
 
-	cout << setw(20) << "Enter Password: ";
+	do {
+		cout << "Email: ";
+		getline(cin,a.Email);
+
+		if (!isValidEmail(a.Email)) {
+			cout << "Invalid Email !" << endl;
+		}
+
+	}while (!isValidEmail(a.Email));
+
+	do{
+		cout << setw(30) << "Password: ";
+		getline(cin,a.Password);
+
+		if (!isValidPassword(a.Password)){
+			cout << "Password must contain: " << endl;
+			cout << " - Minimum 8 characters " << endl;
+			cout << " - Uppercase character " << endl;
+			cout << " - Lowercase character " << endl;
+			cout << " - Number" << endl;
+			cout << " - Special character \n\n";
+		}
+	}while (!isValidPassword(a.Password));
+
+	cout << setw(30) << "Enter Password: ";
 	cin >> a.Password;
 
 	admin.push_back(a);
 
-	cout << "Admin registered successfully !" << " Welcome " << a.Firstname << " " << a.Lastname << " to the Talent Hub" << endl << endl;
-
-	AdminDashboard(loggedIn);
-
-
 	if (!fileHasContent) {
-		file << "Firstname" << "," << "Lastname" << "," << "Age" << "," << "Email" << "," << "Password" << endl;
-		// file << "FirstName,LastName,Age,Email,Password" << endl;
+		file << "FirstName,LastName,Age,Email,Password" << endl;
 	}
-	// file << "FirstName,LastName,Age,Email,Password" << endl;
 
 	file << a.Firstname << "," << a.Lastname << "," << a.age << "," << a.Email << "," << a.Password << endl;
 
 	file.close();
 
+	cout << "Admin registered successfully !" << " Welcome " << a.Firstname << " " << a.Lastname << " to the Talent Hub" << endl << endl;
+
 }
 
-// Admin menu (login / register)
 void AdminMenu(Admin& loggedIn){
 	int menu =0;
 	while (menu != 4) {
@@ -199,7 +262,7 @@ void AdminMenu(Admin& loggedIn){
 		             "|       1.Admin Registration      |   2.  Admin Login      |\n"
 		             "|                                 |                        |\n"
 		             "+==========================================================+\n\n";
-		     cout << "                         Enter your choice: ";
+		     cout << "                       Enter your choice: ";
 		     cin >> menu;
 
 		switch (menu){
@@ -213,10 +276,10 @@ void AdminMenu(Admin& loggedIn){
 
 				string inputEmail, inputPassword;
 
-				cout << setw(15) << "Enter Email: ";
+				cout << setw(25) << "Enter Email: ";
 				cin >> inputEmail;
 
-				cout << setw(15) << "Enter Password: ";
+				cout << setw(25) << "Enter Password: ";
 				cin >> inputPassword;
 
 				bool found = false;
@@ -256,35 +319,174 @@ void AdminProfile(Admin& a) {
 	             "|           Welcome to Admin profile                 |\n"
 	             "+===================================================+\n\n\n";
 
-	cout << " Firstname: " << a.Firstname << "\n";
-	cout << " Lastname:  " << a.Lastname  << "\n";
-	cout << " Age:       " << a.age       << "\n";
-	cout << " Email:     " << a.Email     << "\n";
-	cout << " Password:  " << a.Password  << "\n\n\n";
+	cout << setw(25) << " Firstname: " << a.Firstname << "\n";
+	cout << setw(25) << " Lastname:  " << a.Lastname  << "\n";
+	cout << setw(25) << " Age:       " << a.age       << "\n";
+	cout << setw(25) << " Email:     " << a.Email     << "\n";
+	cout << setw(25) << " Password:  " << a.Password  << "\n\n";
 
 	cout << "+===================================================+\n";
 }
 
+string toLower(const string& text) {
+	string result = text;
+	for (char& c : result) {
+		c = tolower(c);
+	}
+	return result;
+}
+
+
+void SearchStudent() {
+	vector<Student> students;
+	Student s;
+
+	string query;
+
+	cout << "+===============================================+" << endl;
+	cout << "|               Searching Student ?             |" << endl;
+	cout << "+===============================================+" << endl;
+	cout << " Enter student's name: ";
+
+	cin.ignore();
+	getline(cin, query);
+
+	//Open the file but not overwriting
+	ifstream file ("../File/students.csv");
+
+	if (!file.is_open()) {
+		return;
+	}
+
+	string line;
+	stringstream ss(line);
+	string idStr;
+
+	getline(file, line); 	//skips the header row
+
+	// Step 4: Search through every student
+	bool found = false;
+
+	while (getline(file, line)) {
+
+		// Split the line by commas into individual fields
+		stringstream ss(line);
+
+		getline(ss, idStr,',');
+		getline(ss, s.firstname,',');
+		getline(ss, s.lastname, ',');
+		getline(ss, s.email,',');
+		getline(ss, s.address,  ',');
+		getline(ss, s.type);
+
+		try {
+			if (!idStr.empty()){
+				s.studentID = stoi(idStr);
+			}
+		}
+
+		catch (const invalid_argument& e){
+			cout << "Debug Error: 'stoi' failed ! " << endl;
+		}
+
+		// Step 5: Check if the search query appears in first OR last name
+		string fullName = s.firstname + " " + s.lastname;
+
+		if (toLower(fullName).find(toLower(query)) != string::npos) {
+
+			// Step 6: Print searched student details
+			cout << "+=====================================+\n";
+			cout << "Student ID: " << s.studentID << endl;
+			cout << "Name: " << s.firstname << " " << s.lastname  << endl;
+			cout << "Email: " << s.email << endl;
+			cout << "Address: " << s.address << endl;
+			cout << "Type: " << s.type << endl;
+			cout << "+=====================================+\n";
+
+			found = true;
+		}
+	}
+
+	file.close();
+
+	// Step 7: If nothing was found, let the admin know
+	if (!found) {
+		    cout << "\n==============================================\n"
+					"\nNo student found with the name \n" << query <<
+					"\n===============================================\n" << endl;
+	}
+}
+
+//========================= Student remove from course =================================//
+
+// void Remove_courses(vector<Student>& students, int StudentID, const string& coursename, bool isAdmin) {
+//
+// 	     cout << "\n+=========================================+\n"
+//     		  << "\n|										  |\n"
+// 			  << "\n|		Welcome to Student Removal		  |\n"
+// 			  << "\n|										  |\n"
+// 			  << "\n+=========================================+\n" << endl;
+//
+// 	if (!isAdmin){
+// 	          	cout << "+==============================================+"
+// 		          << "\n|											 |\n"
+// 				  << "	|		Admin is Required for Student removal|"
+// 		          << "\n|											 |\n"
+// 				  << "+==============================================+" << endl;
+// 		return;
+// 	}
+//
+// 	//============================ Find a student by ID ===================================
+// 	for (Student& student : students){
+// 		if (student.studentID == StudentID){
+// 			//Search inside enrolled courses
+// 			for (size_t i = 0; i < student.enrolledCourses.size(); i++){
+// 				if (student.enrolledCourses[i] == coursename){
+// 					student.enrolledCourses.erase(student.enrolledCourses.begin() + i);
+// 					cout << "Removed" << student.firstname << " " << student.lastname
+// 					<< " From " << coursename << ".\n";
+// 					return;
+// 				}
+// 			}
+//
+// 				//Student found in course but not enrolled
+// 				     cout << "+===================================================+\n"
+// 						  << "|													  |\n"
+// 						  << "|		Student have not been found in course		  |\n"
+// 					      << "|													  |\n"
+// 						  << "+===================================================+" << coursename << endl;
+// 			return;
+// 		}
+// 	}
+//
+// 	//No student have been found
+// 	    cout << "+===================================================+"
+// 			  << "|													  |"
+// 			  << "|		Student Id have not been found				  |"
+// 			  << "|													  |"
+// 	          << "+===================================================+" << s.studentID << endl;
+//
+// }
+
 //=================== Admin Dashboard ======================================//
 void AdminDashboard(Admin& loggedIn) {
-
 	int view = 0;
 	while (view != 6) {
-		     cout << "+========================================================================+\n"
-		             "|                                                                        |\n"
-		             "|                               Admin Dashboard                          |\n"
-		             "|                                                                        |\n"
-		             "+=======================================================================+\n"
-		             "|                                      |                                |\n"
-		             "|      1. Add Student                  |      2. Remove Student         |\n"
-		             "|                                      |                                |\n"
-		             "|      3. Student Profile              |      4. Admin Profile          |\n"
-		             "|                                      |                                |\n"
-		             "|      5. Courses                      |      6. Exit                   |\n"
-		             "|                                      |                                |\n"
-		             "+=======================================================================+\n";
-		     cout << "                               Enter your choice: ";
-		     cin >> view;
+		cout << "+========================================================================+\n"
+				"|                                                                        |\n"
+				"|                               Admin Dashboard                          |\n"
+				"|                                                                        |\n"
+				"+=======================================================================+\n"
+				"|                                      |                                |\n"
+				"|      1. Add Student                  |      2. Remove Student         |\n"
+				"|                                      |                                |\n"
+				"|      3. International Students       |      4. Domestic Students      |\n"
+				"|                                      |                                |\n"
+				"|      5. Search Student               |      6. Exit                   |\n"
+				"|                                      |                                |\n"
+				"+=======================================================================+\n";
+		cout << "                               Enter your choice: ";
+		cin >> view;
 
 		switch (view) {
 			case 1:
@@ -295,29 +497,120 @@ void AdminDashboard(Admin& loggedIn) {
 				DeleteStudent();
 				break;
 
-			case 3:
+			case 3: {
+				ifstream file ("../File/students.csv");
+                string line;
+
+                 if (!file.is_open()) {
+                    cout << "Cannot locate file\n";
+                 	return;
+                 }
+				vector<Student> students;
+
+				getline(file, line); // skip header
+
+				while (getline(file, line)) {
+					if (line.empty())
+						continue;
+
+				stringstream ss(line);
+					Student s;
+					string IDStr, ageStr;
+
+        getline(ss, IDStr,',');
+        getline(ss, s.firstname,',');
+        getline(ss, s.lastname,',');
+        getline(ss, ageStr,',');
+        getline(ss, s.email,',');
+        getline(ss, s.password,',');
+        getline(ss, s.phone,',');
+        getline(ss, s.address,',');
+        getline(ss, s.type);
+
+        auto trim = [](std::string& str) {
+            str.erase(0, str.find_first_not_of(" "));
+            str.erase(str.find_last_not_of(" ") + 1);
+        };
+
+        // only trim strings, NOT s.age
+        trim(IDStr);
+        trim(s.firstname);
+        trim(s.lastname);
+        trim(ageStr);
+        trim(s.email);
+        trim(s.password);
+        trim(s.phone);
+        trim(s.address);
+        trim(s.type);
+
+        // then convert to int
+        s.studentID = IDStr.empty() ? 0 : stoi(IDStr);
+        s.age       = ageStr.empty()       ? 0 : stoi(ageStr);
+
+        students.push_back(s);
+    }
+
+    file.close();
+
+    ranges::sort(students, [](const Student& a, const Student& b) {
+        return a.type < b.type;
+    });
+
+    // print international
+    std::cout << "+===========================================================+\n";
+    std::cout << "|          List of International Students                  |\n";
+    std::cout << "+===========================================================+\n";
+    for (const auto& s : students) {
+        if (s.type == "International") {
+            std::cout << "ID:      " << s.studentID << "\n";
+            std::cout << "Name:    " << s.firstname << " " << s.lastname << "\n";
+            std::cout << "Age:     " << s.age << "\n";
+            std::cout << "Email:   " << s.email << "\n";
+            std::cout << "Phone:   " << s.phone << "\n";
+            std::cout << "==========================================================\n";
+        }
+    }
+				ostream operator<<(const ostream & lhs, const vector<std::string> & rhs);
+}
 				break;
 
-			case 4:
-				AdminProfile(loggedIn);
+			case 4: {
+				vector<Student> students;
+				Student s;
+
+				cout << "+============================================================+\n";
+				cout << "|                  List of Domestic Students                 |\n";
+				cout << "+============================================================+\n";
+				for (const auto& s : students) {
+					if (s.type == "Domestic") {
+						cout << "============================================================\n";
+						cout << "Student ID: "<< s.studentID << endl;
+						cout << "Name:    " << s.firstname << " " << s.lastname << endl;
+						cout << "Age:     " << s.age << endl;
+						cout << "Email:   " << s.email << endl;
+						cout << "Phone:   " << s.phone << endl;
+						cout << "Address: " << s.address << endl;
+						cout << "============================================================\n";
+					}
+				}
+			}
 				break;
 
-			case 5:
-				//  showCourses(c);
-				// showCourses(Course& c);
-				break;
+					case 5:
+				    SearchStudent();
+					break;
 
-			case 6:
-				cout <<
-                    "+==========================================+\n"
-                    "|      You are logging out. Thank you!     |\n"
-				    "+==========================================+\n";
-				DisplayMenu();
-				break;
+					case 6:
+					cout <<
+						"+==========================================+\n"
+						"|      You are logging out. Thank you!     |\n"
+						"+==========================================+\n";
+					DisplayMenu();
+					break;
 
-			default:
-				cout << "Invalid Choice ! " << endl;
-				break;
-		}
+					default:
+					cout << "Invalid Choice ! " << endl;
+					break;
+				}
 		}
 	}

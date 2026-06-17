@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "student.h"
 
 using namespace std;
 
@@ -25,3 +26,5 @@ void AdminLogin(vector<Admin>& admin);
 void AdminRegistration(vector<Admin>& admin);
 
 void AdminProfile(Admin& a);
+
+void SearchStudent();
