@@ -1,2 +1,4 @@
 StudentID            | FirstName            | LastName             | Age                  | Email                | Password             | Phone               |Address              | Type                 | 
-1                    | Carlos               | Scarborough          | 27                   | cscarborough83@gmail.com | DavidandCarlos45#    | 0212306071           | Henderson            | Domestic             | 
+1                    |   Carlos                 |   Scarborough            | 27                   |   cscarborough83@gmail.com   |   DavidandCarlos45#      |   0212306071             |   Henderson              |   Domestic               | 
+2                    |  Carlos                |  Scarborough           | 27                   |  cscarborough83@gmail.com  |  DavidandCarlos#45     |  0212306071            |  Henderson             |  Domestic              | 
+101                  | Carlos               | Scarborough          | 27                   | scarboroughcarlos@gmail.com | DavidandCarlos45$    | 0212306071'          | Henderson            | Domestic             | 

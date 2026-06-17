@@ -58,7 +58,7 @@ void StudentRegistration(vector<Student>& students) {
     getline(cin,s.type);
 
     //===================== auto assign an ID ===============================//
-    int maxID = 0;
+    int maxID = 100;
     for (const Student& existing : students) {
         if (existing.studentID > maxID)
             maxID = existing.studentID;
