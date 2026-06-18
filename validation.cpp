@@ -46,3 +46,23 @@ bool isValidEmail(string& email) {
 
     return true;
 }
+
+bool isValidAdminEmail(string& email) {
+    if (email.length() > 30) {
+        return false;
+    }
+
+    size_t atPos = email.find('@');
+
+    if ( atPos == string::npos || atPos == 0) {
+        return false;
+    }
+
+    string domain = email.substr(atPos + 1);
+
+    if (domain != "talenthub.com") {
+        return false;
+    }
+
+    return true;
+}

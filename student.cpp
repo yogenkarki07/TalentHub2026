@@ -64,6 +64,13 @@ void StudentRegistration(vector<Student>& students) {
     getline(cin,s.type);
 
     students.push_back(s);
+
+    for (Student& existing : students) {
+        existing.email = s.email;
+        cout << "Invalid email! " << existing.email << " already registered !" << endl;
+        return;
+    }
+
     SaveStudentInfo(students);
 
     cout << "+----------------------------------------------------------------+ \n\n";
@@ -107,21 +114,3 @@ void StudentLogin(vector<Student>& students) {
 
     cout << "+--------------------------------------------------------------+\n\n";
 }
-
-// void DomesticStudents(vector<Student>& students){
-//     cout << "+============================================================+\n";
-//     cout << "|                   DOMESTIC STUDENTS                        |\n";
-//     cout << "+============================================================+\n";
-//     for (const auto& s : students) {
-//         if (s.type == "Domestic") {
-//             cout << "============================================================\n";
-//             cout << "Student ID: " << s.studentID << endl;
-//             cout << "Name:    " << s.firstname << " " << s.lastname << endl;
-//             cout << "Age:     " << s.age << endl;
-//             cout << "Email:   " << s.email << endl;
-//             cout << "Phone:   " << s.phone << endl;
-//             cout << "Address: " << s.address << endl;
-//             cout << "============================================================\n";
-//         }
-//     }
-// }

@@ -170,17 +170,22 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
 	ifstream check("../File/Admin.csv");
 
-	bool fileHasContent = false;
 
-	if (check.is_open()) {
-		check.seekg(0, ios::end);
+	bool writeHeader = false;
 
-		if (check.tellg() > 0) {
-			fileHasContent = true;
-		}
-
-		check.close();
+	if (!check.good()) {
+		writeHeader = true;
 	}
+	else {
+
+		string firstLine;
+
+		if (!getline(check, firstLine) || firstLine.empty()) {
+			writeHeader = true;
+		}
+	}
+
+	check.close();
 
 	ofstream file("../File/Admin.csv", ios::app);
 
@@ -197,48 +202,50 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
 	Admin a;
 
-	cout << setw(30) << "Enter First name: ";
+	cout << setw(30) << " First name: ";
 	cin >> a.Firstname;
 
-	cout << setw(30) << "Enter Last name: ";
+	cout << setw(30) << " Last name: ";
 	cin >> a.Lastname;
 
-	cout << setw(30) << "Enter Age: ";
+	cout << setw(30) << " Age: ";
 	cin >> a.age;
 
-	cout << setw(30) << "Enter Email: ";
-	cin >> a.Email;
+	cin.ignore();
 
 	do {
-		cout << "Email: ";
+		cout << setw(30) << "Email: ";
 		getline(cin,a.Email);
 
-		if (!isValidEmail(a.Email)) {
-			cout << "Invalid Email !" << endl;
+		if (!isValidAdminEmail(a.Email)) {
+			cout << setw(40) << "Invalid Email !" << endl;
 		}
 
-	}while (!isValidEmail(a.Email));
+	}while (!isValidAdminEmail(a.Email));
 
 	do{
 		cout << setw(30) << "Password: ";
 		getline(cin,a.Password);
 
 		if (!isValidPassword(a.Password)){
-			cout << "Password must contain: " << endl;
-			cout << " - Minimum 8 characters " << endl;
-			cout << " - Uppercase character " << endl;
-			cout << " - Lowercase character " << endl;
-			cout << " - Number" << endl;
-			cout << " - Special character \n\n";
+			cout << setw(40) << "Password must contain: " << endl;
+			cout << setw(40) << " - Minimum 8 characters " << endl;
+			cout << setw(40) << " - Uppercase character " << endl;
+			cout << setw(40) << " - Lowercase character " << endl;
+			cout << setw(40) << " - Number" << endl;
+			cout << setw(40) << " - Special character \n\n";
 		}
 	}while (!isValidPassword(a.Password));
 
-	cout << setw(30) << "Enter Password: ";
-	cin >> a.Password;
-
 	admin.push_back(a);
 
-	if (!fileHasContent) {
+	for (Admin& existing : admin) {
+		existing.Email = a.Email;
+		cout <<  "Invalid email! " << a.Email << " already registered !" << endl;
+		return;
+	}
+
+	if (writeHeader) {
 		file << "FirstName,LastName,Age,Email,Password" << endl;
 	}
 
@@ -246,7 +253,7 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
 	file.close();
 
-	cout << "Admin registered successfully !" << " Welcome " << a.Firstname << " " << a.Lastname << " to the Talent Hub" << endl << endl;
+	cout << setw(15) << "Admin registered successfully !" << " Welcome " << a.Firstname << " " << a.Lastname << " to the Talent Hub" << endl << endl;
 
 }
 
@@ -276,10 +283,10 @@ void AdminMenu(Admin& loggedIn){
 
 				string inputEmail, inputPassword;
 
-				cout << setw(25) << "Enter Email: ";
+				cout << setw(25) << " Email: ";
 				cin >> inputEmail;
 
-				cout << setw(25) << "Enter Password: ";
+				cout << setw(25) << " Password: ";
 				cin >> inputPassword;
 
 				bool found = false;
@@ -313,20 +320,6 @@ void AdminMenu(Admin& loggedIn){
 		}
 	}
 }
-
-// void AdminProfile(Admin& a) {
-// 	cout <<      "+===================================================+\n"
-// 	             "|           Welcome to Admin profile                 |\n"
-// 	             "+===================================================+\n\n\n";
-//
-// 	cout << setw(25) << " Firstname: " << a.Firstname << "\n";
-// 	cout << setw(25) << " Lastname:  " << a.Lastname  << "\n";
-// 	cout << setw(25) << " Age:       " << a.age       << "\n";
-// 	cout << setw(25) << " Email:     " << a.Email     << "\n";
-// 	cout << setw(25) << " Password:  " << a.Password  << "\n\n";
-//
-// 	cout << "+===================================================+\n";
-// }
 
 string toLower(const string& text) {
 	string result = text;
@@ -532,25 +525,25 @@ void AdminDashboard(Admin& loggedIn) {
 				break;
 
 			case 4: {
-    ifstream file ("../File/students.csv");
-    string line;
+                      ifstream file ("../File/students.csv");
+				      string line;
 
-    if (!file.is_open()) {
-        cout << "Cannot locate file\n";
-        break;
-    }
+				if (!file.is_open()) {
+                    cout << "Cannot locate file\n";
+                    break;
+				}
 
-    vector<Student> students;  // this was previously declared but never filled in!
+				vector<Student> students;  // this was previously declared but never filled in!
 
-    getline(file, line); // skip header
+				getline(file, line); // skip header
 
-    while (getline(file, line)) {
-        if (line.empty())
-            continue;
+				while (getline(file, line)) {
+					if (line.empty())
+						continue;
 
-        stringstream ss(line);
-        Student s;
-        string IDStr, ageStr;
+					stringstream ss(line);
+					Student s;
+					string IDStr, ageStr;
 
         getline(ss, IDStr,',');
         getline(ss, s.firstname,',');
