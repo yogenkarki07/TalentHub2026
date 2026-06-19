@@ -29,8 +29,6 @@ void AdminProfile(Admin& a);
 
 void SearchStudent();
 
-int AutoIDgenerator(vector<Student>& students);
-
 void AddStudent();
 
 void DeleteStudent();

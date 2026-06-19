@@ -9,26 +9,18 @@
 #include "Headers/student.h"
 #include "Headers/menu.h"
 #include "Headers/validation.h"
+#include "Headers/filehandler.h"
 
 using namespace std;
 
 vector<Admin> admin;
-
-int AutoIDgenerator(vector<Student>& students) {
-	int maxID = 700;
-	for (Student& s : students) {
-		if (s.studentID == maxID) {
-			maxID = s.studentID;
-		}
-	}
-	return maxID + 1;
-}
 
 void AddStudent() {
 
 	ofstream file ("../File/students.csv", ios::app);
 
 	vector<Student>students;
+	LoadStudentInfo ( students);
 	Student s;
 
 	if (!file.is_open()) {
@@ -41,7 +33,7 @@ void AddStudent() {
 	cout << "|            Fill the form given below          |" << endl;
 	cout << "+===============================================+" << endl;
 
-	s.studentID = AutoIDgenerator(students);
+	s.studentID = GenerateStudentID(students);
 	cout << " Student ID: " << s.studentID << endl << endl;
 
 	cout << " First Name: ";
@@ -414,7 +406,7 @@ void SearchStudent() {
 
 			// Step 6: Print searched student details
 			cout << "+=====================================+\n";
-			cout << setw(10) << "Student ID: " << s.studentID << endl;
+			cout << setw(15) << "Student ID: " << s.studentID << endl;
 			cout << setw(10) << "Name: " << s.firstname << " " << s.lastname  << endl;
 			cout << setw(10) << "Email: " << s.email << endl;
 			cout << setw(10) << "Address: " << s.address << endl;
