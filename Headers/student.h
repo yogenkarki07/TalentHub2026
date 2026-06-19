@@ -17,6 +17,8 @@ using namespace std;
     vector<string> enrolledCourses;
  };
 
+int GenerateStudentID(vector<Student>& students);
+
 void StudentRegistration(vector<Student>& students);
 
 void StudentLogin(vector<Student>& students);

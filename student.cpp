@@ -6,6 +6,16 @@
 #include "Headers/filehandler.h"
 #include "Headers/course.h"
 
+int GenerateStudentID(vector<Student>& students) {
+    int maxID = 100;
+    for (Student& s : students) {
+        if (s.studentID > maxID) {
+            maxID = s.studentID;
+        }
+    }
+    return maxID +1 ;
+}
+
 void StudentRegistration(vector<Student>& students) {
 
     Student s;
@@ -16,8 +26,8 @@ void StudentRegistration(vector<Student>& students) {
     cout << "|                                                              |\n";
     cout << "+==============================================================+\n\n";
 
-    cout << "                   Student ID: ";
-    cin >> s.studentID;
+    s.studentID = GenerateStudentID(students);
+    cout << "                   Student ID: " << s.studentID << endl << endl;
 
     cout << "                   First name: ";
     cin >> s.firstname;
@@ -63,13 +73,14 @@ void StudentRegistration(vector<Student>& students) {
     cout << "                   Student Type (Domestic/International): ";
     getline(cin,s.type);
 
-    students.push_back(s);
-
     for (Student& existing : students) {
-        existing.email = s.email;
-        cout << "Invalid email! " << existing.email << " already registered !" << endl;
-        return;
+        if (existing.email == s.email) {
+            cout << "Invalid email ! " << s.email << " is already registered." << endl;
+            return;
+        }
     }
+
+    students.push_back(s);
 
     SaveStudentInfo(students);
 

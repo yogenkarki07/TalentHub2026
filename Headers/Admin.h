@@ -23,8 +23,14 @@ void AdminDashboard(Admin& loggedIn);
 
 void AdminLogin(vector<Admin>& admin);
 
-void AdminRegistration(vector<Admin>& admin);
+void AdminRegistration(vector<Admin>& admin, Admin& loggedIn);
 
 void AdminProfile(Admin& a);
 
 void SearchStudent();
+
+int AutoIDgenerator(vector<Student>& students);
+
+void AddStudent();
+
+void DeleteStudent();

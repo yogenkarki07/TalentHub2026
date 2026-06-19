@@ -37,7 +37,11 @@ using namespace std;
              break;
 
          case 4:
-             AdminLogin(admin);
+                 cout << "+==============================================================+\n";
+                 cout << "|                                                              |\n";
+                 cout << "|                THANK YOU FOR USING TALENT HUB                |\n";
+                 cout << "|                                                              |\n";
+                 cout << "+==============================================================+\n\n";
              break;
 
          default:

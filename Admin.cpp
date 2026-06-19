@@ -14,6 +14,16 @@ using namespace std;
 
 vector<Admin> admin;
 
+int AutoIDgenerator(vector<Student>& students) {
+	int maxID = 700;
+	for (Student& s : students) {
+		if (s.studentID == maxID) {
+			maxID = s.studentID;
+		}
+	}
+	return maxID + 1;
+}
+
 void AddStudent() {
 
 	ofstream file ("../File/students.csv", ios::app);
@@ -26,32 +36,37 @@ void AddStudent() {
 		return;
 	}
 
-	cout << "Enter Student ID: ";
-	cin >> s.studentID;
+	cout << "+===============================================+" << endl;
+	cout << "|               To register Student:            |" << endl;
+	cout << "|            Fill the form given below          |" << endl;
+	cout << "+===============================================+" << endl;
 
-	cout << "Enter First Name: ";
+	s.studentID = AutoIDgenerator(students);
+	cout << " Student ID: " << s.studentID << endl << endl;
+
+	cout << " First Name: ";
 	cin >> s.firstname;
 
-	cout << "Enter Last Name: ";
+	cout << " Last Name: ";
 	cin >> s.lastname;
 
-	cout << "Enter Age: ";
+	cout << " Age: ";
 	cin >> s.age;
 
 	cin.ignore();
 
 	do {
-		cout << "Email: ";
+		cout << " Email: ";
 		getline(cin,s.email);
 
 		if (!isValidEmail(s.email)) {
-			cout << "Invalid Email !" << endl;
+			cout << " Invalid Email !" << endl << endl;
 		}
 
 	}while (!isValidEmail(s.email));
 
 	do{
-		cout << "Password: ";
+		cout << " Password: ";
 		getline(cin,s.password);
 
 		if (!isValidPassword(s.password)){
@@ -64,23 +79,21 @@ void AddStudent() {
 		}
 	}while (!isValidPassword(s.password));
 
-	cout << "Phone Number: ";
+	cout << " Phone Number: ";
 	getline(cin,s.phone);
 
-	cout << "Address: ";
+	cout << " Address: ";
 	getline(cin,s.address);
 
-	cout << "Student Type (Domestic/International): ";
+	cout << " Student Type (Domestic/International): ";
 	getline(cin,s.type);
-
-	// file << "StudentID,FirstName,LastName,Age,Email,Password,Phone,Address,Type" << endl;
 
 	file << s.studentID << "," << s.firstname << "," << s.lastname << "," << s.age << "," << s.email << "," << s.password << "," << s.phone << "," << s.address << "," << s.type << endl;
 
 	file.close();
 
 	cout << "+===========================================================+\n"
-	        "|   Successfully added student to the 'students.cvs file'.  |\n"
+	        "|             New student registered Successfully.          |\n"
 	        "+===========================================================+\n";
 }
 
@@ -101,9 +114,10 @@ void DeleteStudent() {
 	bool found = false;
 
 	cout << "+===============================================+" << endl;
-	cout << "|               Remove Student                  |" << endl;
+	cout << "|               To Delete Student:              |" << endl;
+	cout << "|            Provide Student's Email.           |" << endl;
 	cout << "+===============================================+" << endl;
-	cout << "Enter student's email: ";
+	cout << "   Enter student's email: ";
 	cin >> targetEmail;
 
 	while (getline(file, line)) {
@@ -124,10 +138,10 @@ void DeleteStudent() {
 		}
 		outFile.close();
 
-		cout << "Student with email " << targetEmail << " has been deleted.\n";
+		cout << "     Student with email " << targetEmail << " has been deleted.\n";
 	}
 	else {
-		cout << "Student record not found.\n";
+		cout << "     Student record not found.\n";
 	}
 }
 
@@ -169,7 +183,6 @@ void AdminLogin(vector<Admin>& admin){
 void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
 	ifstream check("../File/Admin.csv");
-
 
 	bool writeHeader = false;
 
@@ -218,31 +231,34 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 		getline(cin,a.Email);
 
 		if (!isValidAdminEmail(a.Email)) {
-			cout << setw(40) << "Invalid Email !" << endl;
+			cout << setw(40) << "Invalid Email !" << endl << endl;
 		}
 
 	}while (!isValidAdminEmail(a.Email));
+
+	ranges::transform(a.Email, a.Email.begin(), ::tolower);
 
 	do{
 		cout << setw(30) << "Password: ";
 		getline(cin,a.Password);
 
 		if (!isValidPassword(a.Password)){
-			cout << setw(40) << "Password must contain: " << endl;
-			cout << setw(40) << " - Minimum 8 characters " << endl;
-			cout << setw(40) << " - Uppercase character " << endl;
-			cout << setw(40) << " - Lowercase character " << endl;
-			cout << setw(40) << " - Number" << endl;
-			cout << setw(40) << " - Special character \n\n";
+			cout << setw(30) << "Password must contain: " << endl;
+			cout << setw(30) << " - Minimum 8 characters " << endl;
+			cout << setw(30) << " - Uppercase character " << endl;
+			cout << setw(30) << " - Lowercase character " << endl;
+			cout << setw(30) << " - Number" << endl;
+			cout << setw(30) << " - Special character \n\n";
 		}
 	}while (!isValidPassword(a.Password));
 
 	admin.push_back(a);
 
 	for (Admin& existing : admin) {
-		existing.Email = a.Email;
-		cout <<  "Invalid email! " << a.Email << " already registered !" << endl;
-		return;
+		if (existing.Email == a.Email) {
+			cout << setw(30) << "Invalid Email! " << a.Email << " is already registered." << endl << endl;
+			return;
+		}
 	}
 
 	if (writeHeader) {
@@ -398,12 +414,12 @@ void SearchStudent() {
 
 			// Step 6: Print searched student details
 			cout << "+=====================================+\n";
-			cout << "Student ID: " << s.studentID << endl;
-			cout << "Name: " << s.firstname << " " << s.lastname  << endl;
-			cout << "Email: " << s.email << endl;
-			cout << "Address: " << s.address << endl;
-			cout << "Type: " << s.type << endl;
-			cout << "+=====================================+\n";
+			cout << setw(10) << "Student ID: " << s.studentID << endl;
+			cout << setw(10) << "Name: " << s.firstname << " " << s.lastname  << endl;
+			cout << setw(10) << "Email: " << s.email << endl;
+			cout << setw(10) << "Address: " << s.address << endl;
+			cout << setw(10) << "Type: " << s.type << endl;
+			cout << setw(10) << "+=====================================+\n";
 
 			found = true;
 		}
@@ -414,7 +430,7 @@ void SearchStudent() {
 	// Step 7: If nothing was found, let the admin know
 	if (!found) {
 		    cout << "\n==============================================\n"
-					"\nNo student found with the name " << query <<
+					"\n  No student found with the name " << query <<
 					"\n===============================================\n" << endl;
 	}
 }
@@ -507,20 +523,20 @@ void AdminDashboard(Admin& loggedIn) {
     });
 
     // print international
-    std::cout << "+===========================================================+\n";
-    std::cout << "|          List of International Students                  |\n";
-    std::cout << "+===========================================================+\n";
+    cout << "+===========================================================+\n";
+    cout << "|          List of International Students                  |\n";
+    cout << "+===========================================================+\n";
     for (const auto& s : students) {
         if (s.type == "International") {
-            std::cout << "ID:      " << s.studentID << "\n";
-            std::cout << "Name:    " << s.firstname << " " << s.lastname << "\n";
-            std::cout << "Age:     " << s.age << "\n";
-            std::cout << "Email:   " << s.email << "\n";
-            std::cout << "Phone:   " << s.phone << "\n";
-            std::cout << "==========================================================\n";
+            cout << setw(10) << "ID:      " << s.studentID << "\n";
+            cout << setw(10) << "Name:    " << s.firstname << " " << s.lastname << "\n";
+            cout << setw(10) << "Age:     " << s.age << "\n";
+            cout << setw(10) << "Email:   " << s.email << "\n";
+            cout << setw(10) << "Phone:   " << s.phone << "\n";
+            cout << "==========================================================\n";
         }
     }
-				ostream operator<<(const ostream & lhs, const vector<std::string> & rhs);
+				ostream operator<<(const ostream & lhs, const vector<string> & rhs);
 }
 				break;
 
@@ -585,12 +601,12 @@ void AdminDashboard(Admin& loggedIn) {
     for (const auto& s : students) {
         if (s.type == "Domestic") {
             cout << "============================================================\n";
-            cout << "Student ID: "<< s.studentID << endl;
-            cout << "Name:    " << s.firstname << " " << s.lastname << endl;
-            cout << "Age:     " << s.age << endl;
-            cout << "Email:   " << s.email << endl;
-            cout << "Phone:   " << s.phone << endl;
-            cout << "Address: " << s.address << endl;
+            cout << setw(10) << "Student ID: "<< s.studentID << endl;
+            cout << setw(10) << "Name:    " << s.firstname << " " << s.lastname << endl;
+            cout << setw(10) << "Age:     " << s.age << endl;
+            cout << setw(10) << "Email:   " << s.email << endl;
+            cout << setw(10) << "Phone:   " << s.phone << endl;
+            cout << setw(10) << "Address: " << s.address << endl;
             cout << "============================================================\n";
             foundDomestic = true;
         }
