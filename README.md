@@ -32,9 +32,9 @@ Passwords must contain:
 - Number
 - Special character
 
-## Sample Admin Emails
+## Admin Email Rules
 - Email must contain @talenthub.com
 
-## Sample Student Emails
+## Student Email Rules
 - Email must contain @gmail.com
   
