@@ -89,8 +89,48 @@ void AddStudent() {
 	        "+===========================================================+\n";
 }
 
+void RemoveStudentEnrollments(const string& studentID) {
+	if (studentID.empty()) {
+		return;
+	}
 
-//=================== delete student ============================//
+	ifstream inFile("../File/enrollments.csv");
+
+	if (!inFile.is_open()) {
+		return;
+	}
+
+	vector<string> keptLines;
+	string line;
+	bool isHeader = true;
+
+	while (getline(inFile, line)) {
+		if (isHeader) {
+			keptLines.push_back(line);
+			isHeader = false;
+			continue;
+		}
+
+		if (line.empty()) {
+			continue;
+		}
+
+		size_t commaPos = line.find(',');
+		string lineStudentID = (commaPos != string::npos) ? line.substr(0, commaPos) : line;
+
+		if (lineStudentID != studentID) {
+			keptLines.push_back(line);
+		}
+
+	}
+	inFile.close();
+
+	ofstream outFile("../File/enrollments.csv");
+	for (const auto& l : keptLines) outFile << l << "\n";
+	outFile.close();
+
+}
+
 void DeleteStudent() {
 
 	ifstream file("../File/students.csv");
@@ -104,6 +144,7 @@ void DeleteStudent() {
 	string line, targetEmail;
 
 	bool found = false;
+	string DeletedStudentID;
 
 	cout << "+===============================================+" << endl;
 	cout << "|               To Delete Student:              |" << endl;
@@ -118,6 +159,10 @@ void DeleteStudent() {
 		}
 		else {
 			found = true;
+			size_t commaPos = line.find(',');
+			if (commaPos != string::npos) {
+				DeletedStudentID = line.substr(0, commaPos);
+			}
 		}
 	}
 
@@ -130,7 +175,9 @@ void DeleteStudent() {
 		}
 		outFile.close();
 
-		cout << "     Student with email " << targetEmail << " has been deleted.\n";
+		RemoveStudentEnrollments(DeletedStudentID);
+
+		cout << "     Student with email" << " ' " << targetEmail  << " ' " << "has been deleted along with enrolled courses.\n";
 	}
 	else {
 		cout << "     Student record not found.\n";

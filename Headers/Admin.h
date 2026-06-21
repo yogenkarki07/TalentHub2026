@@ -32,3 +32,5 @@ void SearchStudent();
 void AddStudent();
 
 void DeleteStudent();
+
+ void RemoveStudentEnrollments(const string& studentID);
