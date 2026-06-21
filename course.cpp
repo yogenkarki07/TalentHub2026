@@ -91,12 +91,12 @@ void showMyCourses(const Student& currentStudent){
 
 void coursesFlow(Student& currentStudent, vector<Student>& students){
     Course c;
-    // initializeCourses(c);
     int choice;
+
     do {
         CourseMenu();
         if (!(cin >> choice)){
-            cout << "Invalid input! Please enter a number: ";
+            cout << setw(70) << "Invalid input! Please enter a number: " << endl << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;

@@ -101,6 +101,8 @@ void StudentLogin(vector<Student>& students) {
     cout << "|                                                              |\n";
     cout << "+==============================================================+\n\n";
 
+    cin.ignore();         // input buffer clearing
+
     cout << "                   Email: ";
     getline(cin, email);
 

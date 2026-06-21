@@ -17,9 +17,12 @@ using namespace std;
 
      do {
          DisplayMenu();
-         cin >> choice;
-
-         cin.ignore(numeric_limits<streamsize>::max(), '\n');             //proper input buffer clearing
+         if (!(cin >> choice)){
+             cout << "                                           Invalid input! Please enter a number: " << endl << endl;
+             cin.clear();
+             cin.ignore(numeric_limits<streamsize>::max(), '\n');      //proper input buffer clearing
+             continue;
+         }
 
          switch (choice){
          case 1:
