@@ -39,6 +39,7 @@ void showCourses(Course& c){
     for (int i = 0; i < c.availableCourses.size(); i++){
         cout << setw(35) << i + 1 << "." << c.availableCourses[i] << endl << endl;
     }
+    cout << "+==============================================================================================+ \n";
 }
 
 void enrollCourse(Course& c, Student& currentStudent, vector<Student>& students, int choice){
@@ -87,6 +88,7 @@ void showMyCourses(const Student& currentStudent){
     for (int i = 0; i < currentStudent.enrolledCourses.size(); i++){
         cout << setw(35) << i + 1 << "." << currentStudent.enrolledCourses[i] << endl;
     }
+    cout << "+==============================================================================================+ \n";
 }
 
 void coursesFlow(Student& currentStudent, vector<Student>& students){

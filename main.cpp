@@ -40,7 +40,7 @@ using namespace std;
              break;
 
          case 4:
-                 cout << "+==============================================================+\n";
+                 cout << "\n+==============================================================+\n";
                  cout << "|                                                              |\n";
                  cout << "|                THANK YOU FOR USING TALENT HUB                |\n";
                  cout << "|                                                              |\n";
@@ -48,7 +48,7 @@ using namespace std;
              break;
 
          default:
-             cout << "Invalid Choice. Please, choose Between 1 to 4. \n";
+             cout << "Invalid Choice. Please, choose Between 1 to 4. \n\n";
              break;
          }
      } while (choice != 4);

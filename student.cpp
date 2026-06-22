@@ -20,14 +20,14 @@ void StudentRegistration(vector<Student>& students) {
 
     Student s;
 
-    cout << "+==============================================================+\n";
+    cout << "\n+==============================================================+\n";
     cout << "|                                                              |\n";
     cout << "|                  Student Registration Form                   |\n";
     cout << "|                                                              |\n";
     cout << "+==============================================================+\n\n";
 
     s.studentID = GenerateStudentID(students);
-    cout << "                   Student ID: " << s.studentID << endl << endl;
+    cout << "                   Student ID: " << s.studentID << endl;
 
     cout << "                   First name: ";
     cin >> s.firstname;
@@ -95,7 +95,7 @@ void StudentRegistration(vector<Student>& students) {
 void StudentLogin(vector<Student>& students) {
     string password, email;
 
-    cout << "+==============================================================+\n";
+    cout << "\n+==============================================================+\n";
     cout << "|                                                              |\n";
     cout << "|                      Student Login                           |\n";
     cout << "|                                                              |\n";

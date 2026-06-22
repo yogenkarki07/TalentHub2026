@@ -29,13 +29,13 @@ void AddStudent() {
 		return;
 	}
 
-	cout << "+===============================================+" << endl;
+	cout << "\n+===============================================+" << endl;
 	cout << "|               To register Student:            |" << endl;
 	cout << "|            Fill the form given below          |" << endl;
-	cout << "+===============================================+" << endl;
+	cout << "+===============================================+" << endl <<endl;
 
 	s.studentID = GenerateStudentID(students);
-	cout << " Student ID: " << s.studentID << endl << endl;
+	cout << " Student ID: " << s.studentID << endl;
 
 	cout << " First Name: ";
 	cin >> s.firstname;
@@ -85,9 +85,9 @@ void AddStudent() {
 
 	file.close();
 
-	cout << "+===========================================================+\n"
+	cout << "\n+===========================================================+\n"
 	        "|             New student registered Successfully.          |\n"
-	        "+===========================================================+\n";
+	        "+===========================================================+\n\n";
 }
 
 void RemoveStudentEnrollments(const string& studentID) {
@@ -147,10 +147,10 @@ void DeleteStudent() {
 	bool found = false;
 	string DeletedStudentID;
 
-	cout << "+===============================================+" << endl;
+	cout << "\n+===============================================+" << endl;
 	cout << "|               To Delete Student:              |" << endl;
 	cout << "|            Provide Student's Email.           |" << endl;
-	cout << "+===============================================+" << endl;
+	cout << "+===============================================+" << endl <<endl;
 	cout << "   Enter student's email: ";
 	cin >> targetEmail;
 
@@ -247,7 +247,7 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 		return;
 	}
 
-	cout <<      "+=====================================================+\n"
+	cout <<      "\n+=====================================================+\n"
 	             "|                                                     |\n"
 	             "|                   Admin Registration                |\n"
 	             "|                                                     |\n"
@@ -316,7 +316,7 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 void AdminMenu(Admin& loggedIn){
 	int menu =0;
 	 do {
-		     cout << "+==========================================================+\n"
+		     cout << "\n+==========================================================+\n"
 		             "|                                                          |\n"
 		             "|                   Welcome to Admin Dashboard             |\n"
 		             "|                                                          |\n"
@@ -328,7 +328,7 @@ void AdminMenu(Admin& loggedIn){
 		     cout << "                       Enter your choice: ";
 
 		if (!(cin >> menu)){
-			cout << setw(55) << "Invalid input! Please enter a number: " << endl << endl;
+			cout << setw(55) << "\n Invalid input! Please enter a number: " << endl << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			continue;
@@ -363,15 +363,15 @@ void AdminMenu(Admin& loggedIn){
 
 				if (found) {
 					cout <<
-						"+====================================================+\n"
+						"\n+====================================================+\n"
 						"|                   Login successful!                |\n"
-						"+====================================================+\n";
+						"+====================================================+\n\n";
 					     AdminDashboard(loggedIn);
 				} else {
 					cout <<
-								 "+====================================================+\n"
+								 "\n+====================================================+\n"
 								 "|              Incorrect email / password.           |\n"
-								 "+====================================================+\n";
+								 "+====================================================+\n\n";
 					AdminMenu(loggedIn);
 				}
 				break;
@@ -399,9 +399,9 @@ void SearchStudent() {
 
 	string query;
 
-	cout << "+===============================================+" << endl;
+	cout << "\n+===============================================+" << endl;
 	cout << "|               Searching Student ?             |" << endl;
-	cout << "+===============================================+" << endl;
+	cout << "+===============================================+" << endl <<endl;
 	cout << " Enter student's name: ";
 
 	cin.ignore();
@@ -457,17 +457,17 @@ void SearchStudent() {
 		// Check if the search query appears in first OR last name
 		string fullName = s.firstname + " " + s.lastname;
 
-		if (toLower(fullName).find(toLower(query)) != string::npos) {
+		if (toLower(fullName).find(toLower(query)) != st ring::npos) {
 
 			// Step 6: Print searched student details
-			cout << "+=====================================+\n";
+			cout << "\n+=====================================+\n";
 			cout << setw(15) << "Student ID: " << s.studentID << endl;
 			cout << setw(10) << "Name: " << s.firstname << " " << s.lastname  << endl;
 			cout << setw(10) << "Age: " << s.age << endl;
 			cout << setw(10) << "Email: " << s.email << endl;
 			cout << setw(10) << "Address: " << s.address << endl;
 			cout << setw(10) << "Type: " << s.type << endl;
-			cout << setw(10) << "+=====================================+\n";
+			cout << "+=====================================+\n\n";
 
 			found = true;
 		}
@@ -487,7 +487,7 @@ void AdminDashboard(Admin& loggedIn) {
 	int view = 0;
 
 	while (view != 6) {
-		cout << "+========================================================================+\n"
+		cout << "\n+========================================================================+\n"
 				"|                                                                        |\n"
 				"|                               Admin Dashboard                          |\n"
 				"|                                                                        |\n"
@@ -499,11 +499,11 @@ void AdminDashboard(Admin& loggedIn) {
 				"|                                      |                                |\n"
 				"|      5. Search Student               |      6. Exit                   |\n"
 				"|                                      |                                |\n"
-				"+=======================================================================+\n";
+				"+=======================================================================+\n\n";
 		cout << "                               Enter your choice: ";
 
 		if (!(cin >> view)){
-			cout << setw(60) << "Invalid input! Please enter a number: " << endl << endl;
+			cout << setw(60) << "\n Invalid input! Please enter a number: " << endl << endl;
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			continue;
@@ -579,17 +579,18 @@ void AdminDashboard(Admin& loggedIn) {
     });
 
     // print international
-    cout << "+===========================================================+\n";
+    cout << "\n+===========================================================+\n";
     cout << "|          List of International Students                  |\n";
     cout << "+===========================================================+\n";
     for (const auto& s : students) {
         if (s.type == "International") {
+        	cout << "==========================================================\n\n";
             cout << setw(20) << "Student ID:      " << s.studentID << "\n";
             cout << setw(20) << "Name:    " << s.firstname << " " << s.lastname << "\n";
             cout << setw(20) << "Age:     " << s.age << "\n";
             cout << setw(20) << "Email:   " << s.email << "\n";
             cout << setw(20) << "Phone:   " << s.phone << "\n";
-            cout << "==========================================================\n";
+            cout << "==========================================================\n\n";
         }
     }
 				ostream operator<<(const ostream & lhs, const vector<string> & rhs);
@@ -650,20 +651,20 @@ void AdminDashboard(Admin& loggedIn) {
 
     file.close();
 
-    cout << "+============================================================+\n";
+    cout << "\n+============================================================+\n";
     cout << "|                  List of Domestic Students                 |\n";
     cout << "+============================================================+\n";
     bool foundDomestic = false;
     for (const auto& s : students) {
         if (s.type == "Domestic") {
-            cout << "============================================================\n";
+            cout << "\n+============================================================+\n";
             cout << setw(20) << "Student ID: "<< s.studentID << endl;
             cout << setw(20) << "Name:    " << s.firstname << " " << s.lastname << endl;
             cout << setw(20) << "Age:     " << s.age << endl;
             cout << setw(20) << "Email:   " << s.email << endl;
             cout << setw(20) << "Phone:   " << s.phone << endl;
             cout << setw(20) << "Address: " << s.address << endl;
-            cout << "============================================================\n";
+            cout << "+============================================================+\n\n";
             foundDomestic = true;
         }
     }
@@ -679,9 +680,9 @@ void AdminDashboard(Admin& loggedIn) {
 
 					case 6:
 					cout <<
-						"+==========================================+\n"
+						"\n+==========================================+\n"
 						"|      You are logging out. Thank you!     |\n"
-						"+==========================================+\n";
+						"+==========================================+\n\n";
 					DisplayMenu();
 					break;
 
