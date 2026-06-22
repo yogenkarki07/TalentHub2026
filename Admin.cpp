@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -222,6 +221,9 @@ void AdminLogin(vector<Admin>& admin){
 
 void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
+	admin.clear();
+	AdminLogin(admin);
+
 	ifstream check("../File/Admin.csv");
 
 	bool writeHeader = false;
@@ -292,7 +294,6 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 		}
 	}while (!isValidPassword(a.Password));
 
-	admin.push_back(a);
 
 	for (Admin& existing : admin) {
 		if (existing.Email == a.Email) {
@@ -301,11 +302,13 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 		}
 	}
 
+	admin.push_back(a);
+
 	if (writeHeader) {
-		file << "FirstName,LastName,Age,Email,Password" << endl;
+		file << "FirstName,LastName,Age,Email,Password\r\n";
 	}
 
-	file << a.Firstname << "," << a.Lastname << "," << a.age << "," << a.Email << "," << a.Password << endl;
+	file << a.Firstname << "," << a.Lastname << "," << a.age << "," << a.Email << "," << a.Password << "\r\n";
 
 	file.close();
 
@@ -367,6 +370,7 @@ void AdminMenu(Admin& loggedIn){
 						"|                   Login successful!                |\n"
 						"+====================================================+\n\n";
 					     AdminDashboard(loggedIn);
+						 return;
 				} else {
 					cout <<
 								 "\n+====================================================+\n"
@@ -381,7 +385,7 @@ void AdminMenu(Admin& loggedIn){
 				cout << setw(25) << "Invalid choice !" << endl;
 				break;
 		}
-	}while (menu != 4);
+	}while (menu != 2);
 }
 
 string toLower(const string& text) {
@@ -410,7 +414,9 @@ void SearchStudent() {
 	ifstream file ("../File/students.csv");
 
 	if (!file.is_open()) {
-		cout << "Cannot open 'students.csv' file. " << endl;
+		cout << "\n+=====================================================+\n"
+				"\n|		Cannot open 'students.csv' file.			 |\n"
+				"\n+=====================================================+\n"<< endl;
 		return;
 	}
 
@@ -457,7 +463,7 @@ void SearchStudent() {
 		// Check if the search query appears in first OR last name
 		string fullName = s.firstname + " " + s.lastname;
 
-		if (toLower(fullName).find(toLower(query)) != st ring::npos) {
+		if (toLower(fullName).find(toLower(query)) != string::npos) {
 
 			// Step 6: Print searched student details
 			cout << "\n+=====================================+\n";
@@ -683,8 +689,7 @@ void AdminDashboard(Admin& loggedIn) {
 						"\n+==========================================+\n"
 						"|      You are logging out. Thank you!     |\n"
 						"+==========================================+\n\n";
-					DisplayMenu();
-					break;
+					return;
 
 					default:
 					cout << "Invalid Choice ! " << endl;
