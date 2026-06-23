@@ -17,7 +17,7 @@ vector<Admin> admin;
 
 void AddStudent() {
 
-	ofstream file ("../File/students.csv", ios::app);
+	ofstream file ("File/students.csv", ios::app);
 
 	vector<Student>students;
 	LoadStudentInfo ( students);
@@ -94,7 +94,7 @@ void RemoveStudentEnrollments(const string& studentID) {
 		return;
 	}
 
-	ifstream inFile("../File/enrollments.csv");
+	ifstream inFile("File/enrollments.csv");
 
 	if (!inFile.is_open()) {
 		return;
@@ -125,7 +125,7 @@ void RemoveStudentEnrollments(const string& studentID) {
 	}
 	inFile.close();
 
-	ofstream outFile("../File/enrollments.csv");
+	ofstream outFile("File/enrollments.csv");
 	for (const auto& l : keptLines) outFile << l << "\n";
 	outFile.close();
 
@@ -133,7 +133,7 @@ void RemoveStudentEnrollments(const string& studentID) {
 
 void DeleteStudent() {
 
-	ifstream file("../File/students.csv");
+	ifstream file("File/students.csv");
 
 	if (!file.is_open()) {
 		cerr << "Error: Could not open 'student.csv' file.\n";
@@ -169,7 +169,7 @@ void DeleteStudent() {
 	file.close();
 
 	if (found) {
-		ofstream outFile("../File/students.csv");
+		ofstream outFile("File/students.csv");
 		for (const auto& l : lines) {
 			outFile << l << "\n";
 		}
@@ -185,10 +185,12 @@ void DeleteStudent() {
 }
 
 void AdminLogin(vector<Admin>& admin){
-	ifstream file("../File/Admin.csv");
+	ifstream file("File/Admin.csv");
 	string line;
-
-	getline(file, line); // skip header row
+	if (!file.is_open()) {
+		cerr << "Cannot open Admin.csv\n";
+		//return;
+	}
 
 	while (getline(file, line)) {
 		if (line.empty())
@@ -221,10 +223,7 @@ void AdminLogin(vector<Admin>& admin){
 
 void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
-	admin.clear();
-	AdminLogin(admin);
-
-	ifstream check("../File/Admin.csv");
+	ifstream check("File/Admin.csv");
 
 	bool writeHeader = false;
 
@@ -242,7 +241,7 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
 	check.close();
 
-	ofstream file("../File/Admin.csv", ios::app);
+	ofstream file("File/Admin.csv", ios::app);
 
 	if (!file.is_open()) {
 		cout << "Cannot open file to continue.\n";
@@ -353,10 +352,10 @@ void AdminMenu(Admin& loggedIn){
 
 				cout << setw(25) << " Password: ";
 				cin >> inputPassword;
-
 				bool found = false;
 
 				for (const Admin& a : admin) {
+					cout << inputEmail << " " << inputPassword << endl;
 					if (inputEmail == a.Email && inputPassword == a.Password) {
 						loggedIn = a;
 						found = true;
@@ -411,7 +410,7 @@ void SearchStudent() {
 	cin.ignore();
 	getline(cin, query);
 
-	ifstream file ("../File/students.csv");
+	ifstream file ("File/students.csv");
 
 	if (!file.is_open()) {
 		cout << "\n+=====================================================+\n"
@@ -526,7 +525,7 @@ void AdminDashboard(Admin& loggedIn) {
 				break;
 
 			case 3: {
-				ifstream file ("../File/students.csv");
+				ifstream file ("File/students.csv");
                 string line;
 
                  if (!file.is_open()) {
@@ -604,7 +603,7 @@ void AdminDashboard(Admin& loggedIn) {
 				break;
 
 			case 4: {
-                      ifstream file ("../File/students.csv");
+                      ifstream file ("File/students.csv");
 				      string line;
 
 				if (!file.is_open()) {

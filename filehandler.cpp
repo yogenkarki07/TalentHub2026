@@ -9,7 +9,7 @@ using namespace std;
 
 // Store data after registration
 void SaveStudentInfo(vector<Student>& students) {
-    ofstream file ("../File/students.csv");
+    ofstream file ("File/students.csv");
 
     if (!file.is_open()){
         cout << " 'students.csv' could not be opened. " << endl;
@@ -30,7 +30,7 @@ void SaveStudentInfo(vector<Student>& students) {
 void LoadStudentInfo(vector<Student>& students) {
     students.clear();
 
-    ifstream file ("../File/students.csv");
+    ifstream file ("File/students.csv");
     if (!file) {
         return;
     }
@@ -95,7 +95,7 @@ void LoadStudentInfo(vector<Student>& students) {
 }
 
 void SaveCourseEnrollments( vector<Student>& students) {
-    ofstream file ("../File/enrollments.csv");
+    ofstream file ("File/enrollments.csv");
 
     if (!file. is_open()) {
         cout << " 'enrollments.csv' file cannot be opened. " << endl;
@@ -114,7 +114,7 @@ void SaveCourseEnrollments( vector<Student>& students) {
 }
 
 void LoadCourseEnrollments (vector<Student>& students) {
-    ifstream file ("../File/enrollments.csv");
+    ifstream file ("File/enrollments.csv");
 
     if (!file.is_open()) {
         return;
