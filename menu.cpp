@@ -42,7 +42,7 @@ using namespace std;
     std::cout << "| " << std::string(INNER_WIDTH, ' ') << " |\n";
 
     std::cout << horizontalBorder << "\n";
-    std::cout << std::setw(70) << "Enter your choice:  ";
+    std::cout << std::setw(70) << " Enter your choice:  ";
 
     }
 

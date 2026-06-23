@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
+#include <algorithm>
 
 #include "Headers/student.h"
 #include "Headers/validation.h"
@@ -20,62 +22,62 @@ void StudentRegistration(vector<Student>& students) {
 
     Student s;
 
-    cout << "\n+==============================================================+\n";
-    cout << "|                                                              |\n";
-    cout << "|                  Student Registration Form                   |\n";
-    cout << "|                                                              |\n";
-    cout << "+==============================================================+\n\n";
+    cout << "\n+===============================================================================================+\n";
+    cout << "|                                                                                               |\n";
+    cout << "|                                  Student Registration Form                                    |\n";
+    cout << "|                                                                                               |\n";
+    cout << "+===============================================================================================+\n\n";
 
     s.studentID = GenerateStudentID(students);
-    cout << "                   Student ID: " << s.studentID << endl;
+    cout << setw(55) << "Student ID: " << s.studentID << endl;
 
-    cout << "                   First name: ";
+    cout << setw(55) << "\n First name: ";
     cin >> s.firstname;
 
-    cout << "                   Last name: ";
+    cout << setw(55) << "\n Last name: ";
     cin >> s.lastname;
 
-    cout << "                   Age: ";
+    cout << setw(55) << "\n Age: ";
     cin >> s.age;
 
     cin.ignore();
 
     do {
-        cout << "                   Email: ";
+        cout << setw(55) << "\n Email: ";
         getline(cin,s.email);
 
         if (!isValidEmail(s.email)) {
-            cout << "                   Invalid Email !" << endl;
+            cout << setw(55) << "\n Invalid Email !" << endl;
         }
 
     }while (!isValidEmail(s.email));
 
     do{
-        cout << "                   Password: ";
+        cout << setw(55) << "\n Password: ";
         getline(cin,s.password);
 
         if (!isValidPassword(s.password)){
-            cout << "                   Password must contain: " << endl;
-            cout << "                   - Minimum 8 characters " << endl;
-            cout << "                   - Uppercase character " << endl;
-            cout << "                   - Lowercase character " << endl;
-            cout << "                   - Number" << endl;
-            cout << "                   - Special character \n\n";
+            cout << setw(55) << "\n Password must contain: " << endl;
+            cout << setw(55) << " - Minimum 8 characters " << endl;
+            cout << setw(55) << " - Uppercase character " << endl;
+            cout << setw(55) << " - Lowercase character " << endl;
+            cout << setw(55) << " - Number" << endl;
+            cout << setw(55) << " - Special character \n\n";
         }
     }while (!isValidPassword(s.password));
 
-    cout << "                   Phone Number: ";
+    cout << setw(55) << "\n Phone Number: ";
     getline(cin,s.phone);
 
-    cout << "                   Address: ";
+    cout << setw(55) << "\n Address: ";
     getline(cin,s.address);
 
-    cout << "                   Student Type (Domestic/International): ";
+    cout << setw(55) << "\n Student Type (Domestic/International): ";
     getline(cin,s.type);
 
-    for (Student& existing : students) {
+    for (const Student& existing : students) {
         if (existing.email == s.email) {
-            cout << "Invalid email ! " << s.email << " is already registered." << endl;
+            cout << setw(55) << "Invalid email ! " << s.email << " is already registered." << endl;
             return;
         }
     }
@@ -84,46 +86,48 @@ void StudentRegistration(vector<Student>& students) {
 
     SaveStudentInfo(students);
 
-    cout << "+----------------------------------------------------------------+ \n\n";
+    cout << "\n+-----------------------------------------------------------------------------------------------------------+ \n\n";
 
-    cout << "|                      Registration successful.                  | \n\n";
+    cout << "|                                  Student Registered Successfully !                                        | \n\n";
 
-    cout << "+----------------------------------------------------------------+ \n\n";
+    cout << "+-----------------------------------------------------------------------------------------------------------+ \n\n";
 
 }
 
 void StudentLogin(vector<Student>& students) {
     string password, email;
 
-    cout << "\n+==============================================================+\n";
-    cout << "|                                                              |\n";
-    cout << "|                      Student Login                           |\n";
-    cout << "|                                                              |\n";
-    cout << "+==============================================================+\n\n";
+    cout << "\n+===============================================================================================+\n";
+    cout << "|                                                                                               |\n";
+    cout << "|                                        Student Login                                          |\n";
+    cout << "|                                                                                               |\n";
+    cout << "+===============================================================================================+\n\n";
 
     cin.ignore();         // input buffer clearing
 
-    cout << "                   Email: ";
+    cout << setw(55) << "\n Email: ";
     getline(cin, email);
 
-    cout << "                   Password: ";
+    cout << setw(55) << "\n Password: ";
     getline(cin, password);
 
     for (Student& s : students){
         if ( s.email == email && s.password == password){
-            cout << "+--------------------------------------------------------------+\n\n";
 
-            cout << "|                Log-in successful.                           |\n\n";
+            cout << "\n+-------------------------------------------------------------------------------------------------+ \n\n";
 
-            cout << "+-------------------------------------------------------------+\n\n";
+            cout << "|                               Student Logged-In Successfully !                                  | \n\n";
+
+            cout << "+-------------------------------------------------------------------------------------------------+ \n\n";
 
             coursesFlow( s, students);
             return;
         }
     }
-    cout << "+--------------------------------------------------------------+\n\n";
+    cout << "\n+-------------------------------------------------------------------------------------------------+ \n\n";
 
-    cout << "|                  Invalid Email/Password.                     |\n\n";
+    cout << "|                                Invalid Email / Password !                                       | \n\n";
 
-    cout << "+--------------------------------------------------------------+\n\n";
+    cout << "+-------------------------------------------------------------------------------------------------+ \n\n";
+
 }

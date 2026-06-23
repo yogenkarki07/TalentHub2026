@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 
 #include <limits>
 #include "Headers/menu.h"
@@ -18,7 +19,7 @@ using namespace std;
      do {
          DisplayMenu();
          if (!(cin >> choice)){
-             cout << "                                           Invalid input! Please enter a number: " << endl << endl;
+             cout << "\n                                           Invalid input! Please enter a number: " << endl << endl;
              cin.clear();
              cin.ignore(numeric_limits<streamsize>::max(), '\n');      //proper input buffer clearing
              continue;
@@ -40,15 +41,15 @@ using namespace std;
              break;
 
          case 4:
-                 cout << "\n+==============================================================+\n";
-                 cout << "|                                                              |\n";
-                 cout << "|                THANK YOU FOR USING TALENT HUB                |\n";
-                 cout << "|                                                              |\n";
-                 cout << "+==============================================================+\n\n";
+                 cout << "\n+===================================================================+\n";
+                 cout << "|                                                                   |\n";
+                 cout << "|                   THANK YOU FOR USING TALENT HUB                  |\n";
+                 cout << "|                                                                   |\n";
+                 cout << "+===================================================================+\n\n";
              break;
 
          default:
-             cout << "Invalid Choice. Please, choose Between 1 to 4. \n\n";
+             cout << "\n                                           Invalid Choice. Please, choose Between 1 to 4. \n\n";
              break;
          }
      } while (choice != 4);

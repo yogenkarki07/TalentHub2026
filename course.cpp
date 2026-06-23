@@ -32,21 +32,21 @@ void CourseMenu() {
 }
 
 void showCourses(Course& c){
-    cout << "+==============================================================================================+ \n";
+    cout << "\n+==============================================================================================+ \n";
     cout << "|                                   ALL AVAILABLE COURSES                                      | \n";
-    cout << "+==============================================================================================+ \n";
+    cout << "+==============================================================================================+ \n\n";
 
     for (int i = 0; i < c.availableCourses.size(); i++){
         cout << setw(35) << i + 1 << "." << c.availableCourses[i] << endl << endl;
     }
-    cout << "+==============================================================================================+ \n";
+    cout << "+==============================================================================================+ \n\n";
 }
 
 void enrollCourse(Course& c, Student& currentStudent, vector<Student>& students, int choice){
     cout << setw(55) << "Current Course Count: " << App::currentStudentCourseCount << endl << endl;
 
     if (choice < 1 || choice > c.availableCourses.size()){
-        cout << setw(55) << "Invalid choice!\n";
+        cout << setw(55) << "\nInvalid choice!\n\n";
         return;
     }
 
@@ -54,13 +54,13 @@ void enrollCourse(Course& c, Student& currentStudent, vector<Student>& students,
 
     for (auto course : currentStudent.enrolledCourses){
         if (course == selectedCourse){
-            cout << setw(65) << "You have already enrolled in this course!" << endl;
+            cout << setw(65) << "You have already enrolled in this course!" << endl << endl;
             return;
         }
     }
 
     if (App::currentStudentCourseCount >= 3){
-        cout << setw(55) << "Maximum 3 courses allowed!" << endl;
+        cout << setw(55) << "Maximum 3 courses allowed!" << endl << endl;
         return;
     }
 
@@ -86,9 +86,8 @@ void showMyCourses(const Student& currentStudent){
     }
 
     for (int i = 0; i < currentStudent.enrolledCourses.size(); i++){
-        cout << setw(35) << i + 1 << "." << currentStudent.enrolledCourses[i] << endl;
+        cout << setw(35) << i + 1 << "." << currentStudent.enrolledCourses[i] << endl << endl;
     }
-    cout << "+==============================================================================================+ \n";
 }
 
 void coursesFlow(Student& currentStudent, vector<Student>& students){
@@ -98,7 +97,7 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
     do {
         CourseMenu();
         if (!(cin >> choice)){
-            cout << setw(70) << "Invalid input! Please enter a number: " << endl << endl;
+            cout << setw(70) << "\n Invalid input! Please enter a number: " << endl << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
@@ -113,13 +112,13 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
                 int enrolledCount = currentStudent.enrolledCourses.size();
                 int remainingCourses = 3 - enrolledCount;
 
-                cout << "+================================================================================================+\n";
-                cout << setw(60) << " Courses Enrolled : " << enrolledCount << endl;
-                cout << setw(60) << " Courses Remaining to choose: " << remainingCourses << endl;
+                cout << "\n+================================================================================================+\n\n";
+                cout << setw(60) << " Courses Enrolled : " << enrolledCount << endl << endl;
+                cout << setw(60) << " Courses Remaining to choose: " << remainingCourses << endl << endl;
                 cout << "+================================================================================================+\n\n";
 
                 if (enrolledCount >= 3){
-                    cout << setw(65) << "Maximum only 3 courses allowed to enroll." << endl;
+                    cout << setw(65) << "Maximum only 3 courses allowed to enroll." << endl << endl;
                     break;
                 }
 
@@ -127,10 +126,10 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
 
                 showCourses(c);
 
-                cout << setw(65) << "Select course number to enroll: ";
+                cout << setw(65) << "Select course number to enroll: " << endl;;
 
                 if (!(cin >> courseChoice)){
-                    cout << setw(50) << "Invalid input! Please enter a number.\n";
+                    cout << setw(50) << "\nInvalid input! Please enter a number.\n";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
@@ -144,11 +143,11 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
                 break;
 
             case 4:
-                DisplayMenu();
+                // DisplayMenu();
                 break;
 
             default:
-                cout << setw(50) << "Invalid choice ! " << endl;
+                cout << setw(50) << "\nInvalid choice ! " << endl;
                 break;
         }
     } while (choice != 4);
