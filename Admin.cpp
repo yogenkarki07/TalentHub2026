@@ -58,6 +58,7 @@ void AddStudent() {
 
 	}while (!isValidEmail(s.email));
 
+
 	do{
 		cout << " Password: ";
 		getline(cin,s.password);
@@ -80,6 +81,7 @@ void AddStudent() {
 
 	cout << " Student Type (Domestic/International): ";
 	getline(cin,s.type);
+
 
 	file << s.studentID << "," << s.firstname << "," << s.lastname << "," << s.age << "," << s.email << "," << s.password << "," << s.phone << "," << s.address << "," << s.type << endl;
 
@@ -292,14 +294,15 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 		}
 	}while (!isValidPassword(a.Password));
 
-	admin.push_back(a);
 
 	for (Admin& existing : admin) {
 		if (existing.Email == a.Email) {
-			cout << setw(30) << "Invalid Email! " << a.Email << " is already registered." << endl << endl;
+			cout << setw(30) << "Invalid Email! "
+			<< a.Email << " is already registered." << endl <<endl;
 			return;
 		}
 	}
+	admin.push_back(a);
 
 	if (writeHeader) {
 		file << "FirstName,LastName,Age,Email,Password" << endl;

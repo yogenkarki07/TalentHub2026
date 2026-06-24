@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-
 #include "Headers/student.h"
 #include "Headers/validation.h"
 #include "Headers/filehandler.h"
@@ -73,7 +72,7 @@ void StudentRegistration(vector<Student>& students) {
     cout << "                   Student Type (Domestic/International): ";
     getline(cin,s.type);
 
-    for (Student& existing : students) {
+    for (const Student& existing : students) {
         if (existing.email == s.email) {
             cout << "Invalid email ! " << s.email << " is already registered." << endl;
             return;
