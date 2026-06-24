@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
-#include <algorithm>
 
 #include "Headers/student.h"
 #include "Headers/validation.h"
@@ -29,55 +28,55 @@ void StudentRegistration(vector<Student>& students) {
     cout << "+===============================================================================================+\n\n";
 
     s.studentID = GenerateStudentID(students);
-    cout << setw(55) << "Student ID: " << s.studentID << endl;
+    cout << "\n" << setw(55) << "Student ID: " << s.studentID << endl;
 
-    cout << setw(55) << "\n First name: ";
+    cout << "\n" << setw(55) << " First name: ";
     cin >> s.firstname;
 
-    cout << setw(55) << "\n Last name: ";
+    cout << "\n" << setw(55) << " Last name: ";
     cin >> s.lastname;
 
-    cout << setw(55) << "\n Age: ";
+    cout << "\n" << setw(55) << " Age: ";
     cin >> s.age;
 
     cin.ignore();
 
     do {
-        cout << setw(55) << "\n Email: ";
+        cout << "\n" << setw(55) << " Email: ";
         getline(cin,s.email);
 
         if (!isValidEmail(s.email)) {
-            cout << setw(55) << "\n Invalid Email !" << endl;
+            cout << "\n" << setw(55) << " Invalid Email !" << endl;
         }
 
     }while (!isValidEmail(s.email));
 
     do{
-        cout << setw(55) << "\n Password: ";
+        cout << "\n" << setw(55) << " Password: ";
         getline(cin,s.password);
 
         if (!isValidPassword(s.password)){
-            cout << setw(55) << "\n Password must contain: " << endl;
-            cout << setw(55) << " - Minimum 8 characters " << endl;
-            cout << setw(55) << " - Uppercase character " << endl;
-            cout << setw(55) << " - Lowercase character " << endl;
-            cout << setw(55) << " - Number" << endl;
-            cout << setw(55) << " - Special character \n\n";
+            cout << "\n" << setw(55) << " Password must contain: " << endl;
+            cout << "\n" << setw(55) << " - Minimum 8 characters " << endl;
+            cout << "\n" << setw(55) << " - Uppercase character " << endl;
+            cout << "\n" << setw(55) << " - Lowercase character " << endl;
+            cout << "\n" << setw(55) << " - Number" << endl;
+            cout << "\n" << setw(55) << " - Special character \n\n";
         }
     }while (!isValidPassword(s.password));
 
-    cout << setw(55) << "\n Phone Number: ";
+    cout << "\n" << setw(55) << " Phone Number: ";
     getline(cin,s.phone);
 
-    cout << setw(55) << "\n Address: ";
+    cout << "\n" << setw(55) << " Address: ";
     getline(cin,s.address);
 
-    cout << setw(55) << "\n Student Type (Domestic/International): ";
+    cout << "\n" << setw(55) << " Student Type (Domestic/International): ";
     getline(cin,s.type);
 
     for (const Student& existing : students) {
         if (existing.email == s.email) {
-            cout << setw(55) << "Invalid email ! " << s.email << " is already registered." << endl;
+            cout << "\n" << setw(55) << "Invalid email ! " << s.email << " is already registered." << endl;
             return;
         }
     }
@@ -105,10 +104,10 @@ void StudentLogin(vector<Student>& students) {
 
     cin.ignore();         // input buffer clearing
 
-    cout << setw(55) << "\n Email: ";
+    cout << "\n" << setw(55) << " Email: ";
     getline(cin, email);
 
-    cout << setw(55) << "\n Password: ";
+    cout << "\n" << setw(55) << " Password: ";
     getline(cin, password);
 
     for (Student& s : students){

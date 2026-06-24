@@ -126,7 +126,7 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
 
                 showCourses(c);
 
-                cout << setw(65) << "Select course number to enroll: " << endl;;
+                cout << setw(65) << "Select course number to enroll: ";
 
                 if (!(cin >> courseChoice)){
                     cout << setw(50) << "\nInvalid input! Please enter a number.\n";

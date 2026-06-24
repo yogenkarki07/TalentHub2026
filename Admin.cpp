@@ -134,55 +134,88 @@ void RemoveStudentEnrollments(const string& studentID) {
 
 void DeleteStudent() {
 
-	ifstream file("../File/students.csv");
+    ifstream file("../File/students.csv");
 
-	if (!file.is_open()) {
-		cerr << "Error: Could not open 'student.csv' file.\n";
-		return;
-	}
+    if (!file.is_open()) {
+        cerr << "Error: Could not open 'students.csv' file.\n";
+        return;
+    }
 
-	vector<string> lines;
-	string line, targetEmail;
+    vector<string> lines;
+    string line, targetEmail;
 
-	bool found = false;
-	string DeletedStudentID;
+    bool found = false;
+    string DeletedStudentID;
 
-	cout << "\n+===============================================+" << endl;
-	cout <<   "|               To Delete Student:              |" << endl;
-	cout <<   "|            Provide Student's Email.           |" << endl;
-	cout <<   "+===============================================+" << endl <<endl;
-	cout << "             Email: ";
-	cin >> targetEmail;
+    cout << "\n+===============================================+" << endl;
+    cout << "|               To Delete Student:              |" << endl;
+    cout << "|            Provide Student's Email.           |" << endl;
+    cout << "+===============================================+" << endl << endl;
 
-	while (getline(file, line)) {
-		if (line.find(targetEmail) == string::npos) {
-			lines.push_back(line);
-		}
-		else {
-			found = true;
-			size_t commaPos = line.find(',');
-			if (commaPos != string::npos) {
-				DeletedStudentID = line.substr(0, commaPos);
-			}
-		}
-	}
+    cout << "        Enter student's email: ";
+    cin >> targetEmail;
 
-	file.close();
+    // Email validation
+    if (targetEmail.find('@') == string::npos ||
+        targetEmail.find('.') == string::npos) {
 
-	if (found) {
-		ofstream outFile("../File/students.csv");
-		for (const auto& l : lines) {
-			outFile << l << "\n";
-		}
-		outFile.close();
+        cout << "\n" << "            Invalid Email.\n";
+        return;
+    }
 
-		RemoveStudentEnrollments(DeletedStudentID);
+    // Store header row first
+    getline(file, line);
+    lines.push_back(line);
 
-		cout << "     Student with email" << " ' " << targetEmail  << " ' " << "has been deleted along with enrolled courses.\n";
-	}
-	else {
-		cout << "     Student record not found.\n";
-	}
+    while (getline(file, line)) {
+
+        if (line.empty())
+            continue;
+
+        stringstream ss(line);
+
+        string studentID, firstName, lastName, age;
+        string email, password, phone, address, type;
+
+        getline(ss, studentID, ',');
+        getline(ss, firstName, ',');
+        getline(ss, lastName, ',');
+        getline(ss, age, ',');
+        getline(ss, email, ',');
+        getline(ss, password, ',');
+        getline(ss, phone, ',');
+        getline(ss, address, ',');
+        getline(ss, type);
+
+        // Compare ONLY email column
+        if (email == targetEmail) {
+            found = true;
+            DeletedStudentID = studentID;
+        }
+        else {
+            lines.push_back(line);
+        }
+    }
+
+    file.close();
+
+    if (found) {
+
+        ofstream outFile("../File/students.csv");
+
+        for (const auto& l : lines) {
+            outFile << l << "\n";
+        }
+
+        outFile.close();
+
+        RemoveStudentEnrollments(DeletedStudentID);
+
+        cout << "Student with email '" << targetEmail<< "' has been deleted successfully.\n";
+    }
+    else {
+        cout << "              Student not found.\n";
+    }
 }
 
 void AdminLogin(vector<Admin>& admin){
@@ -383,7 +416,7 @@ void AdminMenu(Admin& loggedIn){
 				cout << "\n" << setw(25) << "Invalid choice !" << endl;
 				break;
 		}
-	}while (menu != 4);
+	}while (menu != 2);
 }
 
 string toLower(const string& text) {
@@ -679,7 +712,7 @@ void AdminDashboard(Admin& loggedIn) {
 
 					case 6:
 					cout <<
-						"\n+========================================================================+\n"
+						"\n+========================================================================+\n\n"
 						"|                      You are logging out. Thank you!                    |\n"
 				        "\n+========================================================================+\n\n";
 					break;
