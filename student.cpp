@@ -46,7 +46,7 @@ void StudentRegistration(vector<Student>& students) {
         getline(cin,s.email);
 
         if (!isValidEmail(s.email)) {
-            cout << "\n" << setw(55) << " Invalid Email !" << endl;
+            cout << "\n" << setw(65) << " Invalid Email !" << endl;
         }
 
     }while (!isValidEmail(s.email));
@@ -56,12 +56,12 @@ void StudentRegistration(vector<Student>& students) {
         getline(cin,s.password);
 
         if (!isValidPassword(s.password)){
-            cout << "\n" << setw(55) << " Password must contain: " << endl;
-            cout << "\n" << setw(55) << " - Minimum 8 characters " << endl;
-            cout << "\n" << setw(55) << " - Uppercase character " << endl;
-            cout << "\n" << setw(55) << " - Lowercase character " << endl;
-            cout << "\n" << setw(55) << " - Number" << endl;
-            cout << "\n" << setw(55) << " - Special character \n\n";
+            cout << "\n" << setw(70) << " Password must contain: " << endl;
+            cout << "\n" << setw(70) << " - Minimum 8 characters " << endl;
+            cout << "\n" << setw(70) << " - Uppercase character " << endl;
+            cout << "\n" << setw(70) << " - Lowercase character " << endl;
+            cout << "\n" << setw(60) << " - Number" << endl;
+            cout << "\n" << setw(70) << " - Special character \n\n";
         }
     }while (!isValidPassword(s.password));
 

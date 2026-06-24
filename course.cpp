@@ -143,7 +143,11 @@ void coursesFlow(Student& currentStudent, vector<Student>& students){
                 break;
 
             case 4:
-                // DisplayMenu();
+                cout << "\n+===============================================================================================+\n";
+                cout << "|                                                                                               |\n";
+                cout << "|                           You are logging out. Thank you!                                     |\n";
+                cout << "|                                                                                               |\n";
+                cout << "+===============================================================================================+\n\n";
                 break;
 
             default:
