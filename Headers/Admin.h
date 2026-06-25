@@ -25,7 +25,7 @@ void AdminLogin(vector<Admin>& admin);
 
 void AdminRegistration(vector<Admin>& admin, Admin& loggedIn);
 
-void AdminProfile(Admin& a);
+void AdminProfile();
 
 void SearchStudent();
 
