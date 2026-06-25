@@ -356,7 +356,7 @@ void AdminMenu(Admin& loggedIn){
 		             "|                                                          |\n"
 		             "+==========================================================+\n"
 		             "|                                 |                        |\n"
-		             "|       1.Admin Registration      |   2.  Admin Login      |\n"
+		             "|       1. Admin Login            |     2. Exit            |\n"
 		             "|                                 |                        |\n"
 		             "+==========================================================+\n\n";
 		     cout << "                       Enter your choice: ";
@@ -369,11 +369,7 @@ void AdminMenu(Admin& loggedIn){
 		}
 
 		switch (menu){
-			case 1:
-				AdminRegistration(admin,loggedIn);
-				break;
-
-			case 2: {
+			case 1:{
 				admin.clear();
 				AdminLogin( admin);
 
@@ -397,20 +393,27 @@ void AdminMenu(Admin& loggedIn){
 
 				if (found) {
 					cout <<
-		             "\n+==========================================================+\n"
+					 "\n+==========================================================+\n"
 					 "|                   Login successful!                      |\n"
 					 "+==========================================================+\n\n";
 					AdminDashboard(loggedIn);
 					return;
 				} else {
 					cout <<
-		                         "\n+==========================================================+\n"
+								 "\n+==========================================================+\n"
 								 "|              Incorrect email / password.                   |\n"
 								 "+============================================================+\n\n";
 					AdminMenu(loggedIn);
 				}
 				break;
 			}
+
+			case 2:
+				cout <<
+	                    "\n+========================================================================+\n\n"
+	                    "|                      You are logging out. Thank you!                    |\n"
+	                    "\n+========================================================================+\n\n";
+				break;
 
 			default:
 				cout << "\n" << setw(25) << "Invalid choice !" << endl;
@@ -517,10 +520,22 @@ void SearchStudent() {
 	}
 }
 
+void AdminProfile(){
+	cout << "\n+============================================================+\n";
+	cout << "|                         Admin Profile                      |\n";
+	cout << "+============================================================+\n\n";
+	for (const auto& a : admin) {
+			cout << setw(30) << "      Name: " << a.Firstname << " " << a.Lastname << endl;
+			cout << setw(30) << "       Age: " << a.age << endl;
+			cout << setw(30) << "     Email: " << a.Email << endl;
+			cout << "+============================================================+\n\n";
+	}
+}
+
 void AdminDashboard(Admin& loggedIn) {
 	int view = 0;
 
-	while (view != 6) {
+	while (view != 8) {
 		cout << "\n+========================================================================+\n"
 				"|                                                                        |\n"
 				"|                               Admin Dashboard                          |\n"
@@ -531,8 +546,10 @@ void AdminDashboard(Admin& loggedIn) {
 				"|                                      |                                 |\n"
 				"|      3. International Students       |      4. Domestic Students       |\n"
 				"|                                      |                                 |\n"
-				"|      5. Search Student               |      6. Exit                    |\n"
+				"|      5. Search Student               |      6. Admin Profile           |\n"
 				"|                                      |                                 |\n"
+		        "|      7. Register Admin               |      8. Exit                    |\n"
+		        "|                                      |                                 |\n"
 				"+========================================================================+\n\n";
 		cout << "                               Enter your choice: ";
 
@@ -542,7 +559,6 @@ void AdminDashboard(Admin& loggedIn) {
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			continue;
 		}
-
 
 		switch (view) {
 			case 1:
@@ -706,20 +722,28 @@ void AdminDashboard(Admin& loggedIn) {
 }
 				break;
 
-					case 5:
-				    SearchStudent();
-					break;
+			    case 5:
+				SearchStudent();
+				break;
 
-					case 6:
-					cout <<
-						"\n+========================================================================+\n\n"
-						"|                      You are logging out. Thank you!                    |\n"
-				        "\n+========================================================================+\n\n";
-					break;
+			case 6:
+				AdminProfile();
+				break;
 
-					default:
-					cout << "\n" << setw(50) << "Invalid Choice ! " << endl;
-					break;
+			case 7:
+				AdminRegistration(admin, loggedIn);
+				break;
+
+			case 8:
+				cout <<
+					"\n+========================================================================+\n\n"
+				   "|                      You are logging out. Thank you!                    |\n"
+				   "\n+========================================================================+\n\n";
+				   break;
+
+			default:
+				cout << "\n" << setw(50) << "Invalid Choice ! " << endl;
+				break;
 				}
 		}
 	}
