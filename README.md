@@ -10,12 +10,13 @@ TalentHub is a console-based C++ application developed for managing student regi
 - View Enrolled Courses
   
 ## Administrator Features
-- Admin Registration
 - Admin Login
 - View Students (International/Domestic)
 - Student Search
 - Register New Student
 - Remove Student along with enrolled courses
+- Admin Registration
+- Admin profiles
 
 ## Other Features
 - Password Validation
