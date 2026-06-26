@@ -21,6 +21,7 @@ void AddStudent() {
 	ofstream file ("../File/students.csv", ios::app);
 
 	vector<Student>students;
+	//students.clear();
 	LoadStudentInfo ( students);
 	Student s;
 
@@ -88,6 +89,7 @@ void AddStudent() {
 	cout << "\n+===========================================================+\n"
 	        "|             New student registered Successfully.          |\n"
 	        "+===========================================================+\n\n";
+
 }
 
 void RemoveStudentEnrollments(const string& studentID) {
