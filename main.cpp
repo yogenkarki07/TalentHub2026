@@ -32,7 +32,7 @@ using namespace std;
 
          case 2: {
              Admin loggedIn;
-             AdminMenu(loggedIn);
+             AdminMenu(loggedIn, students);
              break;
          }
 

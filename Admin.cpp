@@ -16,19 +16,9 @@ using namespace std;
 
 vector<Admin> admin;
 
-void AddStudent() {
+void AddStudent(vector<Student>& students) {
 
-	ofstream file ("../File/students.csv", ios::app);
-
-	vector<Student>students;
-	//students.clear();
-	LoadStudentInfo ( students);
 	Student s;
-
-	if (!file.is_open()) {
-		cerr << "error cannot open 'students.csv' file.\n";
-		return;
-	}
 
 	cout << "\n+===============================================+" << endl;
 	cout << "|               To register Student:            |" << endl;
@@ -59,6 +49,14 @@ void AddStudent() {
 
 	}while (!isValidEmail(s.email));
 
+	// Check duplicate email
+	for (const Student& existing : students) {
+		if (existing.email == s.email) {
+			cout << "\n Email already registered.\n";
+			return;
+		}
+	}
+
 	do{
 		cout << "\n" << " Password: ";
 		getline(cin,s.password);
@@ -82,9 +80,8 @@ void AddStudent() {
 	cout << "\n" << " Student Type (Domestic/International): ";
 	getline(cin,s.type);
 
-	file << s.studentID << "," << s.firstname << "," << s.lastname << "," << s.age << "," << s.email << "," << s.password << "," << s.phone << "," << s.address << "," << s.type << endl;
-
-	file.close();
+	students.push_back(s);
+	SaveStudentInfo(students);
 
 	cout << "\n+===========================================================+\n"
 	        "|             New student registered Successfully.          |\n"
@@ -349,7 +346,7 @@ void AdminRegistration(vector<Admin>& admin, Admin& loggedIn){
 
 }
 
-void AdminMenu(Admin& loggedIn){
+void AdminMenu(Admin& loggedIn, vector<Student>& students){
 	int menu =0;
 	 do {
 		     cout << "\n+==========================================================+\n"
@@ -398,14 +395,14 @@ void AdminMenu(Admin& loggedIn){
 					 "\n+==========================================================+\n"
 					 "|                   Login successful!                      |\n"
 					 "+==========================================================+\n\n";
-					AdminDashboard(loggedIn);
+					AdminDashboard(loggedIn, students);
 					return;
 				} else {
 					cout <<
 								 "\n+==========================================================+\n"
 								 "|              Incorrect email / password.                   |\n"
 								 "+============================================================+\n\n";
-					AdminMenu(loggedIn);
+					AdminMenu(loggedIn, students);
 				}
 				break;
 			}
@@ -534,7 +531,7 @@ void AdminProfile(){
 	}
 }
 
-void AdminDashboard(Admin& loggedIn) {
+void AdminDashboard(Admin& loggedIn, vector<Student>& students) {
 	int view = 0;
 
 	while (view != 8) {
@@ -564,7 +561,7 @@ void AdminDashboard(Admin& loggedIn) {
 
 		switch (view) {
 			case 1:
-				AddStudent();
+				AddStudent(students);
 				break;
 
 			case 2:

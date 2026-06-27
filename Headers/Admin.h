@@ -17,9 +17,9 @@ struct Admin{
 
 extern vector<Admin> admin;
 
-void AdminMenu(Admin& loggedIn);
+void AdminMenu(Admin& loggedIn, vector<Student>& students);
 
-void AdminDashboard(Admin& loggedIn);
+void AdminDashboard(Admin& loggedIn, vector<Student>& students);
 
 void AdminLogin(vector<Admin>& admin);
 
@@ -29,7 +29,7 @@ void AdminProfile();
 
 void SearchStudent();
 
-void AddStudent();
+void AddStudent(vector<Student>& students);
 
 void DeleteStudent();
 
