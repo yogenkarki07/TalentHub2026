@@ -51,6 +51,14 @@ void StudentRegistration(vector<Student>& students) {
 
     }while (!isValidEmail(s.email));
 
+    // Check duplicate email
+    for (const Student& existing : students) {
+        if (existing.email == s.email) {
+            cout << "\n" << setw(70) << "This email is already registered.\n";
+            return;
+        }
+    }
+
     do{
         cout << "\n" << setw(55) << " Password: ";
         getline(cin,s.password);
@@ -73,13 +81,6 @@ void StudentRegistration(vector<Student>& students) {
 
     cout << "\n" << setw(55) << " Student Type (Domestic/International): ";
     getline(cin,s.type);
-
-    for (const Student& existing : students) {
-        if (existing.email == s.email) {
-            cout << "\n" << setw(55) << "Invalid email ! " << s.email << " is already registered." << endl;
-            return;
-        }
-    }
 
     students.push_back(s);
 
@@ -119,7 +120,7 @@ void StudentLogin(vector<Student>& students) {
 
             cout << "+-------------------------------------------------------------------------------------------------+ \n\n";
 
-            coursesFlow( s, students);
+            coursesFlow(s, students);
             return;
         }
     }

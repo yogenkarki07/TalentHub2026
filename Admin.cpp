@@ -52,7 +52,7 @@ void AddStudent(vector<Student>& students) {
 	// Check duplicate email
 	for (const Student& existing : students) {
 		if (existing.email == s.email) {
-			cout << "\n Email already registered.\n";
+			cout << "\n This email is already registered.\n";
 			return;
 		}
 	}
